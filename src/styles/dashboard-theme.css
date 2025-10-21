@@ -1,0 +1,237 @@
+/* Dashboard Theme - Dark Glass Panel Design */
+
+.glass-card {
+  background: rgba(13, 13, 13, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.glass-card-light {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.gradient-green-glow {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.gradient-red-muted {
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.2);
+}
+
+.gradient-amber-glow {
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+}
+
+/* Dashboard Background */
+.dashboard-bg {
+  background: #0D0D0D;
+  min-height: 100vh;
+}
+
+.dashboard-bg-light {
+  background: #f9fafb;
+  min-height: 100vh;
+}
+
+/* Dark mode support */
+.dark .dashboard-bg {
+  background: #0D0D0D;
+}
+
+.dark .dashboard-bg-light {
+  background: #0D0D0D;
+}
+
+/* Smooth animations */
+.dashboard-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbar styles */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.7);
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(75, 85, 99, 0.5);
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(75, 85, 99, 0.7);
+}
+
+/* Status indicators */
+.status-green {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #10b981;
+}
+
+.status-amber {
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #f59e0b;
+}
+
+.status-red {
+  background: rgba(220, 38, 38, 0.2);
+  border: 1px solid rgba(220, 38, 38, 0.4);
+  color: #dc2626;
+}
+
+/* Sparkline styles */
+.sparkline-container {
+  height: 20px;
+  width: 60px;
+  position: relative;
+}
+
+.sparkline-line {
+  stroke: currentColor;
+  stroke-width: 1.5;
+  fill: none;
+  opacity: 0.8;
+}
+
+/* Gauge styles */
+.gauge-container {
+  position: relative;
+  display: inline-block;
+}
+
+.gauge-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+/* Map pin styles */
+.map-pin {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.map-pin:hover {
+  transform: scale(1.2);
+}
+
+/* Timeline styles */
+.timeline-item {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  left: 0.75rem;
+  top: 1.25rem;
+  width: 2px;
+  height: calc(100% + 0.5rem);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.timeline-item:last-child::after {
+  display: none;
+}
+
+/* Cost breakdown bars */
+.cost-bar {
+  height: 8px;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+/* Inventory forecast bars */
+.inventory-bar {
+  height: 20px;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+/* Risk severity dots */
+.risk-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.risk-dot.high {
+  background: #dc2626;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.5);
+}
+
+.risk-dot.medium {
+  background: #f59e0b;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+.risk-dot.low {
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+
+/* Hover effects */
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+/* Loading states */
+.dashboard-skeleton {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

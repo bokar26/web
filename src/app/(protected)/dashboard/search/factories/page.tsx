@@ -1,0 +1,320 @@
+"use client"
+
+import { useState, useMemo, useEffect } from "react"
+import { SearchToolbar } from "@/components/dashboard/search/SearchToolbar"
+import { FacetFilters } from "@/components/dashboard/search/FacetFilters"
+import { DataTable } from "@/components/dashboard/search/DataTable"
+import { CardGrid, EntityCard } from "@/components/dashboard/search/CardGrid"
+import { DetailDrawer } from "@/components/dashboard/search/DetailDrawer"
+import { sampleFactories } from "@/lib/mock/search"
+import { trackSearchView, trackSearchQuery, trackFilterApply, trackSortChange, trackViewToggle, trackEntityOpen, trackCompareClick, trackExportClick } from "@/lib/analytics"
+import { Factory, SearchFilters, ViewMode, FilterOption } from "@/types/search"
+
+export default function FactoriesPage() {
+  const [searchQuery, setSearchQuery] = useState("")
+  const [filters, setFilters] = useState<SearchFilters>({})
+  const [viewMode, setViewMode] = useState<ViewMode>("table")
+  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
+  const [sortBy, setSortBy] = useState<string>("name")
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc")
+  const [currentPage, setCurrentPage] = useState(1)
+  const [selectedEntity, setSelectedEntity] = useState<Factory | null>(null)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  useEffect(() => {
+    trackSearchView('factory')
+  }, [])
+
+  const availableOptions = useMemo(() => {
+    const countries = Array.from(new Set(sampleFactories.map(f => f.country)))
+      .map(country => ({ value: country, label: country, count: sampleFactories.filter(f => f.country === country).length }))
+    
+    const certifications = Array.from(new Set(sampleFactories.flatMap(f => f.certifications)))
+      .map(cert => ({ value: cert, label: cert, count: sampleFactories.filter(f => f.certifications.includes(cert)).length }))
+    
+    const specialties = Array.from(new Set(sampleFactories.flatMap(f => f.specialties)))
+      .map(specialty => ({ value: specialty, label: specialty, count: sampleFactories.filter(f => f.specialties.includes(specialty)).length }))
+
+    return {
+      countries,
+      regions: [],
+      certifications,
+      specialties,
+      modes: [],
+      services: [],
+    }
+  }, [])
+
+  const filteredData = useMemo(() => {
+    let filtered = sampleFactories
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter(factory =>
+        factory.name.toLowerCase().includes(query) ||
+        factory.country.toLowerCase().includes(query) ||
+        factory.capabilities.some(c => c.toLowerCase().includes(query)) ||
+        factory.specialties.some(s => s.toLowerCase().includes(query))
+      )
+    }
+
+    if (filters.country && filters.country.length > 0) {
+      filtered = filtered.filter(f => filters.country!.includes(f.country))
+    }
+    if (filters.certification && filters.certification.length > 0) {
+      filtered = filtered.filter(f => 
+        filters.certification!.some(cert => f.certifications.includes(cert))
+      )
+    }
+    if (filters.specialty && filters.specialty.length > 0) {
+      filtered = filtered.filter(f => 
+        filters.specialty!.some(specialty => f.specialties.includes(specialty))
+      )
+    }
+    if (filters.capacityRange) {
+      const [min, max] = filters.capacityRange
+      filtered = filtered.filter(f => f.capacity >= min && f.capacity <= max)
+    }
+    if (filters.utilizationRange) {
+      const [min, max] = filters.utilizationRange
+      filtered = filtered.filter(f => f.utilization >= min && f.utilization <= max)
+    }
+
+    filtered.sort((a, b) => {
+      let aValue = a[sortBy as keyof Factory]
+      let bValue = b[sortBy as keyof Factory]
+      
+      // Handle undefined values
+      if (aValue === undefined && bValue === undefined) return 0
+      if (aValue === undefined) return 1
+      if (bValue === undefined) return -1
+      
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        aValue = aValue.toLowerCase()
+        bValue = bValue.toLowerCase()
+      }
+      
+      if (sortDirection === 'asc') {
+        return aValue < bValue ? -1 : aValue > bValue ? 1 : 0
+      } else {
+        return aValue > bValue ? -1 : aValue < bValue ? 1 : 0
+      }
+    })
+
+    return filtered
+  }, [searchQuery, filters, sortBy, sortDirection])
+
+  const columns = [
+    {
+      key: 'name' as keyof Factory,
+      label: 'Name',
+      sortable: true,
+      width: '200px',
+    },
+    {
+      key: 'country' as keyof Factory,
+      label: 'Country',
+      sortable: true,
+      width: '120px',
+    },
+    {
+      key: 'capacity' as keyof Factory,
+      label: 'Capacity',
+      sortable: true,
+      width: '120px',
+      render: (value: unknown) => (
+        <span className="font-medium">{(value as number).toLocaleString()} units/month</span>
+      ),
+    },
+    {
+      key: 'utilization' as keyof Factory,
+      label: 'Utilization',
+      sortable: true,
+      width: '100px',
+      render: (value: unknown) => (
+        <span className={`font-medium ${(value as number) >= 80 ? 'text-green-600' : (value as number) >= 60 ? 'text-yellow-600' : 'text-red-600'}`}>
+          {value as number}%
+        </span>
+      ),
+    },
+    {
+      key: 'complianceScore' as keyof Factory,
+      label: 'Compliance',
+      sortable: true,
+      width: '100px',
+      render: (value: unknown) => (
+        <span className={`font-medium ${(value as number) >= 90 ? 'text-green-600' : (value as number) >= 80 ? 'text-yellow-600' : 'text-red-600'}`}>
+          {value as number}/100
+        </span>
+      ),
+    },
+    {
+      key: 'capabilities' as keyof Factory,
+      label: 'Capabilities',
+      sortable: false,
+      width: '200px',
+    },
+    {
+      key: 'employeeCount' as keyof Factory,
+      label: 'Employees',
+      sortable: true,
+      width: '100px',
+      render: (value: unknown) => (
+        <span className="font-medium">{value as number}</span>
+      ),
+    },
+  ]
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query)
+    setCurrentPage(1)
+    if (query) {
+      trackSearchQuery('factory', query, filteredData.length)
+    }
+  }
+
+  const handleFiltersChange = (newFilters: SearchFilters) => {
+    setFilters(newFilters)
+    setCurrentPage(1)
+    trackFilterApply('factory', newFilters)
+  }
+
+  const handleSort = (key: string, direction: 'asc' | 'desc') => {
+    setSortBy(key)
+    setSortDirection(direction)
+    trackSortChange('factory', key)
+  }
+
+  const handleViewModeChange = (mode: ViewMode) => {
+    setViewMode(mode)
+    trackViewToggle('factory', mode)
+  }
+
+  const handleRowSelect = (id: string, selected: boolean) => {
+    const newSelected = new Set(selectedRows)
+    if (selected) {
+      newSelected.add(id)
+    } else {
+      newSelected.delete(id)
+    }
+    setSelectedRows(newSelected)
+  }
+
+  const handleSelectAll = (selected: boolean) => {
+    if (selected) {
+      const allIds = new Set(filteredData.map(f => f.id))
+      setSelectedRows(allIds)
+    } else {
+      setSelectedRows(new Set())
+    }
+  }
+
+  const handleRowClick = (factory: Factory) => {
+    setSelectedEntity(factory)
+    setIsDrawerOpen(true)
+    trackEntityOpen('factory', factory.id)
+  }
+
+  const handleCompare = () => {
+    trackCompareClick('factory', selectedRows.size)
+  }
+
+  const handleExport = () => {
+    trackExportClick('factory')
+  }
+
+  const handleClearSelection = () => {
+    setSelectedRows(new Set())
+  }
+
+  const renderFactoryCard = (factory: Factory, isSelected: boolean) => (
+    <EntityCard
+      title={factory.name}
+      subtitle={`${factory.country}, ${factory.region}`}
+      metrics={[
+        { label: 'Capacity', value: factory.capacity, format: 'number' },
+        { label: 'Utilization', value: factory.utilization, format: 'percentage', color: factory.utilization >= 80 ? 'green' : factory.utilization >= 60 ? 'yellow' : 'red' },
+        { label: 'Compliance', value: factory.complianceScore, format: 'number', color: factory.complianceScore >= 90 ? 'green' : factory.complianceScore >= 80 ? 'yellow' : 'red' },
+        { label: 'Employees', value: factory.employeeCount, format: 'number' },
+      ]}
+      badges={factory.capabilities.slice(0, 3).map(cap => ({ text: cap, variant: 'secondary' as const }))}
+      description={`Est. ${factory.establishedYear} • ${factory.specialties.slice(0, 2).join(', ')}`}
+      onViewDetails={() => handleRowClick(factory)}
+    />
+  )
+
+  return (
+    <div className="space-y-6">
+      {/* Page Header */}
+      <div>
+        <h1 className="text-2xl font-bold text-gray-900">Factories</h1>
+        <p className="text-gray-600 mt-1">Find manufacturing partners with the right capabilities and capacity</p>
+      </div>
+
+      {/* 2-Column Layout */}
+      <div className="flex gap-6 min-h-[calc(100vh-12rem)]">
+        {/* Left Column: Search & Filters */}
+        <div className="w-80 flex-shrink-0 space-y-4 overflow-y-auto">
+          <SearchToolbar
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            viewMode={viewMode}
+            onViewModeChange={handleViewModeChange}
+            selectedCount={selectedRows.size}
+            onExport={handleExport}
+            onCompare={handleCompare}
+            onClearSelection={handleClearSelection}
+            filters={filters}
+            onFiltersChange={handleFiltersChange}
+            resultCount={filteredData.length}
+            entityType="factory"
+          />
+          
+          <FacetFilters
+            filters={filters}
+            onFiltersChange={handleFiltersChange}
+            entityType="factory"
+            availableOptions={availableOptions}
+          />
+        </div>
+
+        {/* Right Column: Results */}
+        <div className="flex-1 overflow-y-auto">
+          {viewMode === 'table' ? (
+            <DataTable
+              data={filteredData}
+              columns={columns}
+              selectedRows={selectedRows}
+              onRowSelect={handleRowSelect}
+              onSelectAll={handleSelectAll}
+              onRowClick={handleRowClick}
+              sortBy={sortBy}
+              sortDirection={sortDirection}
+              onSort={handleSort}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+              getRowId={(factory) => factory.id}
+            />
+          ) : (
+            <CardGrid
+              data={filteredData}
+              selectedRows={selectedRows}
+              onRowSelect={handleRowSelect}
+              onRowClick={handleRowClick}
+              renderCard={renderFactoryCard}
+              getRowId={(factory) => factory.id}
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Detail Drawer */}
+      <DetailDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        entity={selectedEntity}
+        entityType="factory"
+      />
+    </div>
+  )
+}
