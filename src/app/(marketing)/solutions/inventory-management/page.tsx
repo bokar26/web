@@ -4,14 +4,14 @@ import { Footer } from "@/components/marketing/Footer"
 
 export default function InventoryManagementPage() {
   return (
-    <div className="min-h-screen">
+    <div>
       <Navbar />
       <main className="mx-auto max-w-5xl px-4 py-16">
-        <h1 className="text-4xl font-bold text-ink-900 dark:text-ink-50">Inventory Management</h1>
-        <p className="mt-4 text-lg text-ink-600 dark:text-ink-300">
+        <h1 className="text-4xl font-bold text-white">Inventory Management</h1>
+        <p className="mt-4 text-lg text-gray-300">
           Balance stock levels with AI-driven demand forecasts. Reduce overstock and stockouts while optimizing working capital for your apparel business.
         </p>
-        <ul className="mt-8 space-y-3 text-ink-700 dark:text-ink-300">
+        <ul className="mt-8 space-y-3 text-gray-300">
           <li className="flex items-start">
             <span className="mr-2">•</span>
             <span>Demand forecasting by SKU, season, and sales channel</span>
@@ -28,7 +28,7 @@ export default function InventoryManagementPage() {
         <div className="mt-10">
           <Link 
             href="/book-demo" 
-            className="inline-block rounded-lg bg-emerald-600 px-6 py-3 text-white font-medium hover:bg-emerald-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+            className="inline-block rounded-lg bg-white px-6 py-3 text-black font-medium hover:bg-gray-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             Book a demo
           </Link>

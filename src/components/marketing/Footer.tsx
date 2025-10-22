@@ -58,14 +58,14 @@ export function Footer() {
             </p>
             <div className="flex space-x-4">
               {/* Social links placeholder */}
-              <div className="w-8 h-8 bg-ink-800 rounded-full flex items-center justify-center">
-                <span className="text-xs">T</span>
+              <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">
+                <span className="text-xs text-white">T</span>
               </div>
-              <div className="w-8 h-8 bg-ink-800 rounded-full flex items-center justify-center">
-                <span className="text-xs">L</span>
+              <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">
+                <span className="text-xs text-white">L</span>
               </div>
-              <div className="w-8 h-8 bg-ink-800 rounded-full flex items-center justify-center">
-                <span className="text-xs">G</span>
+              <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">
+                <span className="text-xs text-white">G</span>
               </div>
             </div>
           </div>
@@ -118,13 +118,13 @@ export function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full px-3 py-2 bg-ink-800 border border-ink-700 rounded-md text-white placeholder-ink-400 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   required
                 />
                 <Button
                   type="submit"
                   size="sm"
-                  className="w-full bg-emerald-500 hover:bg-emerald-600"
+                  className="w-full bg-white text-black hover:bg-gray-100"
                 >
                   Subscribe
                 </Button>

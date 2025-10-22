@@ -44,13 +44,13 @@ const faqs = [
 
 export function FAQ() {
   return (
-    <section id="faq" className="section bg-ink-50 dark:bg-ink-900/50">
+    <section id="faq" className="section bg-black">
       <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink-900 dark:text-ink-50 mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg sm:text-xl text-ink-600 dark:text-ink-300">
+          <p className="text-lg sm:text-xl text-gray-300">
             Get answers to common questions about SLA and how it can help optimize your supply chain.
           </p>
         </div>
@@ -60,15 +60,15 @@ export function FAQ() {
             <AccordionItem
               key={index}
               value={`item-${index}`}
-              className="border border-ink-200 dark:border-ink-700 rounded-lg px-6 bg-white dark:bg-ink-800/50"
+              className="border border-white/20 rounded-lg px-6 bg-neutral-900"
             >
               <AccordionTrigger className="text-left hover:no-underline py-6">
-                <span className="text-lg font-semibold text-ink-900 dark:text-ink-50">
+                <span className="text-lg font-semibold text-white">
                   {faq.question}
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pb-6">
-                <p className="text-ink-600 dark:text-ink-300 leading-relaxed">
+                <p className="text-gray-300 leading-relaxed">
                   {faq.answer}
                 </p>
               </AccordionContent>
@@ -77,10 +77,10 @@ export function FAQ() {
         </Accordion>
 
         <div className="text-center mt-12">
-          <p className="text-ink-600 dark:text-ink-300 mb-4">
+          <p className="text-gray-300 mb-4">
             Still have questions? We&apos;re here to help.
           </p>
-          <button className="text-emerald-600 hover:text-emerald-700 font-medium">
+          <button className="text-emerald-400 hover:text-emerald-300 font-medium">
             Contact our support team →
           </button>
         </div>

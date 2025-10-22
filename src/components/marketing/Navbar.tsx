@@ -46,17 +46,17 @@ export function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-200 bg-emerald-100/50 backdrop-blur-sm rounded-b-xl ${
+      className={`sticky top-0 z-50 transition-all duration-200 bg-black/50 backdrop-blur-sm rounded-b-xl ${
         isScrolled
-          ? "bg-emerald-100/70 dark:bg-ink-900/90 shadow-md"
-          : "bg-emerald-100/50 dark:bg-ink-900/95"
+          ? "bg-black/70 shadow-md"
+          : "bg-black/50"
       }`}
     >
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-14 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold text-ink-900 dark:text-ink-50">SLA</div>
+            <div className="text-2xl font-bold text-white">SLA</div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -67,17 +67,17 @@ export function Navbar() {
                   <Link 
                     href={item.href} 
                     prefetch
-                    className="text-sm font-medium text-ink-600 dark:text-ink-300 hover:text-emerald-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-md"
+                    className="text-sm font-medium text-white hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-md"
                   >
                     {item.name}
                   </Link>
-                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 absolute left-0 mt-3 w-72 rounded-xl border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-800 shadow-lg p-2 z-50">
+                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 absolute left-0 mt-3 w-72 rounded-xl border border-white/20 bg-neutral-900 shadow-lg p-2 z-50">
                     {solutionsDropdown.map((solution) => (
                       <Link
                         key={solution.name}
                         href={solution.href}
                         prefetch
-                        className="block px-3 py-2 rounded-md text-sm text-ink-700 dark:text-ink-300 hover:bg-ink-50 dark:hover:bg-ink-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                        className="block px-3 py-2 rounded-md text-sm text-gray-300 hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                       >
                         {solution.name}
                       </Link>
@@ -88,7 +88,7 @@ export function Navbar() {
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-sm font-medium text-ink-600 dark:text-ink-300 hover:text-emerald-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-md"
+                  className="text-sm font-medium text-white hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-md"
                 >
                   {item.name}
                 </button>
@@ -103,7 +103,7 @@ export function Navbar() {
                 <Button variant="ghost" size="sm">Sign In</Button>
               </SignInButton>
               <Link href="/sign-up" prefetch>
-                <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600">
+                <Button size="sm" className="bg-white text-black hover:bg-gray-100">
                   Get Started
                 </Button>
               </Link>
@@ -114,11 +114,11 @@ export function Navbar() {
                 <div className="w-8 h-8 bg-gray-200 animate-pulse rounded-full" />
               ) : (
                 <>
-                  <span className="text-sm text-ink-600 dark:text-ink-300">
+                  <span className="text-sm text-gray-300">
                     Hi, {user?.firstName || user?.emailAddresses[0]?.emailAddress.split('@')[0]}
                   </span>
                   <Link href="/dashboard" prefetch>
-                    <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600">
+                    <Button size="sm" className="bg-white text-black hover:bg-gray-100">
                       Dashboard
                     </Button>
                   </Link>
@@ -141,7 +141,7 @@ export function Navbar() {
                     <button
                       key={item.name}
                       onClick={() => scrollToSection(item.href)}
-                      className="text-left text-lg font-medium text-ink-600 dark:text-ink-300 hover:text-emerald-600 transition-colors py-2"
+                      className="text-left text-lg font-medium text-white hover:text-emerald-400 transition-colors py-2"
                     >
                       {item.name}
                     </button>
@@ -154,7 +154,7 @@ export function Navbar() {
                         </Button>
                       </SignInButton>
                       <Link href="/sign-up" prefetch>
-                        <Button className="w-full bg-emerald-500 hover:bg-emerald-600">
+                        <Button className="w-full bg-white text-black hover:bg-gray-100">
                           Get Started
                         </Button>
                       </Link>
@@ -165,11 +165,11 @@ export function Navbar() {
                         <div className="w-full h-8 bg-gray-200 animate-pulse rounded mb-4" />
                       ) : (
                         <>
-                          <div className="mb-4 p-2 bg-gray-100 dark:bg-gray-700 rounded text-sm text-ink-600 dark:text-ink-300">
+                          <div className="mb-4 p-2 bg-white/10 rounded text-sm text-gray-300">
                             Hi, {user?.firstName || user?.emailAddresses[0]?.emailAddress.split('@')[0]}
                           </div>
                           <Link href="/dashboard" prefetch>
-                            <Button className="w-full bg-emerald-500 hover:bg-emerald-600">
+                            <Button className="w-full bg-white text-black hover:bg-gray-100">
                               Dashboard
                             </Button>
                           </Link>

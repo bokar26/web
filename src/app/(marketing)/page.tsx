@@ -10,7 +10,7 @@ import { MobileStickyCTA } from "@/components/marketing/MobileStickyCTA"
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div>
       <Navbar />
       <main>
         <Hero />

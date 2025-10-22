@@ -82,10 +82,10 @@ function StatCard({
 
   return (
     <div ref={containerRef} className="text-center">
-      <div className="text-4xl md:text-5xl font-bold text-emerald-600">
+      <div className="text-4xl md:text-5xl font-bold text-emerald-400">
         {display}
       </div>
-      <div className="mt-3 text-sm text-ink-600 dark:text-ink-400">{label}</div>
+      <div className="mt-3 text-sm text-gray-300">{label}</div>
     </div>
   );
 }

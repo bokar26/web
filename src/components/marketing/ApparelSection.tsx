@@ -3,29 +3,29 @@ import Link from "next/link"
 
 export function ApparelSection() {
   return (
-    <section className="section bg-white dark:bg-ink-900">
+    <section className="section bg-black">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text Content */}
           <div className="space-y-6">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink-900 dark:text-ink-50">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
               Built for apparel supply chains
             </h2>
-            <p className="text-lg sm:text-xl text-ink-600 dark:text-ink-300 leading-relaxed">
+            <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
               SLA ingests your SKU, PO, and shipment data, then applies machine learning to optimize 
               sourcing, routing, and working capital—the parts ERPs don&apos;t fix.
             </p>
-            <ul className="space-y-3 text-base text-ink-700 dark:text-ink-300">
+            <ul className="space-y-3 text-base text-gray-300">
               <li className="flex items-start">
-                <span className="mr-2 mt-1 text-emerald-600">•</span>
+                <span className="mr-2 mt-1 text-emerald-400">•</span>
                 <span>True landed-cost visibility (product, freight, duty, warehouse)</span>
               </li>
               <li className="flex items-start">
-                <span className="mr-2 mt-1 text-emerald-600">•</span>
+                <span className="mr-2 mt-1 text-emerald-400">•</span>
                 <span>Predictive logistics insights that cut door-to-door time</span>
               </li>
               <li className="flex items-start">
-                <span className="mr-2 mt-1 text-emerald-600">•</span>
+                <span className="mr-2 mt-1 text-emerald-400">•</span>
                 <span>Actionable supply insights to shorten your cash conversion cycle</span>
               </li>
             </ul>
@@ -33,7 +33,7 @@ export function ApparelSection() {
               <Link 
                 href="/book-demo" 
                 prefetch
-                className="inline-flex items-center rounded-lg px-6 py-3 bg-emerald-600 text-white font-medium hover:bg-emerald-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                className="inline-flex items-center rounded-lg px-6 py-3 bg-white text-black font-medium hover:bg-gray-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 Learn more
               </Link>

@@ -24,22 +24,22 @@ export function Problem() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="section-tight bg-ink-50 dark:bg-ink-900/50 relative z-10">
+    <section ref={sectionRef} className="section-tight bg-black relative z-10">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Left: Text content */}
           <div className="space-y-6">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink-900 dark:text-ink-50">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
               Legacy systems are holding supply chain teams back.
             </h2>
             <div className="space-y-4">
-              <p className="text-xl sm:text-2xl font-semibold text-ink-800 dark:text-ink-100">
+              <p className="text-xl sm:text-2xl font-semibold text-white">
                 Your ERP should help you move faster, not hold you back.
               </p>
-              <p className="text-lg text-ink-600 dark:text-ink-300">
+              <p className="text-lg text-gray-300">
                 SLA turns static reports into live insights that improve forecasting accuracy, cost visibility, and cash flow.
               </p>
-              <p className="text-lg text-ink-600 dark:text-ink-300">
+              <p className="text-lg text-gray-300">
                 See true costs, predict delays, and act faster — all in one connected system.
               </p>
             </div>
@@ -47,7 +47,7 @@ export function Problem() {
           
           {/* Right: Cards with "without SLA" context and slide-in animation */}
           <div className="space-y-4">
-            <div className="text-sm font-medium text-red-600 dark:text-red-400 uppercase tracking-wide">
+            <div className="text-sm font-medium text-red-400 uppercase tracking-wide">
               Without SLA
             </div>
             <div className="grid grid-cols-1 gap-4">
@@ -58,15 +58,15 @@ export function Problem() {
               ].map((item, index) => (
                 <div
                   key={index}
-                  className={`p-6 bg-white dark:bg-ink-800 rounded-lg border border-ink-200 dark:border-ink-700 shadow-sm transition-all duration-700 ${
+                  className={`p-6 bg-neutral-900 rounded-lg border border-white/20 shadow-sm transition-all duration-700 ${
                     isVisible 
                       ? 'translate-x-0 opacity-100' 
                       : 'translate-x-8 opacity-0'
                   }`}
                   style={{ transitionDelay: `${item.delay}ms` }}
                 >
-                  <h3 className="text-lg font-semibold text-ink-900 dark:text-ink-50 flex items-start">
-                    <span className="text-red-500 mr-2 flex-shrink-0">❌</span>
+                  <h3 className="text-lg font-semibold text-white flex items-start">
+                    <span className="text-red-400 mr-2 flex-shrink-0">❌</span>
                     <span>{item.text}</span>
                   </h3>
                 </div>

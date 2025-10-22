@@ -11,11 +11,11 @@ export default function SolutionsPage() {
   ]
 
   return (
-    <div className="min-h-screen">
+    <div>
       <Navbar />
       <main className="mx-auto max-w-5xl px-4 py-16">
-        <h1 className="text-4xl font-bold text-ink-900 dark:text-ink-50">Solutions</h1>
-        <p className="mt-4 text-lg text-ink-600 dark:text-ink-300 max-w-2xl">
+        <h1 className="text-4xl font-bold text-white">Solutions</h1>
+        <p className="mt-4 text-lg text-gray-300 max-w-2xl">
           SLA delivers AI-powered intelligence tailored for apparel supply chains, helping you reduce costs, improve delivery times, and make smarter decisions.
         </p>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -24,10 +24,10 @@ export default function SolutionsPage() {
               key={solution.name}
               href={solution.href}
               prefetch
-              className="p-6 rounded-xl border border-ink-200 dark:border-ink-700 hover:border-emerald-500 transition-colors bg-white dark:bg-ink-800"
+              className="p-6 rounded-xl border border-white/20 hover:border-emerald-400 transition-colors bg-neutral-900"
             >
-              <h2 className="text-xl font-semibold text-ink-900 dark:text-ink-50">{solution.name}</h2>
-              <p className="mt-2 text-ink-600 dark:text-ink-300">{solution.desc}</p>
+              <h2 className="text-xl font-semibold text-white">{solution.name}</h2>
+              <p className="mt-2 text-gray-300">{solution.desc}</p>
             </Link>
           ))}
         </div>
