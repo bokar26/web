@@ -33,7 +33,7 @@ export function MobileStickyCTA() {
       <div className="bg-white border-t border-ink-200 shadow-lg">
         <div className="px-4 py-3">
           <Button
-            className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3"
+            className="w-full bg-[#00FF7F] hover:brightness-95 text-white font-semibold py-3"
             onClick={() => scrollToSection("#pricing")}
           >
             Start free trial

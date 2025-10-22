@@ -118,19 +118,19 @@ export function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#00FF7F]"
                   required
                 />
                 <Button
                   type="submit"
                   size="sm"
-                  className="w-full bg-white text-black hover:bg-gray-100"
+                  className="w-full bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform"
                 >
                   Subscribe
                 </Button>
               </form>
             ) : (
-              <div className="text-emerald-400 text-sm">
+              <div className="text-[#00FF7F] text-sm">
                 ✓ Thanks for subscribing!
               </div>
             )}

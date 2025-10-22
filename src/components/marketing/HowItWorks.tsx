@@ -40,10 +40,10 @@ export function HowItWorks() {
             {steps.map((step, index) => (
               <div key={index} className="flex items-start">
                 <div className="flex flex-col items-center">
-                  <Card className="w-80 hover:shadow-lg transition-all duration-200 border-ink-200 hover:border-emerald-200">
+                  <Card className="w-80 hover:shadow-lg transition-all duration-200 border-ink-200 hover:border-[#00FF7F]/60">
                     <CardContent className="p-8">
                       <div className="text-center">
-                        <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <div className="w-16 h-16 bg-[#00FF7F] rounded-full flex items-center justify-center mx-auto mb-6">
                           <span className="text-white font-bold text-xl">
                             {step.number}
                           </span>
@@ -62,7 +62,7 @@ export function HowItWorks() {
                 {/* Arrow between steps */}
                 {index < steps.length - 1 && (
                   <div className="flex items-center justify-center px-8 pt-16">
-                    <ArrowRight className="h-8 w-8 text-emerald-500" />
+                    <ArrowRight className="h-8 w-8 text-[#00FF7F]" />
                   </div>
                 )}
               </div>
@@ -73,11 +73,11 @@ export function HowItWorks() {
         {/* Mobile: Vertical stack */}
         <div className="lg:hidden space-y-8">
           {steps.map((step, index) => (
-            <Card key={index} className="hover:shadow-lg transition-all duration-200 border-ink-200 hover:border-emerald-200">
+            <Card key={index} className="hover:shadow-lg transition-all duration-200 border-ink-200 hover:border-[#00FF7F]/60">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-[#00FF7F] rounded-full flex items-center justify-center">
                       <span className="text-white font-bold text-sm">
                         {step.number}
                       </span>

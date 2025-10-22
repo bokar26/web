@@ -80,7 +80,7 @@ export function FAQ() {
           <p className="text-gray-300 mb-4">
             Still have questions? We&apos;re here to help.
           </p>
-          <button className="text-emerald-400 hover:text-emerald-300 font-medium">
+          <button className="text-[#00FF7F] hover:opacity-90 font-medium">
             Contact our support team →
           </button>
         </div>

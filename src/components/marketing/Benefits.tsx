@@ -62,13 +62,13 @@ export function Benefits() {
             return (
               <Card
                 key={index}
-                className="group hover:shadow-lg transition-all duration-200 border-ink-200 dark:border-ink-700 hover:border-emerald-200 bg-white dark:bg-ink-800/50"
+                className="group hover:shadow-lg transition-all duration-200 border-ink-200 dark:border-ink-700 hover:border-[#00FF7F]/60 bg-white dark:bg-ink-800/50"
               >
                 <CardContent className="p-6">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0">
-                      <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
-                        <Icon className="h-6 w-6 text-emerald-600" />
+                      <div className="w-12 h-12 bg-[#00FF7F]/10 rounded-lg flex items-center justify-center group-hover:bg-[#00FF7F]/20 transition-colors">
+                        <Icon className="h-6 w-6 text-[#00FF7F]" />
                       </div>
                     </div>
                     <div className="flex-1">

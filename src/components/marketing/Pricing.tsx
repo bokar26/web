@@ -79,13 +79,13 @@ export function Pricing() {
               key={index}
               className={`relative transition-all duration-200 hover:shadow-lg bg-white dark:bg-ink-800/50 ${
                 plan.popular
-                  ? "border-emerald-500 ring-2 ring-emerald-500/20 scale-105"
-                  : "border-ink-200 dark:border-ink-700 hover:border-emerald-200"
+                  ? "border-[#00FF7F] ring-2 ring-[#00FF7F]/20 scale-105"
+                  : "border-ink-200 dark:border-ink-700 hover:border-[#00FF7F]"
               }`}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-emerald-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                  <div className="bg-[#00FF7F] text-white px-4 py-1 rounded-full text-sm font-medium">
                     Most Popular
                   </div>
                 </div>
@@ -108,7 +108,7 @@ export function Pricing() {
                 <ul className="space-y-3">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-start">
-                      <Check className="h-5 w-5 text-emerald-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <Check className="h-5 w-5 text-[#00FF7F] mr-3 mt-0.5 flex-shrink-0" />
                       <span className="text-ink-600 dark:text-ink-300">{feature}</span>
                     </li>
                   ))}
@@ -117,7 +117,7 @@ export function Pricing() {
                 <Button
                   className={`w-full ${
                     plan.popular
-                      ? "bg-emerald-500 hover:bg-emerald-600"
+                      ? "bg-[#00FF7F] hover:brightness-95"
                       : "bg-ink-900 hover:bg-ink-800"
                   }`}
                   size="lg"

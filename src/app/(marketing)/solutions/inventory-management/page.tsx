@@ -28,7 +28,7 @@ export default function InventoryManagementPage() {
         <div className="mt-10">
           <Link 
             href="/book-demo" 
-            className="inline-block rounded-lg bg-white px-6 py-3 text-black font-medium hover:bg-gray-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="inline-block rounded-lg bg-[#00FF7F] px-6 py-3 text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
           >
             Book a demo
           </Link>

@@ -82,7 +82,7 @@ function StatCard({
 
   return (
     <div ref={containerRef} className="text-center">
-      <div className="text-4xl md:text-5xl font-bold text-emerald-400">
+      <div className="text-4xl md:text-5xl font-bold text-[#00FF7F]">
         {display}
       </div>
       <div className="mt-3 text-sm text-gray-300">{label}</div>

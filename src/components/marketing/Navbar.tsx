@@ -67,7 +67,7 @@ export function Navbar() {
                   <Link 
                     href={item.href} 
                     prefetch
-                    className="text-sm font-medium text-white hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-md"
+                    className="text-sm font-medium text-white hover:text-[#00FF7F] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00FF7F] rounded-md"
                   >
                     {item.name}
                   </Link>
@@ -77,7 +77,7 @@ export function Navbar() {
                         key={solution.name}
                         href={solution.href}
                         prefetch
-                        className="block px-3 py-2 rounded-md text-sm text-gray-300 hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                        className="block px-3 py-2 rounded-md text-sm text-gray-300 hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00FF7F]"
                       >
                         {solution.name}
                       </Link>
@@ -88,7 +88,7 @@ export function Navbar() {
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-sm font-medium text-white hover:text-emerald-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-md"
+                  className="text-sm font-medium text-white hover:text-[#00FF7F] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00FF7F] rounded-md"
                 >
                   {item.name}
                 </button>
@@ -103,7 +103,7 @@ export function Navbar() {
                 <Button variant="ghost" size="sm">Sign In</Button>
               </SignInButton>
               <Link href="/sign-up" prefetch>
-                <Button size="sm" className="bg-white text-black hover:bg-gray-100">
+                <Button size="sm" className="bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform">
                   Get Started
                 </Button>
               </Link>
@@ -118,7 +118,7 @@ export function Navbar() {
                     Hi, {user?.firstName || user?.emailAddresses[0]?.emailAddress.split('@')[0]}
                   </span>
                   <Link href="/dashboard" prefetch>
-                    <Button size="sm" className="bg-white text-black hover:bg-gray-100">
+                    <Button size="sm" className="bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform">
                       Dashboard
                     </Button>
                   </Link>
@@ -141,7 +141,7 @@ export function Navbar() {
                     <button
                       key={item.name}
                       onClick={() => scrollToSection(item.href)}
-                      className="text-left text-lg font-medium text-white hover:text-emerald-400 transition-colors py-2"
+                      className="text-left text-lg font-medium text-white hover:text-[#00FF7F] transition-colors py-2"
                     >
                       {item.name}
                     </button>
@@ -154,7 +154,7 @@ export function Navbar() {
                         </Button>
                       </SignInButton>
                       <Link href="/sign-up" prefetch>
-                        <Button className="w-full bg-white text-black hover:bg-gray-100">
+                        <Button className="w-full bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform">
                           Get Started
                         </Button>
                       </Link>
@@ -169,7 +169,7 @@ export function Navbar() {
                             Hi, {user?.firstName || user?.emailAddresses[0]?.emailAddress.split('@')[0]}
                           </div>
                           <Link href="/dashboard" prefetch>
-                            <Button className="w-full bg-white text-black hover:bg-gray-100">
+                            <Button className="w-full bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform">
                               Dashboard
                             </Button>
                           </Link>

@@ -18,8 +18,8 @@ const metrics = [
     value: "$6.42",
     unit: "per unit",
     description: "Know your all-in cost—product, freight, and duties—before you commit.",
-    color: "text-emerald-600 dark:text-emerald-400",
-    bgColor: "bg-emerald-100 dark:bg-emerald-900",
+    color: "text-[#00FF7F]",
+    bgColor: "bg-[#00FF7F]/10",
   },
   {
     icon: Clock,
@@ -60,7 +60,7 @@ export function ApparelMetrics() {
             return (
               <Card
                 key={index}
-                className="group hover:shadow-lg transition-all duration-200 border-ink-200 dark:border-ink-700 hover:border-emerald-200 bg-white dark:bg-ink-800/50"
+                className="group hover:shadow-lg transition-all duration-200 border-ink-200 dark:border-ink-700 hover:border-[#00FF7F]/60 bg-white dark:bg-ink-800/50"
               >
                 <CardContent className="p-6 text-center">
                   <div className={`w-16 h-16 ${metric.bgColor} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-105 transition-transform`}>

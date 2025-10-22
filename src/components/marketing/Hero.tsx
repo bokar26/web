@@ -54,7 +54,7 @@ export function Hero({
             <Link 
               href={primaryCTA.href} 
               prefetch
-              className="inline-flex items-center rounded-lg px-6 py-3 bg-white text-black font-medium hover:bg-gray-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              className="inline-flex items-center rounded-lg px-6 py-3 bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
             >
               {primaryCTA.text}
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -76,7 +76,7 @@ export function Hero({
                   <Link 
                     href="/solutions/procurement" 
                     prefetch
-                    className="text-white hover:text-emerald-400 transition-colors font-bold block"
+                    className="text-white hover:text-[#00FF7F] transition-colors font-bold block"
                   >
                     Procurement
                   </Link>
@@ -86,7 +86,7 @@ export function Hero({
                   <Link 
                     href="/solutions/inventory-management" 
                     prefetch
-                    className="text-white hover:text-emerald-400 transition-colors font-bold block"
+                    className="text-white hover:text-[#00FF7F] transition-colors font-bold block"
                   >
                     Inventory
                   </Link>
@@ -96,7 +96,7 @@ export function Hero({
                   <Link 
                     href="/solutions/predictive-logistics-insights" 
                     prefetch
-                    className="text-white hover:text-emerald-400 transition-colors font-bold block"
+                    className="text-white hover:text-[#00FF7F] transition-colors font-bold block"
                   >
                     Logistics
                   </Link>
@@ -106,7 +106,7 @@ export function Hero({
                   <Link 
                     href="/solutions/actionable-supply-insights" 
                     prefetch
-                    className="text-white hover:text-emerald-400 transition-colors font-bold block"
+                    className="text-white hover:text-[#00FF7F] transition-colors font-bold block"
                   >
                     Supply
                   </Link>
@@ -120,7 +120,7 @@ export function Hero({
       
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-100 rounded-full opacity-10 blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#00FF7F]/10 rounded-full opacity-10 blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-mint-100 rounded-full opacity-10 blur-3xl" />
       </div>
     </section>

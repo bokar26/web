@@ -71,7 +71,7 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <Card
               key={index}
-              className="hover:shadow-lg transition-all duration-200 border-ink-200 hover:border-emerald-200 bg-white"
+              className="hover:shadow-lg transition-all duration-200 border-ink-200 hover:border-[#00FF7F]/60 bg-white"
             >
               <CardContent className="p-6">
                 {/* Rating */}
@@ -88,8 +88,8 @@ export function Testimonials() {
 
                 {/* Author */}
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-emerald-600 font-semibold text-lg">
+                  <div className="w-12 h-12 bg-[#00FF7F]/10 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-[#00FF7F] font-semibold text-lg">
                       {testimonial.author.split(' ').map(n => n[0]).join('')}
                     </span>
                   </div>
@@ -100,7 +100,7 @@ export function Testimonials() {
                     <div className="text-sm text-ink-600">
                       {testimonial.role}
                     </div>
-                    <div className="text-sm text-emerald-600 font-medium">
+                    <div className="text-sm text-[#00FF7F] font-medium">
                       {testimonial.company}
                     </div>
                   </div>
@@ -113,19 +113,19 @@ export function Testimonials() {
         {/* Stats */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div>
-            <div className="text-3xl sm:text-4xl font-bold text-emerald-600 mb-2">
+            <div className="text-3xl sm:text-4xl font-bold text-[#00FF7F] mb-2">
               1,000+
             </div>
             <div className="text-ink-600">Active users</div>
           </div>
           <div>
-            <div className="text-3xl sm:text-4xl font-bold text-emerald-600 mb-2">
+            <div className="text-3xl sm:text-4xl font-bold text-[#00FF7F] mb-2">
               30%
             </div>
             <div className="text-ink-600">Average cost reduction</div>
           </div>
           <div>
-            <div className="text-3xl sm:text-4xl font-bold text-emerald-600 mb-2">
+            <div className="text-3xl sm:text-4xl font-bold text-[#00FF7F] mb-2">
               4.9/5
             </div>
             <div className="text-ink-600">Customer satisfaction</div>

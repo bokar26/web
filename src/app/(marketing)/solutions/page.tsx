@@ -24,7 +24,7 @@ export default function SolutionsPage() {
               key={solution.name}
               href={solution.href}
               prefetch
-              className="p-6 rounded-xl border border-white/20 hover:border-emerald-400 transition-colors bg-neutral-900"
+              className="p-6 rounded-xl border border-white/20 hover:border-[#00FF7F] transition-colors bg-neutral-900"
             >
               <h2 className="text-xl font-semibold text-white">{solution.name}</h2>
               <p className="mt-2 text-gray-300">{solution.desc}</p>
