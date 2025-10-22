@@ -372,46 +372,74 @@ export const customerMetrics = [
 export const purchaseOrders = [
   {
     id: 'PO-2024-0123',
-    supplier: 'ABC Textiles',
+    supplier: {
+      name: 'ABC Textiles',
+      contact: {
+        email: 'orders@abctextiles.com'
+      }
+    },
+    region: 'Asia Pacific',
+    orderDate: '2024-03-15',
     status: 'shipped',
     eta: '2024-04-10',
-    actualETA: '2024-04-12',
-    delay: 2,
+    actualDelivery: '2024-04-12',
+    slaStatus: 'at-risk',
     items: 450,
-    value: 12500,
+    amount: 12500,
     progress: 85
   },
   {
     id: 'PO-2024-0124',
-    supplier: 'XYZ Manufacturing',
+    supplier: {
+      name: 'XYZ Manufacturing',
+      contact: {
+        email: 'orders@xyzmanufacturing.com'
+      }
+    },
+    region: 'North America',
+    orderDate: '2024-03-20',
     status: 'confirmed',
     eta: '2024-04-15',
-    actualETA: null,
-    delay: 0,
+    actualDelivery: null,
+    slaStatus: 'on-time',
     items: 320,
-    value: 8900,
+    amount: 8900,
     progress: 45
   },
   {
     id: 'PO-2024-0125',
-    supplier: 'DEF Garments',
+    supplier: {
+      name: 'DEF Garments',
+      contact: {
+        email: 'orders@defgarments.com'
+      }
+    },
+    region: 'Europe',
+    orderDate: '2024-03-10',
     status: 'delivered',
     eta: '2024-04-05',
-    actualETA: '2024-04-03',
-    delay: -2,
+    actualDelivery: '2024-04-03',
+    slaStatus: 'on-time',
     items: 280,
-    value: 7200,
+    amount: 7200,
     progress: 100
   },
   {
     id: 'PO-2024-0126',
-    supplier: 'GHI Fabrics',
+    supplier: {
+      name: 'GHI Fabrics',
+      contact: {
+        email: 'orders@ghifabrics.com'
+      }
+    },
+    region: 'Asia Pacific',
+    orderDate: '2024-03-25',
     status: 'ordered',
     eta: '2024-04-20',
-    actualETA: null,
-    delay: 0,
+    actualDelivery: null,
+    slaStatus: 'on-time',
     items: 150,
-    value: 4200,
+    amount: 4200,
     progress: 15
   }
 ]
