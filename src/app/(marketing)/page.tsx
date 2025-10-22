@@ -2,7 +2,7 @@ import { Navbar } from "@/components/marketing/Navbar"
 import { Hero } from "@/components/marketing/Hero"
 import StatsRow from "@/components/marketing/StatsRow"
 import { Problem } from "@/components/marketing/Problem"
-import { ApparelSection } from "@/components/marketing/ApparelSection"
+import { TabsShowcaseSection } from "@/components/marketing/TabsShowcaseSection"
 import { TestimonialOne } from "@/components/marketing/TestimonialOne"
 import { FAQ } from "@/components/marketing/FAQ"
 import { Footer } from "@/components/marketing/Footer"
@@ -16,7 +16,7 @@ export default function Home() {
         <Hero />
         <Problem />
         <StatsRow />
-        <ApparelSection />
+        <TabsShowcaseSection />
         <TestimonialOne />
         <FAQ />
       </main>
