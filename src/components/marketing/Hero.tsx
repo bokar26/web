@@ -15,7 +15,7 @@ interface HeroProps {
 export function Hero({
   headline = "Optimize your supply chain with live AI intelligence",
   subcopy = "SLA combines AI reasoning and machine-learning models with your SKU, PO, and shipment data to cut landed costs, speed up deliveries, and shorten cash cycles.",
-  socialProof = "Trusted by leading apparel companies",
+  socialProof = "Driven by the world's most precise optimization models",
   primaryCTA = { text: "Book a demo", href: "/book-demo" },
 }: HeroProps) {
   const scrollToSection = (href: string) => {

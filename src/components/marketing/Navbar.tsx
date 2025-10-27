@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
-import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs"
+import { SignedIn, SignedOut, SignInButton, SignOutButton, useUser } from "@clerk/nextjs"
 
 const navigation = [
   { name: "Solutions", href: "/solutions", hasDropdown: true },
@@ -102,7 +102,7 @@ export function Navbar() {
               <SignInButton mode="modal">
                 <Button variant="ghost" size="sm">Sign In</Button>
               </SignInButton>
-              <Link href="/sign-up" prefetch>
+              <Link href="/book-demo" prefetch>
                 <Button size="sm" className="bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform">
                   Get Started
                 </Button>
@@ -114,14 +114,18 @@ export function Navbar() {
                 <div className="w-8 h-8 bg-gray-200 animate-pulse rounded-full" />
               ) : (
                 <>
-                  <span className="text-sm text-gray-300">
+                  <Link 
+                    href="/dashboard" 
+                    prefetch
+                    className="text-sm text-gray-300 hover:text-[#00FF7F] transition-colors"
+                  >
                     Hi, {user?.firstName || user?.emailAddresses[0]?.emailAddress.split('@')[0]}
-                  </span>
-                  <Link href="/dashboard" prefetch>
-                    <Button size="sm" className="bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform">
-                      Dashboard
-                    </Button>
                   </Link>
+                  <SignOutButton>
+                    <Button size="sm" className="bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform">
+                      Logout
+                    </Button>
+                  </SignOutButton>
                 </>
               )}
             </SignedIn>
@@ -153,7 +157,7 @@ export function Navbar() {
                           Sign In
                         </Button>
                       </SignInButton>
-                      <Link href="/sign-up" prefetch>
+                      <Link href="/book-demo" prefetch>
                         <Button className="w-full bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform">
                           Get Started
                         </Button>
@@ -165,14 +169,18 @@ export function Navbar() {
                         <div className="w-full h-8 bg-gray-200 animate-pulse rounded mb-4" />
                       ) : (
                         <>
-                          <div className="mb-4 p-2 bg-white/10 rounded text-sm text-gray-300">
+                          <Link 
+                            href="/dashboard" 
+                            prefetch
+                            className="mb-4 p-2 bg-white/10 rounded text-sm text-gray-300 hover:text-[#00FF7F] transition-colors block"
+                          >
                             Hi, {user?.firstName || user?.emailAddresses[0]?.emailAddress.split('@')[0]}
-                          </div>
-                          <Link href="/dashboard" prefetch>
-                            <Button className="w-full bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform">
-                              Dashboard
-                            </Button>
                           </Link>
+                          <SignOutButton>
+                            <Button className="w-full bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform">
+                              Logout
+                            </Button>
+                          </SignOutButton>
                         </>
                       )}
                     </SignedIn>
