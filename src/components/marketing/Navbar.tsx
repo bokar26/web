@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { useRouter, usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
@@ -25,6 +26,8 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { user, isLoaded } = useUser()
+  const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,11 +39,43 @@ export function Navbar() {
   }, [])
 
   const scrollToSection = (href: string) => {
+    setIsMobileMenuOpen(false)
+    
+    // If href contains a hash fragment (e.g., /#testimonials)
+    if (href.includes('#')) {
+      const hash = href.substring(href.indexOf('#'))
+      
+      // If on homepage, scroll immediately
+      if (pathname === '/') {
+        const element = document.querySelector(hash)
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" })
+        }
+        return
+      }
+      
+      // If not on homepage, navigate to / first, then scroll after a delay
+      router.push('/')
+      setTimeout(() => {
+        const element = document.querySelector(hash)
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" })
+        }
+      }, 100)
+      return
+    }
+    
+    // If href is just a page path without hash, navigate to it
+    if (href.startsWith('/')) {
+      router.push(href)
+      return
+    }
+    
+    // Fallback: try as a CSS selector (for pure hash fragments like #testimonials)
     const element = document.querySelector(href)
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
     }
-    setIsMobileMenuOpen(false)
   }
 
   return (
