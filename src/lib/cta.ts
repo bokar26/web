@@ -33,10 +33,10 @@ export function buildUtmSearch(fromLocation?: Location): string {
 
 /**
  * Builds the book demo href with UTM parameters
- * @param currentURL - Optional current URL string for SSR safety
+ * @param _currentURL - Optional current URL string for SSR safety (unused)
  * @returns Book demo path with UTM search params
  */
-export function getBookDemoHref(currentURL?: string): string {
+export function getBookDemoHref(_currentURL?: string): string {
   // Server-side default
   if (typeof window === "undefined") {
     return "/book-demo"

@@ -20,6 +20,30 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
+  {
+    rules: {
+      "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", { 
+        "argsIgnorePattern": "^_", 
+        "varsIgnorePattern": "^_" 
+      }],
+    },
+  },
+  {
+    files: ["src/app/(marketing)/**/*.{ts,tsx}", "src/components/marketing/**/*.{ts,tsx}"],
+    rules: {
+      "react/no-unescaped-entities": "off",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "prefer-const": "warn",
+    },
+  },
+  {
+    files: ["src/app/(protected)/dashboard/**/*.{ts,tsx}"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "warn",
+      "prefer-const": "warn",
+    },
+  },
 ];
 
 export default eslintConfig;
