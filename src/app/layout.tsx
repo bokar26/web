@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   authors: [{ name: "SLA Team" }],
   creator: "SLA",
   publisher: "SLA",
+  icons: {
+    icon: "/images/SLA-Logo copy.png",
+    apple: "/images/SLA-Logo copy.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -23,12 +27,21 @@ export const metadata: Metadata = {
     title: "SLA - Data-Driven Logistics & Sourcing",
     description: "Cut landed costs by 30% with AI-powered supplier matching and route optimization",
     siteName: "SLA",
+    images: [
+      {
+        url: "/images/SLA-Logo copy.png",
+        width: 1200,
+        height: 630,
+        alt: "SLA Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "SLA - Data-Driven Logistics & Sourcing",
     description: "Cut landed costs by 30% with AI-powered supplier matching and route optimization",
     creator: "@sla_ai",
+    images: ["/images/SLA-Logo copy.png"],
   },
   robots: {
     index: true,

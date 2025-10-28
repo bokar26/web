@@ -113,9 +113,11 @@ export function BookDemoForm() {
         captchaToken,
       }
 
-      // POST to edge function
-      const ingestUrl = env.EDGE_DEMO_INGEST_URL || '/api/dev/echo'
-      const response = await fetch(ingestUrl, {
+      // POST to edge function (require production URL)
+      if (!env.EDGE_DEMO_INGEST_URL) {
+        throw new Error('Demo submission endpoint not configured')
+      }
+      const response = await fetch(env.EDGE_DEMO_INGEST_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -141,7 +143,10 @@ export function BookDemoForm() {
         throw new Error(result.message || 'Submission failed')
       }
     } catch (error: any) {
-      console.error('Form submission error:', error)
+      // Silent error logging in production
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Form submission error:', error)
+      }
       setErrorMessage(error.message || 'An error occurred. Please try again.')
       setSubmitStatus('error')
       
@@ -156,23 +161,6 @@ export function BookDemoForm() {
 
   return (
     <div className="space-y-6">
-      {/* Warning banner for missing environment */}
-      {!env.EDGE_DEMO_INGEST_URL && (
-        <div className="p-4 bg-yellow-500/10 border border-yellow-500 rounded-lg mb-6">
-          <p className="text-sm text-yellow-400 mb-2">
-            Demo submission endpoint not configured. You can still schedule directly:
-          </p>
-          <a
-            href="https://cal.com/sla-ta5bec"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-[#00FF7F] text-black px-4 py-2 rounded-lg font-semibold hover:brightness-95 transition-all text-sm"
-          >
-            Schedule on Cal.com
-          </a>
-        </div>
-      )}
-
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Hidden honeypot field */}
         <input
