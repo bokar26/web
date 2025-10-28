@@ -52,14 +52,14 @@ export function Navbar() {
       }`}
     >
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-14 items-center justify-between">
+        <div className="relative flex h-14 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="text-2xl font-bold text-white">SLA</div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-8">
+          {/* Desktop Navigation - Centered */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:flex md:items-center md:space-x-8">
             {navigation.map((item) => (
               item.hasDropdown ? (
                 <div key={item.name} className="relative group">

@@ -56,6 +56,7 @@ export default function SolutionsPage() {
     { id: "inventory", label: "Inventory Management" },
     { id: "logistics", label: "Predictive Logistics" },
     { id: "supply", label: "Actionable Supply Insights" },
+    { id: "custom", label: "Custom Made" },
   ]
 
   return (
@@ -251,6 +252,41 @@ export default function SolutionsPage() {
                   className="inline-flex items-center mt-6 text-[#00FF7F] hover:text-[#00FF7F]/80 transition-colors"
                 >
                   Learn more about Supply Insights
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </section>
+
+              {/* Custom Made Section */}
+              <section id="custom" data-section="custom" className="scroll-mt-20">
+                <h2 className="text-3xl font-bold text-white mb-4">Custom Made</h2>
+                <p className="text-gray-300 leading-relaxed mb-6">
+                  Every client's dashboard is fully customized to their company's unique needs and evolving requirements.
+                </p>
+                <div className="space-y-4 text-gray-300">
+                  <div className="border-l-4 border-[#00FF7F] pl-4">
+                    <h3 className="text-white font-semibold mb-2">Tailored Design</h3>
+                    <p>
+                      Your dashboard is built specifically for your business processes, data sources, and strategic objectives with custom KPIs, metrics, and views.
+                    </p>
+                  </div>
+                  <div className="border-l-4 border-[#00FF7F] pl-4">
+                    <h3 className="text-white font-semibold mb-2">Collaborative Implementation</h3>
+                    <p>
+                      We work closely with you through in-depth meetings and continuous check-ins to ensure the platform adapts as your needs evolve.
+                    </p>
+                  </div>
+                  <div className="border-l-4 border-[#00FF7F] pl-4">
+                    <h3 className="text-white font-semibold mb-2">Rapid Updates</h3>
+                    <p>
+                      New features and changes are implemented quickly with zero lag between request and deployment, ensuring you always have the flexibility you need.
+                    </p>
+                  </div>
+                </div>
+                <Link
+                  href="/solutions/custom-made"
+                  className="inline-flex items-center mt-6 text-[#00FF7F] hover:text-[#00FF7F]/80 transition-colors"
+                >
+                  Learn more about Custom Made
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </section>

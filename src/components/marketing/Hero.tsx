@@ -13,8 +13,8 @@ interface HeroProps {
 }
 
 export function Hero({
-  headline = "Optimize your supply chain with live AI intelligence",
-  subcopy = "SLA combines AI reasoning and machine-learning models with your SKU, PO, and shipment data to cut landed costs, speed up deliveries, and shorten cash cycles.",
+  headline = "Enterprise planning that thinks ahead.",
+  subcopy = "SLA fuses ERP essentials with AI and ML intelligence to build faster, smarter, and more robust workflows.",
   socialProof = "Driven by the world's most precise optimization models",
 }: HeroProps) {
   const scrollToSection = (href: string) => {
@@ -30,7 +30,7 @@ export function Hero({
     <section className="relative min-h-screen flex flex-col justify-start pt-4 md:pt-6 overflow-hidden">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 md:py-6">
         {/* Centered text block */}
-        <div className="mx-auto max-w-5xl text-center space-y-6 relative z-10">
+        <div className="mx-auto max-w-7xl text-center space-y-6 relative z-10">
           {/* Social proof chip - center with mx-auto */}
           <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/10 border border-white/20 mx-auto">
             <span className="text-sm font-medium text-white">
@@ -39,7 +39,7 @@ export function Hero({
           </div>
           
           {/* Headline - center aligned */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight whitespace-pre-line">
             {headline}
           </h1>
           
