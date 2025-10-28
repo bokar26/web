@@ -1,40 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { useState } from "react"
-
-const menuLinks = [
-  { name: "How it works", href: "#how-it-works" },
-  { name: "Pricing", href: "#pricing" },
-  { name: "Testimonials", href: "#testimonials" },
-  { name: "FAQ", href: "#faq" },
-]
-
-const legalLinks = [
-  { name: "Privacy Policy", href: "/privacy" },
-  { name: "Terms of Service", href: "/terms" },
-  { name: "Cookie Policy", href: "/cookies" },
-]
-
-const resourceLinks = [
-  { name: "Documentation", href: "/docs" },
-  { name: "API Reference", href: "/api" },
-  { name: "Support", href: "/support" },
-  { name: "Blog", href: "/blog" },
-]
+import { navigationLinks } from "@/lib/navigation"
+import { BookDemoCTA } from "@/components/BookDemoCTA"
 
 export function Footer() {
-  const [email, setEmail] = useState("")
-  const [isSubscribed, setIsSubscribed] = useState(false)
-
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // TODO: Implement newsletter subscription
-    setIsSubscribed(true)
-    setEmail("")
-  }
-
   const scrollToSection = (href: string) => {
     if (href.startsWith("#")) {
       const element = document.querySelector(href)
@@ -47,14 +17,15 @@ export function Footer() {
   return (
     <footer className="bg-black text-white">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand Column */}
+        {/* Brand and CTA Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 items-start">
+          {/* Left: Brand Column */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
               <div className="text-2xl font-bold">SLA</div>
             </Link>
             <p className="text-white/80 text-sm leading-relaxed">
-              Data-driven logistics & sourcing that cuts landed costs by 30% on average.
+              Driven by the world's most precise optimization models
             </p>
             <div className="flex space-x-4">
               {/* Social links placeholder */}
@@ -70,88 +41,78 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Menu Column */}
-          <div>
-            <h3 className="font-semibold text-white mb-4">Menu</h3>
-            <ul className="space-y-3">
-              {menuLinks.map((link) => (
-                <li key={link.name}>
-                  <button
-                    onClick={() => scrollToSection(link.href)}
-                    className="text-white/80 hover:text-white text-sm transition-colors"
-                  >
-                    {link.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal Column */}
-          <div>
-            <h3 className="font-semibold text-white mb-4">Legal</h3>
-            <ul className="space-y-3">
-              {legalLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-white/80 hover:text-white text-sm transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Newsletter Column */}
-          <div>
-            <h3 className="font-semibold text-white mb-4">Newsletter</h3>
-            <p className="text-white/80 text-sm mb-4">
-              Get the latest updates on supply chain optimization and cost reduction strategies.
+          {/* Right: CTA Column */}
+          <div className="flex flex-col items-start md:items-end space-y-4">
+            <p className="text-white/80 text-sm">
+              Simplify your supply chain. SLA
             </p>
-            
-            {!isSubscribed ? (
-              <form onSubmit={handleNewsletterSubmit} className="space-y-3">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#00FF7F]"
-                  required
-                />
-                <Button
-                  type="submit"
-                  size="sm"
-                  className="w-full bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform"
-                >
-                  Subscribe
-                </Button>
-              </form>
-            ) : (
-              <div className="text-[#00FF7F] text-sm">
-                ✓ Thanks for subscribing!
-              </div>
-            )}
+            <BookDemoCTA 
+              variant="primary"
+              dataLocation="footer"
+              className="inline-block bg-[#00FF7F] text-black px-6 py-3 rounded-lg font-semibold hover:brightness-95 transition-all text-sm"
+            >
+              Book a Demo
+            </BookDemoCTA>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          {/* Left: Menu items */}
+          <div className="flex flex-wrap gap-4 md:gap-6">
+            {navigationLinks.map((link) => (
+              <div key={link.name}>
+                {link.href === "/#testimonials" ? (
+                  <Link
+                    href="/"
+                    onClick={(e) => {
+                      if (typeof window !== "undefined" && window.location.pathname === "/") {
+                        e.preventDefault()
+                        scrollToSection("#testimonials")
+                      }
+                    }}
+                    className="text-white/60 hover:text-white text-sm transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                ) : link.href.startsWith("#") ? (
+                  <button
+                    onClick={() => scrollToSection(link.href)}
+                    className="text-white/60 hover:text-white text-sm transition-colors"
+                  >
+                    {link.name}
+                  </button>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className="text-white/60 hover:text-white text-sm transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Center: Copyright */}
           <p className="text-white/60 text-sm">
             © 2025 SLA. All rights reserved.
           </p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            {resourceLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-white/60 hover:text-white text-sm transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
+
+          {/* Right: Legal links */}
+          <div className="flex space-x-6">
+            <Link
+              href="/privacy"
+              className="text-white/60 hover:text-white text-sm transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/cookies"
+              className="text-white/60 hover:text-white text-sm transition-colors"
+            >
+              Cookie Policy
+            </Link>
           </div>
         </div>
       </div>

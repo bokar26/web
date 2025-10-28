@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Navbar } from "@/components/marketing/Navbar"
 import { Footer } from "@/components/marketing/Footer"
+import { BookDemoCTA } from "@/components/BookDemoCTA"
 
 export default function PredictiveLogisticsPage() {
   return (
@@ -10,7 +11,7 @@ export default function PredictiveLogisticsPage() {
         {/* Hero Section */}
         <div className="mb-16">
           <h1 className="text-4xl font-bold text-white">Predictive Logistics Insights</h1>
-          <p className="mt-4 text-lg text-gray-300">
+        <p className="mt-4 text-lg text-gray-300">
             Anticipate delays, route disruptions, and capacity constraints before they impact your shipments. Make proactive decisions with AI-powered logistics intelligence and find the right logistics partners to optimize your entire supply chain.
           </p>
         </div>
@@ -229,12 +230,13 @@ export default function PredictiveLogisticsPage() {
             <p className="text-gray-300 mb-6">
               Experience how SLA's predictive logistics insights can transform your supply chain operations. Book a demo to see how we can help you find the right partners, plan better shipments, and monitor performance with AI-powered recommendations.
             </p>
-            <Link 
-              href="/book-demo" 
+            <BookDemoCTA 
+              variant="primary"
+              dataLocation="logistics-page"
               className="inline-block rounded-lg bg-[#00FF7F] px-8 py-3 text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
             >
               Book a Demo
-            </Link>
+            </BookDemoCTA>
           </div>
         </div>
       </main>

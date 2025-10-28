@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { BookDemoCTA } from "@/components/BookDemoCTA"
 import { ArrowRight, Play } from "lucide-react"
 import Image from "next/image"
 
@@ -9,14 +10,12 @@ interface HeroProps {
   headline?: string
   subcopy?: string
   socialProof?: string
-  primaryCTA?: { text: string; href: string }
 }
 
 export function Hero({
   headline = "Optimize your supply chain with live AI intelligence",
   subcopy = "SLA combines AI reasoning and machine-learning models with your SKU, PO, and shipment data to cut landed costs, speed up deliveries, and shorten cash cycles.",
   socialProof = "Driven by the world's most precise optimization models",
-  primaryCTA = { text: "Book a demo", href: "/book-demo" },
 }: HeroProps) {
   const scrollToSection = (href: string) => {
     if (href.startsWith("#")) {
@@ -51,14 +50,14 @@ export function Hero({
           
           {/* CTA - centered with mx-auto */}
           <div className="pt-2">
-            <Link 
-              href={primaryCTA.href} 
-              prefetch
+            <BookDemoCTA 
+              variant="primary"
+              dataLocation="hero"
               className="inline-flex items-center rounded-lg px-6 py-3 bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
             >
-              {primaryCTA.text}
+              Book a demo
               <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+            </BookDemoCTA>
           </div>
 
           {/* Solutions row - spread out with subtext in bordered box */}

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Navbar } from "@/components/marketing/Navbar"
 import { Footer } from "@/components/marketing/Footer"
+import { BookDemoCTA } from "@/components/BookDemoCTA"
 
 export default function ProcurementPage() {
   return (
@@ -9,8 +10,8 @@ export default function ProcurementPage() {
       <main className="mx-auto max-w-5xl px-4 py-16">
         {/* Hero Section */}
         <div className="mb-16">
-          <h1 className="text-4xl font-bold text-white">Procurement</h1>
-          <p className="mt-4 text-lg text-gray-300">
+        <h1 className="text-4xl font-bold text-white">Procurement</h1>
+        <p className="mt-4 text-lg text-gray-300">
             Optimize supplier selection, quotes, and terms with AI reasoning over your SKU and PO history. See true landed cost before you commit, leverage transparent pricing data for better negotiations, and align MOQs with demand to drive significant cost savings.
           </p>
         </div>
@@ -216,12 +217,13 @@ export default function ProcurementPage() {
             <p className="text-gray-300 mb-6">
               Experience how SLA's high-accuracy matching, robust vetting, transparent cost data, and powerful negotiation insights can optimize your procurement and deliver significant cost savings. Book a demo to see how we can help you build better supplier relationships and reduce costs.
             </p>
-            <Link 
-              href="/book-demo" 
+            <BookDemoCTA 
+              variant="primary"
+              dataLocation="procurement-page"
               className="inline-block rounded-lg bg-[#00FF7F] px-8 py-3 text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
             >
               Book a Demo
-            </Link>
+            </BookDemoCTA>
           </div>
         </div>
       </main>

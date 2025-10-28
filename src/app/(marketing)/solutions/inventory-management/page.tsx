@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Navbar } from "@/components/marketing/Navbar"
 import { Footer } from "@/components/marketing/Footer"
+import { BookDemoCTA } from "@/components/BookDemoCTA"
 
 export default function InventoryManagementPage() {
   return (
@@ -9,8 +10,8 @@ export default function InventoryManagementPage() {
       <main className="mx-auto max-w-5xl px-4 py-16">
         {/* Hero Section */}
         <div className="mb-16">
-          <h1 className="text-4xl font-bold text-white">Inventory Management</h1>
-          <p className="mt-4 text-lg text-gray-300">
+        <h1 className="text-4xl font-bold text-white">Inventory Management</h1>
+        <p className="mt-4 text-lg text-gray-300">
             Balance stock levels with AI-driven demand forecasts. Track and manage inventory across all warehouses, optimize purchase orders, monitor risks, and reduce overstock and stockouts while optimizing working capital for maximum efficiency.
           </p>
         </div>
@@ -271,12 +272,13 @@ export default function InventoryManagementPage() {
             <p className="text-gray-300 mb-6">
               Experience how SLA's comprehensive inventory management can help you track stock across all warehouses, optimize purchase orders, mitigate risks, and maximize working capital efficiency. Book a demo to see how we can transform your inventory operations.
             </p>
-            <Link 
-              href="/book-demo" 
+            <BookDemoCTA 
+              variant="primary"
+              dataLocation="inventory-page"
               className="inline-block rounded-lg bg-[#00FF7F] px-8 py-3 text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
             >
               Book a Demo
-            </Link>
+            </BookDemoCTA>
           </div>
         </div>
       </main>

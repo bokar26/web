@@ -1,6 +1,6 @@
 export function TestimonialOne() {
   return (
-    <section className="py-12 md:py-16">
+    <section id="testimonials" className="py-12 md:py-16">
       <div className="mx-auto max-w-3xl px-4">
         <figure className="rounded-lg border border-white/20 bg-neutral-900 p-8 shadow-sm">
           <blockquote className="text-xl leading-relaxed text-white">

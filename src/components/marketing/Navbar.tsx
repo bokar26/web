@@ -6,13 +6,12 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
 import { SignedIn, SignedOut, SignInButton, SignOutButton, useUser } from "@clerk/nextjs"
+import { navigationLinks } from "@/lib/navigation"
 
 const navigation = [
-  { name: "Solutions", href: "/solutions", hasDropdown: true },
-  { name: "How it works", href: "#how-it-works" },
-  { name: "Pricing", href: "#pricing" },
-  { name: "FAQ", href: "#faq" },
-  { name: "Testimonials", href: "#testimonials" },
+  { ...navigationLinks.find(link => link.name === "Solutions")!, hasDropdown: true },
+  { ...navigationLinks.find(link => link.name === "Mission")! },
+  { ...navigationLinks.find(link => link.name === "Testimonials")! },
 ]
 
 const solutionsDropdown = [
