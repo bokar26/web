@@ -288,6 +288,14 @@ export const costEstimatorInputs = {
   dutyEnabled: true
 }
 
+export const costBreakdown = {
+  product: 85000,
+  freight: 25000,
+  duty: 12000,
+  misc: 8000,
+  total: 130000
+}
+
 // Manage Section Data
 
 // Financial Data
