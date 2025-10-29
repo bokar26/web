@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link"
-import { getBookDemoHref } from "@/lib/cta"
+import { usePathname, useSearchParams } from "next/navigation"
+import { Suspense } from "react"
 import { Button } from "@/components/ui/button"
 
 interface BookDemoCTAProps {
@@ -17,14 +18,33 @@ interface BookDemoCTAProps {
  * - Adds analytics attributes
  * - Maintains consistent styling
  */
-export function BookDemoCTA({
+function BookDemoCTAContent({
   variant = "primary",
   children = "Book a Demo",
   className = "",
   dataLocation,
   onClick,
 }: BookDemoCTAProps) {
-  const href = getBookDemoHref()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  
+  // Build UTM search params on client side
+  const utmParams = new URLSearchParams()
+  const utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]
+  utmKeys.forEach((key) => {
+    const value = searchParams.get(key)
+    if (value) {
+      utmParams.set(key, value)
+    }
+  })
+  
+  // Add ref parameter with current pathname if not already present and not on homepage
+  if (!utmParams.has("ref") && pathname !== "/") {
+    utmParams.set("ref", pathname)
+  }
+  
+  const utmSearch = utmParams.toString()
+  const href = `/book-demo${utmSearch ? `?${utmSearch}` : ''}`
 
   // Handle click with optional analytics
   const handleClick = () => {
@@ -81,6 +101,14 @@ export function BookDemoCTA({
     >
       {children}
     </Link>
+  )
+}
+
+export function BookDemoCTA(props: BookDemoCTAProps) {
+  return (
+    <Suspense fallback={<span>{props.children || "Book a Demo"}</span>}>
+      <BookDemoCTAContent {...props} />
+    </Suspense>
   )
 }
 
