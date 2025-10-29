@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   creator: "SLA",
   publisher: "SLA",
   icons: {
-    icon: "/images/SLA-Logo copy.png",
-    apple: "/images/SLA-Logo copy.png",
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
   },
   openGraph: {
     type: "website",
