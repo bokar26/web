@@ -282,13 +282,13 @@ export default function SolutionsPage() {
                     </p>
                   </div>
                 </div>
-                <Link
+            <Link
                   href="/solutions/custom-made"
                   className="inline-flex items-center mt-6 text-[#00FF7F] hover:text-[#00FF7F]/80 transition-colors"
                 >
                   Learn more about Custom Made
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+            </Link>
               </section>
             </div>
           </div>

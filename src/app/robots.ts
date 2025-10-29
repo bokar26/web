@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/dashboard/'],
     },
-    sitemap: 'https://sla.ai/sitemap.xml',
+    sitemap: 'https://slasupply.com/sitemap.xml',
   }
 }
 

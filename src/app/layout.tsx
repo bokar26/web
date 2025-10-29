@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sla.ai"),
+  metadataBase: new URL("https://slasupply.com"),
   title: "SLA - Enterprise planning that thinks ahead.",
   description: "SLA fuses ERP essentials with AI and ML intelligence to build faster, smarter, and more robust workflows.",
   keywords: ["logistics", "sourcing", "supply chain", "shipping", "suppliers", "cost optimization"],
@@ -24,13 +24,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://sla.ai",
+    url: "https://slasupply.com",
     siteName: "SLA",
     title: "SLA - Enterprise planning that thinks ahead.",
     description: "SLA fuses ERP essentials with AI and ML intelligence to build faster, smarter, and more robust workflows.",
     images: [
       {
-        url: "https://sla.ai/images/SLA-Logo copy.png",
+        url: "https://slasupply.com/images/SLA-Logo copy.png",
         width: 1200,
         height: 630,
         alt: "SLA Logo",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "SLA - Enterprise planning that thinks ahead.",
     description: "SLA fuses ERP essentials with AI and ML intelligence to build faster, smarter, and more robust workflows.",
     creator: "@sla_ai",
-    images: ["https://sla.ai/images/SLA-Logo copy.png"],
+    images: ["https://slasupply.com/images/SLA-Logo copy.png"],
   },
   robots: {
     index: true,
