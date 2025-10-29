@@ -1,9 +1,7 @@
 "use client"
-
 import Link from "next/link"
 import { getBookDemoHref } from "@/lib/cta"
 import { Button } from "@/components/ui/button"
-import { ComponentProps } from "react"
 
 interface BookDemoCTAProps {
   variant?: "primary" | "secondary" | "link"
@@ -35,7 +33,8 @@ export function BookDemoCTA({
     }
     
     // Optional: emit analytics event
-    if (typeof window !== "undefined" && (window as any).gtag) {
+    if (typeof window !== "undefined" && 'gtag' in window) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).gtag("event", "cta_click", {
         cta_type: "book_demo",
         location: dataLocation || "unknown",

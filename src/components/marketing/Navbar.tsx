@@ -13,7 +13,7 @@ const navigation = [
   { ...navigationLinks.find(link => link.name === "Solutions")!, hasDropdown: true },
   { ...navigationLinks.find(link => link.name === "Mission")! },
   { ...navigationLinks.find(link => link.name === "Testimonials")! },
-]
+] as Array<{ name: string; href: string; hasDropdown?: boolean }>
 
 const solutionsDropdown = [
   { name: "Procurement", href: "/solutions/procurement" },

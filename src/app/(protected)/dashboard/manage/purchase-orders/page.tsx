@@ -30,10 +30,10 @@ export default function PurchaseOrdersPage() {
     let filtered = purchaseOrders.filter(order => {
       const matchesSearch = order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            order.supplier.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           order.lineItems.some(item =>
+                           (order.lineItems?.some(item =>
                              item.sku.toLowerCase().includes(searchTerm.toLowerCase()) ||
                              item.description.toLowerCase().includes(searchTerm.toLowerCase())
-                           )
+                           ) ?? false)
       const matchesStatus = statusFilter === "all" || order.status === statusFilter
       const matchesSupplier = supplierFilter === "all" || order.supplier.name === supplierFilter
       const matchesRegion = regionFilter === "all" || order.region === regionFilter

@@ -94,26 +94,23 @@ export default function StatsRow() {
   return (
     <section className="py-10 md:py-12">
       <div className="mx-auto max-w-6xl grid grid-cols-1 sm:grid-cols-3 gap-5">
-                <StatCard
-                  label="brands served"
-                  end={50}
-                  decimals={0}
-                  plus
-                />
         <StatCard
-          label="reduction in landed costs"
-          end={30}
-          prefix="Up to "
+          label="forecasting accuracy"
+          end={98}
           suffix="%"
           decimals={0}
         />
         <StatCard
-          label="avg. CCC"
-          end={85}
-          prefix="↓ "
-          suffix=" days"
+          label="avg. product cost reduction"
+          end={30}
+          suffix="%"
           decimals={0}
-          duration={900}
+        />
+        <StatCard
+          label="avg. reduction in CCC"
+          end={28}
+          suffix="%"
+          decimals={0}
         />
       </div>
     </section>

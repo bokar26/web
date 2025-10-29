@@ -166,7 +166,15 @@ export const inventoryForecastData = [
 ]
 
 // Activity Timeline Data
-export const activityTimeline = [
+export type ActivityTimelineItem = {
+  id: number
+  type: 'shipment' | 'breach' | 'sync' | 'info'
+  icon: string
+  text: string
+  timestamp: string
+}
+
+export const activityTimeline: ActivityTimelineItem[] = [
   { id: 1, type: 'shipment', icon: '🚚', text: 'Shipment #4521 departed Shanghai', timestamp: '2024-03-19T14:30:00Z' },
   { id: 2, type: 'breach', icon: '⚠', text: 'SLA breach: Supplier XYZ delayed', timestamp: '2024-03-19T12:15:00Z' },
   { id: 3, type: 'sync', icon: '🔄', text: 'ERP data synchronized', timestamp: '2024-03-19T10:45:00Z' },
@@ -377,7 +385,50 @@ export const customerMetrics = [
 ]
 
 // Purchase Orders Data
-export const purchaseOrders = [
+export type PurchaseOrder = {
+  id: string
+  supplier: {
+    name: string
+    contact: {
+      email: string
+      phone?: string
+    }
+    performance?: {
+      overall: number
+    }
+  }
+  region: string
+  orderDate: string
+  status: string
+  eta: string
+  actualDelivery: string | null
+  slaStatus: string
+  items: number
+  amount: number
+  progress: number
+  lineItems?: Array<{
+    sku: string
+    description: string
+    quantity: number
+    unitPrice: number
+  }>
+  timeline?: Array<{
+    stage: string
+    date: string
+    status: string
+    slaTarget?: string
+    notes?: string
+  }>
+  warehouse?: string
+  comments?: Array<{
+    author: string
+    message: string
+    timestamp: string
+    type?: string
+  }>
+}
+
+export const purchaseOrders: PurchaseOrder[] = [
   {
     id: 'PO-2024-0123',
     supplier: {

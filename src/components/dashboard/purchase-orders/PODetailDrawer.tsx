@@ -131,16 +131,15 @@ export const PODetailDrawer: React.FC<PODetailDrawerProps> = ({
               <GlassCard className="p-6">
                 <h3 className="text-lg font-semibold text-gray-100 mb-4">Order Timeline</h3>
                 <div className="space-y-4">
-                  {order.timeline.map((item, index) => (
+                  {order.timeline?.map((item, index) => (
                     <TimelineItem
                       key={index}
-                      stage={item.stage}
-                      date={item.date}
-                      status={item.status}
-                      slaTarget={item.slaTarget}
-                      notes={item.notes}
+                      icon={item.status === 'completed' ? '✓' : item.status === 'in-progress' ? '⏳' : '○'}
+                      text={`${item.stage}${item.notes ? ': ' + item.notes : ''}`}
+                      timestamp={item.date}
+                      type="info"
                     />
-                  ))}
+                  )) ?? <p className="text-gray-400 text-sm">No timeline data available</p>}
                 </div>
               </GlassCard>
 
@@ -148,7 +147,7 @@ export const PODetailDrawer: React.FC<PODetailDrawerProps> = ({
               <GlassCard className="p-6">
                 <h3 className="text-lg font-semibold text-gray-100 mb-4">Line Items</h3>
                 <div className="space-y-3">
-                  {order.lineItems.map((item, index) => (
+                  {order.lineItems?.map((item, index) => (
                     <div key={index} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
                       <div>
                         <p className="font-medium text-gray-100">{item.sku}</p>
@@ -157,10 +156,10 @@ export const PODetailDrawer: React.FC<PODetailDrawerProps> = ({
                       <div className="text-right">
                         <p className="text-gray-300">Qty: {item.quantity}</p>
                         <p className="text-sm text-gray-400">${item.unitPrice}/unit</p>
-                        <p className="font-semibold text-gray-100">${item.total.toLocaleString()}</p>
+                        <p className="font-semibold text-gray-100">${(item.quantity * item.unitPrice).toLocaleString()}</p>
                       </div>
                     </div>
-                  ))}
+                  )) ?? <p className="text-gray-400 text-sm">No line items available</p>}
                 </div>
               </GlassCard>
             </div>
@@ -195,8 +194,8 @@ export const PODetailDrawer: React.FC<PODetailDrawerProps> = ({
                   <div className="flex items-center gap-3">
                     <Package className="h-4 w-4 text-gray-400" />
                     <div>
-                      <p className="text-sm text-gray-400">Warehouse</p>
-                      <p className="text-gray-100">{order.warehouse}</p>
+                       <p className="text-sm text-gray-400">Warehouse</p>
+                       <p className="text-gray-100">{order.warehouse || 'N/A'}</p>
                     </div>
                   </div>
                 </div>
@@ -216,11 +215,11 @@ export const PODetailDrawer: React.FC<PODetailDrawerProps> = ({
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Phone</p>
-                    <p className="text-gray-100">{order.supplier.contact.phone}</p>
+                    <p className="text-gray-100">{order.supplier.contact.phone || 'N/A'}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Performance Score</p>
-                    <p className="text-gray-100">{order.supplier.performance.overall}/100</p>
+                    <p className="text-gray-100">{order.supplier.performance?.overall || 'N/A'}/100</p>
                   </div>
                 </div>
               </GlassCard>
@@ -235,7 +234,7 @@ export const PODetailDrawer: React.FC<PODetailDrawerProps> = ({
                   </Button>
                 </div>
                 <div className="space-y-3">
-                  {order.comments.map((comment, index) => (
+                  {order.comments?.map((comment, index) => (
                     <div key={index} className="p-3 bg-gray-800/50 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <p className="font-medium text-gray-100">{comment.author}</p>
