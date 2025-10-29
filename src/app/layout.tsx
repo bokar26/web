@@ -11,8 +11,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sla.ai"),
-  title: "SLA - Data-Driven Logistics & Sourcing",
-  description: "Cut landed costs by 30% with AI-powered supplier matching and route optimization. Trusted by 1,000+ buyers & suppliers worldwide.",
+  title: "SLA - Enterprise planning that thinks ahead.",
+  description: "SLA fuses ERP essentials with AI and ML intelligence to build faster, smarter, and more robust workflows.",
   keywords: ["logistics", "sourcing", "supply chain", "shipping", "suppliers", "cost optimization"],
   authors: [{ name: "SLA Team" }],
   creator: "SLA",
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://sla.ai",
     siteName: "SLA",
-    title: "SLA - Data-Driven Logistics & Sourcing",
-    description: "Cut landed costs by 30% with AI-powered supplier matching and route optimization",
+    title: "SLA - Enterprise planning that thinks ahead.",
+    description: "SLA fuses ERP essentials with AI and ML intelligence to build faster, smarter, and more robust workflows.",
     images: [
       {
         url: "https://sla.ai/images/SLA-Logo copy.png",
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SLA - Data-Driven Logistics & Sourcing",
-    description: "Cut landed costs by 30% with AI-powered supplier matching and route optimization",
+    title: "SLA - Enterprise planning that thinks ahead.",
+    description: "SLA fuses ERP essentials with AI and ML intelligence to build faster, smarter, and more robust workflows.",
     creator: "@sla_ai",
     images: ["https://sla.ai/images/SLA-Logo copy.png"],
   },
