@@ -10,6 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sla.ai"),
   title: "SLA - Data-Driven Logistics & Sourcing",
   description: "Cut landed costs by 30% with AI-powered supplier matching and route optimization. Trusted by 1,000+ buyers & suppliers worldwide.",
   keywords: ["logistics", "sourcing", "supply chain", "shipping", "suppliers", "cost optimization"],
@@ -24,12 +25,12 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://sla.ai",
+    siteName: "SLA",
     title: "SLA - Data-Driven Logistics & Sourcing",
     description: "Cut landed costs by 30% with AI-powered supplier matching and route optimization",
-    siteName: "SLA",
     images: [
       {
-        url: "/images/SLA-Logo copy.png",
+        url: "https://sla.ai/images/SLA-Logo copy.png",
         width: 1200,
         height: 630,
         alt: "SLA Logo",
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     title: "SLA - Data-Driven Logistics & Sourcing",
     description: "Cut landed costs by 30% with AI-powered supplier matching and route optimization",
     creator: "@sla_ai",
-    images: ["/images/SLA-Logo copy.png"],
+    images: ["https://sla.ai/images/SLA-Logo copy.png"],
   },
   robots: {
     index: true,
