@@ -13,7 +13,7 @@ interface HeroProps {
 }
 
 export function Hero({
-  headline = "Enterprise planning that thinks ahead.",
+  headline = "Enterprise planning that actually works.",
   subcopy = "SLA fuses ERP essentials with AI and ML intelligence to build faster, smarter, and more robust workflows.",
   socialProof = "Driven by the world's most precise optimization models",
 }: HeroProps) {
@@ -61,16 +61,16 @@ export function Hero({
           </div>
 
           {/* Solutions row - spread out with subtext in bordered box */}
-          <div className="pt-16 relative">
-            <div className="border-2 border-white/20 rounded-lg p-8 relative mx-auto max-w-5xl">
+          <div className="pt-8 sm:pt-12 md:pt-16 relative">
+            <div className="border-2 border-white/20 rounded-lg p-4 sm:p-6 md:p-8 relative mx-auto max-w-5xl">
               {/* Border break with text */}
               <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-black px-4">
-                <span className="text-sm font-medium text-white">
+                <span className="text-xs sm:text-sm font-medium text-white">
                   Optimized with SLA
                 </span>
               </div>
               
-              <div className="flex items-center justify-center gap-16 text-2xl">
+              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-16 text-lg sm:text-xl md:text-2xl">
                 <div className="text-center">
                   <Link 
                     href="/solutions/procurement" 
@@ -79,7 +79,7 @@ export function Hero({
                   >
                     Procurement
                   </Link>
-                  <p className="text-sm text-gray-300 mt-2">AI procurement tools</p>
+                  <p className="text-xs sm:text-sm text-gray-300 mt-1 sm:mt-2">AI procurement tools</p>
                 </div>
                 <div className="text-center">
                   <Link 
@@ -89,7 +89,7 @@ export function Hero({
                   >
                     Inventory
                   </Link>
-                  <p className="text-sm text-gray-300 mt-2">Shorten cash conversion cycles</p>
+                  <p className="text-xs sm:text-sm text-gray-300 mt-1 sm:mt-2">Shorten cash conversion cycles</p>
                 </div>
                 <div className="text-center">
                   <Link 
@@ -99,7 +99,7 @@ export function Hero({
                   >
                     Logistics
                   </Link>
-                  <p className="text-sm text-gray-300 mt-2">Predictive logistics insights</p>
+                  <p className="text-xs sm:text-sm text-gray-300 mt-1 sm:mt-2">Predictive logistics insights</p>
                 </div>
                 <div className="text-center">
                   <Link 
@@ -109,7 +109,7 @@ export function Hero({
                   >
                     Supply
                   </Link>
-                  <p className="text-sm text-gray-300 mt-2">Actionable supply insights</p>
+                  <p className="text-xs sm:text-sm text-gray-300 mt-1 sm:mt-2">Actionable supply insights</p>
                 </div>
               </div>
             </div>
