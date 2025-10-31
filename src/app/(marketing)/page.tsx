@@ -5,7 +5,6 @@ import { Problem } from "@/components/marketing/Problem"
 import { TabsShowcaseSection } from "@/components/marketing/TabsShowcaseSection"
 import { About } from "@/components/marketing/About"
 import { Footer } from "@/components/marketing/Footer"
-import { MobileStickyCTA } from "@/components/marketing/MobileStickyCTA"
 
 export default function Home() {
   return (
@@ -19,7 +18,6 @@ export default function Home() {
         <About />
       </main>
       <Footer />
-      <MobileStickyCTA />
     </div>
   )
 }
