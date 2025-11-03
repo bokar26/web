@@ -39,7 +39,9 @@ import {
   Key, 
   RefreshCw, 
   ChevronDown, 
-  ChevronUp
+  ChevronUp,
+  Store,
+  ShoppingBag
 } from "lucide-react"
 import { useState, useEffect, useMemo, memo } from "react"
 import { useUser } from "@clerk/nextjs"
@@ -53,14 +55,12 @@ const NAVIGATION_SECTIONS = [
   },
   {
     type: 'group',
-    name: 'Search',
+    name: 'Procurement',
     icon: Search,
     items: [
       { name: 'Suppliers', href: '/dashboard/search/suppliers', icon: Building2 },
-      { name: 'Factories', href: '/dashboard/search/factories', icon: Factory },
       { name: 'Warehouses', href: '/dashboard/search/warehouses', icon: Warehouse },
-      { name: 'Freight Forwarders', href: '/dashboard/search/freight-forwarders', icon: Plane },
-      { name: 'Carriers', href: '/dashboard/search/carriers', icon: Truck },
+      { name: 'Logistics', href: '/dashboard/search/logistics', icon: Truck },
     ],
   },
   {
@@ -83,6 +83,8 @@ const NAVIGATION_SECTIONS = [
       { name: 'Customers', href: '/dashboard/manage/customers', icon: Users },
       { name: 'Purchase Orders', href: '/dashboard/manage/orders', icon: FileText },
       { name: 'Compliance', href: '/dashboard/manage/compliance', icon: ShieldCheck },
+      { name: 'Vendors', href: '/dashboard/manage/vendors', icon: Store },
+      { name: 'Products', href: '/dashboard/manage/products', icon: ShoppingBag },
     ],
   },
   {
@@ -118,20 +120,24 @@ function UserProfileSection({ isCollapsed }: { isCollapsed: boolean }) {
   if (!isLoaded) {
     return (
       <div className="flex items-center gap-3">
-        <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse" />
+        <div className="w-8 h-8 bg-gray-200 dark:bg-gray-900 rounded-full animate-pulse" />
         {!isCollapsed && (
           <div className="flex-1 min-w-0">
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-1" />
-            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-2/3" />
+            <div className="h-4 bg-gray-200 dark:bg-gray-900 rounded animate-pulse mb-1" />
+            <div className="h-3 bg-gray-200 dark:bg-gray-900 rounded animate-pulse w-2/3" />
           </div>
         )}
       </div>
     )
   }
 
-  const initials = user?.firstName?.[0] + (user?.lastName?.[0] || user?.emailAddresses[0]?.emailAddress[0] || 'U')
-  const displayName = user?.firstName || user?.emailAddresses[0]?.emailAddress.split('@')[0] || 'User'
-  const email = user?.emailAddresses[0]?.emailAddress
+  const primaryEmail = user?.emailAddresses?.[0]?.emailAddress
+  const emailInitial = primaryEmail?.[0] || 'U'
+  const emailUsername = primaryEmail?.split('@')[0] || 'User'
+  
+  const initials = user?.firstName?.[0] + (user?.lastName?.[0] || emailInitial)
+  const displayName = user?.firstName || emailUsername
+  const email = primaryEmail || undefined
 
   return (
     <div className="flex items-center gap-3">
@@ -140,7 +146,7 @@ function UserProfileSection({ isCollapsed }: { isCollapsed: boolean }) {
       </div>
       {!isCollapsed && (
         <div className="flex-1 min-w-0">
-          <div className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{displayName}</div>
+          <div className="text-sm font-medium text-gray-900 dark:text-white truncate">{displayName}</div>
           <div className="text-xs text-gray-500 dark:text-gray-400 truncate">{email}</div>
         </div>
       )}
@@ -253,14 +259,14 @@ function Sidebar() {
 
   return (
     <div className={cn(
-      "fixed left-0 top-0 h-screen flex flex-col bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 transition-[width] duration-150 ease-out will-change-[width] z-40",
+      "fixed left-0 top-0 h-screen flex flex-col bg-gray-50 dark:bg-black border-r border-gray-200 dark:border-gray-800 transition-[width] duration-150 ease-out will-change-[width] z-40",
       isCollapsed ? "w-16" : "w-64"
     )}>
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
+      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800 flex-shrink-0">
         {!isCollapsed && (
           <Link href="/" aria-label="Go to home" className="inline-flex items-center">
-            <div className="text-xl font-semibold text-gray-900 dark:text-gray-100">SLA</div>
+            <div className="text-xl font-semibold text-gray-900 dark:text-white">SLA</div>
           </Link>
         )}
         <div className="flex items-center gap-2">
@@ -268,7 +274,7 @@ function Sidebar() {
             variant="ghost"
             size="icon"
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
             title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
@@ -277,7 +283,7 @@ function Sidebar() {
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
             title={isDark ? "Switch to light mode" : "Switch to dark mode"}
           >
             {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -286,11 +292,11 @@ function Sidebar() {
       </div>
 
       {/* Navigation - Scrollable */}
-      <nav className="flex-1 overflow-y-auto p-3 space-y-1 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
+      <nav className="flex-1 overflow-y-auto p-3 space-y-1 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent">
         {NAVIGATION_SECTIONS.map((section, sectionIndex) => (
           <div key={section.name}>
             {sectionIndex > 0 && (
-              <div className="h-px bg-gray-200 dark:bg-gray-700 my-3" />
+              <div className="h-px bg-gray-200 dark:bg-gray-800 my-3" />
             )}
             
             {section.type === 'single' && section.href ? (
@@ -299,8 +305,8 @@ function Sidebar() {
                 prefetch={true}
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors",
-                  "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100",
-                  (pathname === section.href || pathname.startsWith(section.href + "/")) && "bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm border border-gray-200 dark:border-gray-600",
+                  "text-gray-600 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-white",
+                  (pathname === section.href || pathname.startsWith(section.href + "/")) && "bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-sm border border-gray-200 dark:border-gray-700",
                   isCollapsed && "justify-center"
                 )}
                 title={isCollapsed ? section.name : undefined}
@@ -314,7 +320,7 @@ function Sidebar() {
                   onClick={() => toggleSection(section.name)}
                   className={cn(
                     "flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors",
-                    "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100",
+                    "text-gray-600 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white",
                     isCollapsed && "justify-center"
                   )}
                   title={isCollapsed ? section.name : undefined}
@@ -343,8 +349,8 @@ function Sidebar() {
                           prefetch={true}
                           className={cn(
                             "flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-colors",
-                            "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100",
-                            isActive && "bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm border border-gray-200 dark:border-gray-600"
+                            "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-white",
+                            isActive && "bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-sm border border-gray-200 dark:border-gray-700"
                           )}
                         >
                           <item.icon className="h-5 w-5 flex-shrink-0" />
@@ -361,7 +367,7 @@ function Sidebar() {
       </nav>
 
       {/* User Profile */}
-      <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex-shrink-0">
+      <div className="p-4 border-t border-gray-200 dark:border-gray-800 flex-shrink-0">
         <UserProfileSection isCollapsed={isCollapsed} />
       </div>
     </div>

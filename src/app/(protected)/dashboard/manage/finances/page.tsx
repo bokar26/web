@@ -1,9 +1,10 @@
 "use client";
 
-import { GlassCard } from "@/components/dashboard/atoms/GlassCard";
+
 import { financialData } from "@/lib/mockData";
 import { DollarSign, TrendingUp, AlertTriangle, BarChart3, PieChart as PieChartIcon } from "lucide-react";
 import { PieChart, Pie, Cell, LineChart, Line, XAxis, YAxis, ResponsiveContainer, BarChart, Bar } from "recharts";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function FinancesPage() {
   const getFlagColor = (flag: string) => {
@@ -15,7 +16,7 @@ export default function FinancesPage() {
       case 'good':
         return 'text-green-400 bg-green-900/20 border-green-500/30';
       default:
-        return 'text-gray-400 bg-gray-900/20 border-gray-500/30';
+        return 'text-gray-600 dark:text-white bg-gray-900/20 border-gray-500/30';
     }
   };
 
@@ -28,7 +29,7 @@ export default function FinancesPage() {
       case 'low':
         return 'text-green-400';
       default:
-        return 'text-gray-400';
+        return 'text-gray-600 dark:text-white';
     }
   };
 
@@ -36,12 +37,11 @@ export default function FinancesPage() {
     <div className="dashboard-bg min-h-screen p-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-white mb-2">Finances</h1>
-        <p className="text-gray-300">Financial analytics and cost management insights</p>
       </div>
 
       {/* Anomaly Banner */}
       {financialData.anomalies.length > 0 && (
-        <GlassCard className="p-4 mb-6 border-l-4 border-red-500">
+        <Card className="dashboard-card p-4 mb-6 border-l-4 border-red-500">
           <div className="flex items-center space-x-3">
             <AlertTriangle className="w-5 h-5 text-red-400" />
             <div>
@@ -55,18 +55,19 @@ export default function FinancesPage() {
               </div>
             </div>
           </div>
-        </GlassCard>
+        </Card>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Cost Composition Donut */}
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white flex items-center space-x-2">
               <PieChartIcon className="w-5 h-5" />
               <span>Total Cost Composition</span>
             </h3>
-            <div className="text-sm text-gray-400">Last 30 days</div>
+            <div className="text-sm text-gray-600 dark:text-white">Last 30 days</div>
           </div>
           
           <div className="h-64">
@@ -96,21 +97,23 @@ export default function FinancesPage() {
                   className="w-3 h-3 rounded-full" 
                   style={{ backgroundColor: item.color }}
                 />
-                <span className="text-sm text-gray-300">{item.category}</span>
+                <span className="text-sm text-gray-900 dark:text-white">{item.category}</span>
                 <span className="text-sm font-medium text-white ml-auto">{item.value}%</span>
               </div>
             ))}
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
         {/* Cost Per Unit Trend */}
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white flex items-center space-x-2">
               <TrendingUp className="w-5 h-5" />
               <span>Cost Per Unit Trend</span>
             </h3>
-            <div className="text-sm text-gray-400">Weekly average</div>
+            <div className="text-sm text-gray-600 dark:text-white">Weekly average</div>
           </div>
           
           <div className="h-64">
@@ -136,50 +139,51 @@ export default function FinancesPage() {
             </ResponsiveContainer>
           </div>
           
-          <div className="mt-4 p-3 rounded-lg bg-gray-800/50">
+          <div className="mt-4 p-3 rounded-lg bg-gray-100 dark:bg-gray-900/50">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-400">Current Average</span>
+              <span className="text-sm text-gray-600 dark:text-white">Current Average</span>
               <span className="text-lg font-bold text-white">
                 ${financialData.costPerUnitTrend[financialData.costPerUnitTrend.length - 1].cost}
               </span>
             </div>
             <div className="flex items-center justify-between mt-1">
-              <span className="text-sm text-gray-400">vs Last Month</span>
+              <span className="text-sm text-gray-600 dark:text-white">vs Last Month</span>
               <span className="text-sm text-green-400">-5.8%</span>
             </div>
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
       </div>
 
       {/* Margin Analysis Table */}
-      <GlassCard className="p-6 mt-6">
+      <Card className="dashboard-card p-6 mt-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-white flex items-center space-x-2">
             <BarChart3 className="w-5 h-5" />
             <span>Margin Analysis by Product</span>
           </h3>
-          <div className="text-sm text-gray-400">Last 30 days</div>
+          <div className="text-sm text-gray-600 dark:text-white">Last 30 days</div>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-700">
-                <th className="text-left text-sm font-medium text-gray-300 py-3">Product</th>
-                <th className="text-left text-sm font-medium text-gray-300 py-3">Route</th>
-                <th className="text-right text-sm font-medium text-gray-300 py-3">Margin %</th>
-                <th className="text-right text-sm font-medium text-gray-300 py-3">Variance</th>
-                <th className="text-center text-sm font-medium text-gray-300 py-3">Status</th>
+                <th className="text-left text-sm font-medium text-gray-900 dark:text-white py-3">Product</th>
+                <th className="text-left text-sm font-medium text-gray-900 dark:text-white py-3">Route</th>
+                <th className="text-right text-sm font-medium text-gray-900 dark:text-white py-3">Margin %</th>
+                <th className="text-right text-sm font-medium text-gray-900 dark:text-white py-3">Variance</th>
+                <th className="text-center text-sm font-medium text-gray-900 dark:text-white py-3">Status</th>
               </tr>
             </thead>
             <tbody>
               {financialData.marginByProduct.map((product, index) => (
-                <tr key={index} className="border-b border-gray-800 hover:bg-gray-800/50">
+                <tr key={index} className="border-b border-gray-800 hover:bg-gray-100 dark:bg-gray-900/50">
                   <td className="py-3">
                     <div className="text-sm font-medium text-white">{product.product}</div>
                   </td>
                   <td className="py-3">
-                    <div className="text-sm text-gray-300">{product.route}</div>
+                    <div className="text-sm text-gray-900 dark:text-white">{product.route}</div>
                   </td>
                   <td className="py-3 text-right">
                     <div className="text-sm font-medium text-white">{product.margin}%</div>
@@ -201,45 +205,53 @@ export default function FinancesPage() {
             </tbody>
           </table>
         </div>
-      </GlassCard>
+      </Card>
 
       {/* Financial KPIs */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <DollarSign className="w-5 h-5 text-green-400" />
-            <span className="text-sm text-gray-400">Total Revenue</span>
+            <span className="text-sm text-gray-600 dark:text-white">Total Revenue</span>
           </div>
           <div className="text-2xl font-bold text-white mb-1">$2.4M</div>
           <div className="text-sm text-green-400">+12.5% vs last month</div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <TrendingUp className="w-5 h-5 text-blue-400" />
-            <span className="text-sm text-gray-400">Avg Margin</span>
+            <span className="text-sm text-gray-600 dark:text-white">Avg Margin</span>
           </div>
           <div className="text-2xl font-bold text-white mb-1">22.3%</div>
           <div className="text-sm text-green-400">+1.2% vs last month</div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <BarChart3 className="w-5 h-5 text-amber-400" />
-            <span className="text-sm text-gray-400">Cost Variance</span>
+            <span className="text-sm text-gray-600 dark:text-white">Cost Variance</span>
           </div>
           <div className="text-2xl font-bold text-white mb-1">3.2%</div>
           <div className="text-sm text-red-400">+0.8% vs target</div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <AlertTriangle className="w-5 h-5 text-red-400" />
-            <span className="text-sm text-gray-400">Anomalies</span>
+            <span className="text-sm text-gray-600 dark:text-white">Anomalies</span>
           </div>
           <div className="text-2xl font-bold text-white mb-1">{financialData.anomalies.length}</div>
-          <div className="text-sm text-gray-400">Active alerts</div>
-        </GlassCard>
+          <div className="text-sm text-gray-600 dark:text-white">Active alerts</div>
+        </CardContent>
+        </Card>
       </div>
     </div>
   );

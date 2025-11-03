@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
-import { GlassCard } from "@/components/dashboard/atoms/GlassCard"
 import { 
   Package, 
   AlertTriangle, 
@@ -17,14 +16,11 @@ import {
 
 export default function InventoryAvailabilityPage() {
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Inventory Availability</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Monitor stock levels and predict inventory needs
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Inventory Availability</h1>
         </div>
         <div className="flex items-center gap-3">
           <Button variant="outline">Export Report</Button>
@@ -40,15 +36,16 @@ export default function InventoryAvailabilityPage() {
         <span>/</span>
         <span>Performance</span>
         <span>/</span>
-        <span className="text-gray-900 dark:text-gray-100">Inventory Availability</span>
+        <span className="text-gray-900 dark:text-white">Inventory Availability</span>
       </nav>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-400">Total SKUs</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-white">Total SKUs</p>
               <p className="text-3xl font-bold text-blue-400">2,847</p>
               <p className="text-sm text-blue-500 flex items-center mt-1">
                 <TrendingUp className="h-4 w-4 mr-1" />
@@ -57,12 +54,14 @@ export default function InventoryAvailabilityPage() {
             </div>
             <Package className="h-8 w-8 text-blue-400" />
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-400">Stock-Out Risk</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-white">Stock-Out Risk</p>
               <p className="text-3xl font-bold text-red-400">23</p>
               <p className="text-sm text-red-500 flex items-center mt-1">
                 <AlertTriangle className="h-4 w-4 mr-1" />
@@ -71,12 +70,14 @@ export default function InventoryAvailabilityPage() {
             </div>
             <AlertTriangle className="h-8 w-8 text-red-400" />
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-400">Avg Turnover</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-white">Avg Turnover</p>
               <p className="text-3xl font-bold text-emerald-400">4.2x</p>
               <p className="text-sm text-emerald-500 flex items-center mt-1">
                 <TrendingUp className="h-4 w-4 mr-1" />
@@ -85,12 +86,14 @@ export default function InventoryAvailabilityPage() {
             </div>
             <BarChart3 className="h-8 w-8 text-emerald-400" />
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-400">Warehouses</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-white">Warehouses</p>
               <p className="text-3xl font-bold text-purple-400">8</p>
               <p className="text-sm text-purple-500 flex items-center mt-1">
                 <Warehouse className="h-4 w-4 mr-1" />
@@ -99,12 +102,14 @@ export default function InventoryAvailabilityPage() {
             </div>
             <Warehouse className="h-8 w-8 text-purple-400" />
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
       </div>
 
       {/* Stock-Out Alerts */}
-      <GlassCard className="p-6">
-        <h3 className="text-lg font-semibold text-gray-100 mb-4">Stock-Out Alerts</h3>
+      <Card className="dashboard-card">
+          <CardContent className="p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Stock-Out Alerts</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
             <div className="flex items-center justify-between mb-2">
@@ -131,48 +136,52 @@ export default function InventoryAvailabilityPage() {
             <p className="text-xs text-orange-400 mt-1">8 days remaining</p>
           </div>
         </div>
-      </GlassCard>
+      </CardContent>
+        </Card>
 
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Warehouse Inventory Levels */}
-        <GlassCard className="p-6">
-          <h3 className="text-lg font-semibold text-gray-100 mb-4">Warehouse Inventory Levels</h3>
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Warehouse Inventory Levels</h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-gray-300">Shanghai Hub</span>
+              <span className="text-gray-900 dark:text-white">Shanghai Hub</span>
               <div className="flex items-center gap-2">
                 <Progress value={85} className="w-32 h-2" />
-                <span className="text-sm text-gray-400">85%</span>
+                <span className="text-sm text-gray-600 dark:text-white">85%</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-gray-300">Los Angeles DC</span>
+              <span className="text-gray-900 dark:text-white">Los Angeles DC</span>
               <div className="flex items-center gap-2">
                 <Progress value={72} className="w-32 h-2" />
-                <span className="text-sm text-gray-400">72%</span>
+                <span className="text-sm text-gray-600 dark:text-white">72%</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-gray-300">Hamburg Hub</span>
+              <span className="text-gray-900 dark:text-white">Hamburg Hub</span>
               <div className="flex items-center gap-2">
                 <Progress value={91} className="w-32 h-2" />
-                <span className="text-sm text-gray-400">91%</span>
+                <span className="text-sm text-gray-600 dark:text-white">91%</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-gray-300">Miami Warehouse</span>
+              <span className="text-gray-900 dark:text-white">Miami Warehouse</span>
               <div className="flex items-center gap-2">
                 <Progress value={68} className="w-32 h-2" />
-                <span className="text-sm text-gray-400">68%</span>
+                <span className="text-sm text-gray-600 dark:text-white">68%</span>
               </div>
             </div>
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
         {/* AI Prediction Widget */}
-        <GlassCard className="p-6">
-          <h3 className="text-lg font-semibold text-gray-100 mb-4">AI Inventory Predictions</h3>
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">AI Inventory Predictions</h3>
           <div className="space-y-4">
             <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
               <div className="flex items-center gap-2 mb-2">
@@ -196,50 +205,52 @@ export default function InventoryAvailabilityPage() {
               <p className="text-sm text-purple-300">PKG-002 shows 25% higher demand in Q4</p>
             </div>
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
       </div>
 
       {/* SKU Inventory Status Table */}
-      <GlassCard className="p-6">
-        <h3 className="text-lg font-semibold text-gray-100 mb-4">SKU Inventory Status</h3>
+      <Card className="dashboard-card">
+          <CardContent className="p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">SKU Inventory Status</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
-            <thead className="bg-gray-800/50">
+            <thead className="bg-gray-100 dark:bg-gray-900/50">
               <tr>
-                <th className="py-3 px-4 text-sm font-medium text-gray-300">SKU</th>
-                <th className="py-3 px-4 text-sm font-medium text-gray-300">Description</th>
-                <th className="py-3 px-4 text-sm font-medium text-gray-300">Current Stock</th>
-                <th className="py-3 px-4 text-sm font-medium text-gray-300">Min Level</th>
-                <th className="py-3 px-4 text-sm font-medium text-gray-300">Status</th>
-                <th className="py-3 px-4 text-sm font-medium text-gray-300">Days Remaining</th>
+                <th className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">SKU</th>
+                <th className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">Description</th>
+                <th className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">Current Stock</th>
+                <th className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">Min Level</th>
+                <th className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">Status</th>
+                <th className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">Days Remaining</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-gray-800">
-                <td className="py-4 px-4 text-gray-100">FAB-001</td>
-                <td className="py-4 px-4 text-gray-300">Cotton Fabric 100%</td>
-                <td className="py-4 px-4 text-gray-300">150</td>
-                <td className="py-4 px-4 text-gray-300">200</td>
+              <tr className="border-b border-gray-200 dark:border-gray-800">
+                <td className="py-4 px-4 text-gray-900 dark:text-white">FAB-001</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">Cotton Fabric 100%</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">150</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">200</td>
                 <td className="py-4 px-4">
                   <Badge className="bg-red-500/20 text-red-300">Critical</Badge>
                 </td>
                 <td className="py-4 px-4 text-red-400">2</td>
               </tr>
-              <tr className="border-b border-gray-800">
-                <td className="py-4 px-4 text-gray-100">TRM-001</td>
-                <td className="py-4 px-4 text-gray-300">Zippers & Trims</td>
-                <td className="py-4 px-4 text-gray-300">800</td>
-                <td className="py-4 px-4 text-gray-300">1000</td>
+              <tr className="border-b border-gray-200 dark:border-gray-800">
+                <td className="py-4 px-4 text-gray-900 dark:text-white">TRM-001</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">Zippers & Trims</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">800</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">1000</td>
                 <td className="py-4 px-4">
                   <Badge className="bg-amber-500/20 text-amber-300">Warning</Badge>
                 </td>
                 <td className="py-4 px-4 text-amber-400">5</td>
               </tr>
-              <tr className="border-b border-gray-800">
-                <td className="py-4 px-4 text-gray-100">PKG-001</td>
-                <td className="py-4 px-4 text-gray-300">Cardboard Boxes</td>
-                <td className="py-4 px-4 text-gray-300">2,500</td>
-                <td className="py-4 px-4 text-gray-300">3,000</td>
+              <tr className="border-b border-gray-200 dark:border-gray-800">
+                <td className="py-4 px-4 text-gray-900 dark:text-white">PKG-001</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">Cardboard Boxes</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">2,500</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">3,000</td>
                 <td className="py-4 px-4">
                   <Badge className="bg-green-500/20 text-green-300">Good</Badge>
                 </td>
@@ -248,7 +259,8 @@ export default function InventoryAvailabilityPage() {
             </tbody>
           </table>
         </div>
-      </GlassCard>
+      </CardContent>
+        </Card>
     </div>
   )
 }

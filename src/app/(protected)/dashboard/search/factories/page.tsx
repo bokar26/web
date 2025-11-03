@@ -123,7 +123,7 @@ export default function FactoriesPage() {
       sortable: true,
       width: '120px',
       render: (value: unknown) => (
-        <span className="font-medium">{(value as number).toLocaleString()} units/month</span>
+        <span className="font-medium text-gray-900 dark:text-white">{(value as number).toLocaleString()} units/month</span>
       ),
     },
     {
@@ -160,7 +160,7 @@ export default function FactoriesPage() {
       sortable: true,
       width: '100px',
       render: (value: unknown) => (
-        <span className="font-medium">{value as number}</span>
+        <span className="font-medium text-gray-900 dark:text-white">{value as number}</span>
       ),
     },
   ]
@@ -244,17 +244,16 @@ export default function FactoriesPage() {
   )
 
   return (
-    <div className="space-y-6">
+    <div className="p-6 space-y-4">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Factories</h1>
-        <p className="text-gray-600 mt-1">Find manufacturing partners with the right capabilities and capacity</p>
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white">Factories</h1>
       </div>
 
       {/* 2-Column Layout */}
-      <div className="flex gap-6 min-h-[calc(100vh-12rem)]">
+      <div className="flex gap-4 min-h-[calc(100vh-12rem)]">
         {/* Left Column: Search & Filters */}
-        <div className="w-80 flex-shrink-0 space-y-4 overflow-y-auto">
+        <div className="w-64 flex-shrink-0 space-y-4 overflow-y-auto">
           <SearchToolbar
             searchQuery={searchQuery}
             onSearchChange={handleSearchChange}

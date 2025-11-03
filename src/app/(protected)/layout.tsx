@@ -11,9 +11,9 @@ export default function ProtectedLayout({
   return (
     <>
       <SignedIn>
-        <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="flex h-screen bg-gray-50 dark:bg-black">
           <Sidebar />
-          <main className="flex-1 overflow-y-auto ml-16 lg:ml-64 transition-all duration-150 ease-out">
+          <main className="flex-1 overflow-y-auto ml-16 lg:ml-64 transition-all duration-150 ease-out bg-gray-50 dark:bg-black">
             {children}
           </main>
         </div>

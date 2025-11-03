@@ -23,6 +23,7 @@ export default clerkMiddleware((auth, req) => {
 });
 
 // Configure matcher to ignore Next.js internals and static files
+// This pattern matches all routes except static files and Next.js internals
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files

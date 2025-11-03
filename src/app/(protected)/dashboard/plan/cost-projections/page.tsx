@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { GlassCard } from "@/components/dashboard/atoms/GlassCard";
+
 import { costEstimatorInputs, costBreakdown } from "@/lib/mockData";
 import { DollarSign, Calculator, TrendingUp, Package, Ship, FileText } from "lucide-react";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from "recharts";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function CostProjectionsPage() {
   const [inputs, setInputs] = useState(costEstimatorInputs);
@@ -42,14 +43,15 @@ export default function CostProjectionsPage() {
     <div className="dashboard-bg min-h-screen p-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-white mb-2">Cost Projections</h1>
-        <p className="text-gray-300">Interactive cost estimator with scenario planning and breakdown analysis</p>
+        <p className="text-gray-900 dark:text-white">Interactive cost estimator with scenario planning and breakdown analysis</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Panel */}
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-white flex items-center space-x-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center space-x-2">
               <Calculator className="w-5 h-5" />
               <span>Cost Parameters</span>
             </h3>
@@ -61,25 +63,25 @@ export default function CostProjectionsPage() {
           <div className="space-y-6">
             {/* Quantity */}
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Quantity</label>
+              <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Quantity</label>
               <div className="relative">
                 <input
                   type="number"
                   value={inputs.quantity}
                   onChange={(e) => handleInputChange('quantity', parseInt(e.target.value) || 0)}
-                  className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white pr-16"
+                  className="w-full bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 rounded px-3 py-2 text-gray-900 dark:text-white pr-16"
                 />
-                <div className="absolute right-3 top-2 text-gray-400 text-sm">units</div>
+                <div className="absolute right-3 top-2 text-gray-600 dark:text-white text-sm">units</div>
               </div>
             </div>
 
             {/* Port */}
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Port</label>
+              <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Port</label>
               <select
                 value={inputs.port}
                 onChange={(e) => handleInputChange('port', e.target.value)}
-                className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white"
+                className="w-full bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 rounded px-3 py-2 text-gray-900 dark:text-white"
               >
                 <option value="Shanghai">Shanghai</option>
                 <option value="Hong Kong">Hong Kong</option>
@@ -90,7 +92,7 @@ export default function CostProjectionsPage() {
 
             {/* Transport Mode */}
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Transport Mode</label>
+              <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Transport Mode</label>
               <div className="grid grid-cols-2 gap-2">
                 {['Sea', 'Air', 'Rail', 'Road'].map((mode) => (
                   <button
@@ -99,7 +101,7 @@ export default function CostProjectionsPage() {
                     className={`p-3 rounded-lg text-sm transition-colors ${
                       inputs.transportMode === mode
                         ? 'bg-green-600 text-white'
-                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                        : 'bg-white dark:bg-gray-950 border border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900'
                     }`}
                   >
                     {mode}
@@ -110,11 +112,11 @@ export default function CostProjectionsPage() {
 
             {/* Incoterm */}
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Incoterm</label>
+              <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Incoterm</label>
               <select
                 value={inputs.incoterm}
                 onChange={(e) => handleInputChange('incoterm', e.target.value)}
-                className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white"
+                className="w-full bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 rounded px-3 py-2 text-gray-900 dark:text-white"
               >
                 <option value="FOB">FOB (Free On Board)</option>
                 <option value="CIF">CIF (Cost, Insurance, Freight)</option>
@@ -129,17 +131,19 @@ export default function CostProjectionsPage() {
                 type="checkbox"
                 checked={inputs.dutyEnabled}
                 onChange={(e) => handleInputChange('dutyEnabled', e.target.checked)}
-                className="w-4 h-4 text-green-600 bg-gray-700 border-gray-600 rounded focus:ring-green-500"
+                className="w-4 h-4 text-green-600 bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 rounded focus:ring-green-500"
               />
-              <label className="text-sm text-gray-300">Include Duty & Taxes</label>
+              <label className="text-sm text-gray-900 dark:text-white">Include Duty & Taxes</label>
             </div>
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
         {/* Output Panel */}
         <div className="space-y-6">
           {/* Total Cost */}
-          <GlassCard className="p-6">
+          <Card className="dashboard-card">
+          <CardContent className="p-6">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center space-x-2">
               <DollarSign className="w-5 h-5" />
               <span>Total Landed Cost</span>
@@ -149,49 +153,51 @@ export default function CostProjectionsPage() {
               <div className="text-4xl font-bold text-white mb-2">
                 ${breakdown.total.toLocaleString()}
               </div>
-              <div className="text-sm text-gray-400">per {inputs.quantity} units</div>
+              <div className="text-sm text-gray-600 dark:text-white">per {inputs.quantity} units</div>
             </div>
 
             {/* Cost Breakdown */}
             <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-800/50">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-100 dark:bg-gray-900/50">
                 <div className="flex items-center space-x-2">
                   <Package className="w-4 h-4 text-green-400" />
-                  <span className="text-sm text-gray-300">Product Cost</span>
+                  <span className="text-sm text-gray-900 dark:text-white">Product Cost</span>
                 </div>
                 <span className="text-sm font-medium text-white">${breakdown.product.toLocaleString()}</span>
               </div>
               
-              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-800/50">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-100 dark:bg-gray-900/50">
                 <div className="flex items-center space-x-2">
                   <Ship className="w-4 h-4 text-blue-400" />
-                  <span className="text-sm text-gray-300">Freight Cost</span>
+                  <span className="text-sm text-gray-900 dark:text-white">Freight Cost</span>
                 </div>
                 <span className="text-sm font-medium text-white">${breakdown.freight.toLocaleString()}</span>
               </div>
               
               {inputs.dutyEnabled && (
-                <div className="flex items-center justify-between p-3 rounded-lg bg-gray-800/50">
+                <div className="flex items-center justify-between p-3 rounded-lg bg-gray-100 dark:bg-gray-900/50">
                   <div className="flex items-center space-x-2">
                     <FileText className="w-4 h-4 text-amber-400" />
-                    <span className="text-sm text-gray-300">Duty & Taxes</span>
+                    <span className="text-sm text-gray-900 dark:text-white">Duty & Taxes</span>
                   </div>
                   <span className="text-sm font-medium text-white">${breakdown.duty.toLocaleString()}</span>
                 </div>
               )}
               
-              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-800/50">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-gray-100 dark:bg-gray-900/50">
                 <div className="flex items-center space-x-2">
-                  <Calculator className="w-4 h-4 text-gray-400" />
-                  <span className="text-sm text-gray-300">Miscellaneous</span>
+                  <Calculator className="w-4 h-4 text-gray-600 dark:text-white" />
+                  <span className="text-sm text-gray-900 dark:text-white">Miscellaneous</span>
                 </div>
                 <span className="text-sm font-medium text-white">${breakdown.misc.toLocaleString()}</span>
               </div>
             </div>
-          </GlassCard>
+          </CardContent>
+        </Card>
 
           {/* Cost Composition Chart */}
-          <GlassCard className="p-6">
+          <Card className="dashboard-card">
+          <CardContent className="p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Cost Composition</h3>
             
             <div className="h-48">
@@ -221,25 +227,27 @@ export default function CostProjectionsPage() {
                     className="w-3 h-3 rounded-full" 
                     style={{ backgroundColor: item.color }}
                   />
-                  <span className="text-sm text-gray-300">{item.category}</span>
+                  <span className="text-sm text-gray-900 dark:text-white">{item.category}</span>
                   <span className="text-sm font-medium text-white ml-auto">
                     {Math.round((item.value / breakdown.total) * 100)}%
                   </span>
                 </div>
               ))}
             </div>
-          </GlassCard>
+          </CardContent>
+        </Card>
         </div>
       </div>
 
       {/* Scenario Comparison */}
-      <GlassCard className="p-6 mt-6">
+      <Card className="dashboard-card mt-6">
+        <CardContent className="p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-white flex items-center space-x-2">
             <TrendingUp className="w-5 h-5" />
             <span>Scenario Comparison</span>
           </h3>
-          <Button variant="outline" className="text-gray-300 border-gray-600">
+          <Button variant="outline" className="text-gray-900 dark:text-white border-gray-600">
             Compare Scenarios
           </Button>
         </div>
@@ -268,18 +276,19 @@ export default function CostProjectionsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
           {scenarioData.map((scenario, index) => (
             <div key={index} className="p-4 rounded-lg bg-gray-800/50 border border-gray-600">
-              <div className="text-sm font-medium text-gray-300 mb-2">{scenario.scenario}</div>
+              <div className="text-sm font-medium text-gray-900 dark:text-white mb-2">{scenario.scenario}</div>
               <div className="text-2xl font-bold text-white mb-1">
                 ${scenario.cost.toLocaleString()}
               </div>
-              <div className="text-xs text-gray-400">
+              <div className="text-xs text-gray-600 dark:text-white">
                 {scenario.cost === breakdown.total ? 'Current' : 
                  scenario.cost < breakdown.total ? '15% savings' : '15% premium'}
               </div>
             </div>
           ))}
         </div>
-      </GlassCard>
+      </CardContent>
+        </Card>
     </div>
   );
 }

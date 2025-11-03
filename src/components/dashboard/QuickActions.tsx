@@ -19,7 +19,7 @@ export function QuickActions({ timeSaved, costSaved }: QuickActionsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
       {/* Time Savings */}
-      <Card className="hover:shadow-lg transition-shadow">
+      <Card className="dashboard-card hover:shadow-lg transition-shadow">
         <CardHeader className="pb-2">
           <SectionHeading label="SLA" title="Time Savings" />
         </CardHeader>
@@ -41,7 +41,7 @@ export function QuickActions({ timeSaved, costSaved }: QuickActionsProps) {
       </Card>
 
       {/* Cost Savings */}
-      <Card className="hover:shadow-lg transition-shadow">
+      <Card className="dashboard-card hover:shadow-lg transition-shadow">
         <CardHeader className="pb-2">
           <SectionHeading label="SLA" title="Cost Savings" />
         </CardHeader>

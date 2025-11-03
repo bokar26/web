@@ -12,9 +12,6 @@ export default function ClientsPage() {
             <Users className="h-8 w-8 mr-3 text-emerald-500" />
             Clients
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Manage your client database and relationships.
-          </p>
         </div>
         <Button className="bg-emerald-500 hover:bg-emerald-600 text-white">
           <Upload className="h-4 w-4 mr-2" />
@@ -24,11 +21,11 @@ export default function ClientsPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="hover:shadow-lg transition-shadow">
+        <Card className="dashboard-card hover:shadow-lg transition-shadow">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <p className="text-sm font-medium text-gray-600 dark:text-white">
                   Total Clients
                 </p>
                 <p className="text-2xl font-bold text-gray-900 dark:text-white">3</p>
@@ -40,11 +37,11 @@ export default function ClientsPage() {
           </CardContent>
         </Card>
 
-        <Card className="hover:shadow-lg transition-shadow">
+        <Card className="dashboard-card hover:shadow-lg transition-shadow">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <p className="text-sm font-medium text-gray-600 dark:text-white">
                   Active Orders
                 </p>
                 <p className="text-2xl font-bold text-gray-900 dark:text-white">5</p>
@@ -56,11 +53,11 @@ export default function ClientsPage() {
           </CardContent>
         </Card>
 
-        <Card className="hover:shadow-lg transition-shadow">
+        <Card className="dashboard-card hover:shadow-lg transition-shadow">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <p className="text-sm font-medium text-gray-600 dark:text-white">
                   Locations
                 </p>
                 <p className="text-2xl font-bold text-gray-900 dark:text-white">3</p>
@@ -72,11 +69,11 @@ export default function ClientsPage() {
           </CardContent>
         </Card>
 
-        <Card className="hover:shadow-lg transition-shadow">
+        <Card className="dashboard-card hover:shadow-lg transition-shadow">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <p className="text-sm font-medium text-gray-600 dark:text-white">
                   Contact Points
                 </p>
                 <p className="text-2xl font-bold text-gray-900 dark:text-white">8</p>
@@ -101,13 +98,13 @@ export default function ClientsPage() {
       {/* Empty State */}
       <Card className="text-center py-12">
         <CardContent>
-          <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
-            <Users className="h-12 w-12 text-gray-400" />
+          <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-950 rounded-full flex items-center justify-center">
+            <Users className="h-12 w-12 text-gray-600 dark:text-white" />
           </div>
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
             No clients found
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
+          <p className="text-gray-600 dark:text-white mb-6">
             Get started by adding your first client.
           </p>
           <Button className="bg-emerald-500 hover:bg-emerald-600 text-white">

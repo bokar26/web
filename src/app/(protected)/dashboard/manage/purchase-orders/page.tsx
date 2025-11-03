@@ -149,17 +149,14 @@ export default function PurchaseOrdersPage() {
   }
 
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Purchase Orders</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Real-time visibility across all supplier POs and fulfillment status.
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Purchase Orders</h1>
         </div>
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+          <Button variant="outline" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
             <Download className="h-4 w-4 mr-2" />
             Export
           </Button>

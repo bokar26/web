@@ -81,19 +81,19 @@ const apiKeys = [
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'active': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200'
-    case 'deprecated': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-    case 'revoked': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+    case 'active': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-white'
+    case 'deprecated': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-white'
+    case 'revoked': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-white'
+    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white'
   }
 }
 
 const getEnvironmentColor = (environment: string) => {
   switch (environment) {
-    case 'production': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+    case 'production': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-white'
     case 'development': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
     case 'staging': return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
-    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white'
   }
 }
 
@@ -123,17 +123,14 @@ export default function APIKeysPage() {
   const deprecatedKeys = apiKeys.filter(key => key.status === 'deprecated').length
 
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">API Keys</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Manage your API keys and access credentials
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">API Keys</h1>
         </div>
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+          <Button variant="outline" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
             <RefreshCw className="h-4 w-4 mr-2" />
             Refresh Usage
           </Button>
@@ -146,12 +143,12 @@ export default function APIKeysPage() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total API Keys</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{totalKeys}</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Total API Keys</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{totalKeys}</p>
                 <p className="text-xs text-blue-600 dark:text-blue-400 flex items-center mt-1">
                   <Key className="h-3 w-3 mr-1" />
                   {activeKeys} active
@@ -162,12 +159,12 @@ export default function APIKeysPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Active Keys</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{activeKeys}</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Active Keys</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{activeKeys}</p>
                 <p className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center mt-1">
                   <CheckCircle className="h-3 w-3 mr-1" />
                   In use
@@ -178,12 +175,12 @@ export default function APIKeysPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Deprecated Keys</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{deprecatedKeys}</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Deprecated Keys</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{deprecatedKeys}</p>
                 <p className="text-xs text-yellow-600 dark:text-yellow-400 flex items-center mt-1">
                   <AlertTriangle className="h-3 w-3 mr-1" />
                   Need attention
@@ -194,12 +191,12 @@ export default function APIKeysPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Usage</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">1,815</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Total Usage</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">1,815</p>
                 <p className="text-xs text-blue-600 dark:text-blue-400 flex items-center mt-1">
                   <Activity className="h-3 w-3 mr-1" />
                   This month
@@ -212,19 +209,19 @@ export default function APIKeysPage() {
       </div>
 
       {/* API Keys List */}
-      <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+      <Card className="dashboard-card">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-gray-100">API Keys</CardTitle>
+          <CardTitle className="dashboard-card-title">API Keys</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {apiKeys.map((apiKey) => (
-              <div key={apiKey.id} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+              <div key={apiKey.id} className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
                     <div>
-                      <h3 className="font-medium text-gray-900 dark:text-gray-100">{apiKey.name}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{apiKey.description}</p>
+                      <h3 className="font-medium text-gray-900 dark:text-white">{apiKey.name}</h3>
+                      <p className="text-sm text-gray-600 dark:text-white">{apiKey.description}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -239,9 +236,9 @@ export default function APIKeysPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">API Key</p>
+                    <p className="text-sm text-gray-600 dark:text-white">API Key</p>
                     <div className="flex items-center gap-2 mt-1">
-                      <code className="text-sm font-mono bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+                      <code className="text-sm font-mono bg-gray-100 dark:bg-gray-900 px-2 py-1 rounded">
                         {showKeys[apiKey.id] ? apiKey.key : maskKey(apiKey.key)}
                       </code>
                       <Button
@@ -264,7 +261,7 @@ export default function APIKeysPage() {
                   </div>
 
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Permissions</p>
+                    <p className="text-sm text-gray-600 dark:text-white">Permissions</p>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {apiKey.permissions.map((permission) => (
                         <Badge key={permission} variant="outline" className="text-xs">
@@ -275,26 +272,26 @@ export default function APIKeysPage() {
                   </div>
 
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Rate Limit</p>
-                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mt-1">{apiKey.rateLimit}</p>
+                    <p className="text-sm text-gray-600 dark:text-white">Rate Limit</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-white mt-1">{apiKey.rateLimit}</p>
                   </div>
 
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Usage Count</p>
-                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mt-1">{apiKey.usageCount.toLocaleString()}</p>
+                    <p className="text-sm text-gray-600 dark:text-white">Usage Count</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-white mt-1">{apiKey.usageCount.toLocaleString()}</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Created</p>
-                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mt-1">
+                    <p className="text-sm text-gray-600 dark:text-white">Created</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-white mt-1">
                       {new Date(apiKey.createdAt).toLocaleDateString()}
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Last Used</p>
-                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mt-1">
+                    <p className="text-sm text-gray-600 dark:text-white">Last Used</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-white mt-1">
                       {new Date(apiKey.lastUsed).toLocaleDateString()}
                     </p>
                   </div>
@@ -302,17 +299,17 @@ export default function APIKeysPage() {
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Shield className="h-4 w-4 text-gray-400" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <Shield className="h-4 w-4 text-gray-600 dark:text-white" />
+                    <span className="text-sm text-gray-600 dark:text-white">
                       Secure • Encrypted • Rate Limited
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+                    <Button variant="outline" size="sm" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
                       <Activity className="h-3 w-3 mr-1" />
                       Usage Stats
                     </Button>
-                    <Button variant="outline" size="sm" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+                    <Button variant="outline" size="sm" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
                       <Calendar className="h-3 w-3 mr-1" />
                       Regenerate
                     </Button>
@@ -329,48 +326,48 @@ export default function APIKeysPage() {
       </Card>
 
       {/* API Documentation */}
-      <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+      <Card className="dashboard-card">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-gray-100">API Documentation</CardTitle>
+          <CardTitle className="dashboard-card-title">API Documentation</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-2">Getting Started</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+            <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+              <h3 className="font-medium text-gray-900 dark:text-white mb-2">Getting Started</h3>
+              <p className="text-sm text-gray-600 dark:text-white mb-3">
                 Learn how to authenticate and make your first API request.
               </p>
-              <Button variant="outline" size="sm" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+              <Button variant="outline" size="sm" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
                 View Documentation
               </Button>
             </div>
             
-            <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-2">Rate Limits</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+            <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+              <h3 className="font-medium text-gray-900 dark:text-white mb-2">Rate Limits</h3>
+              <p className="text-sm text-gray-600 dark:text-white mb-3">
                 Understand API rate limits and how to handle them properly.
               </p>
-              <Button variant="outline" size="sm" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+              <Button variant="outline" size="sm" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
                 Rate Limit Guide
               </Button>
             </div>
             
-            <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-2">SDKs & Libraries</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+            <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+              <h3 className="font-medium text-gray-900 dark:text-white mb-2">SDKs & Libraries</h3>
+              <p className="text-sm text-gray-600 dark:text-white mb-3">
                 Download our official SDKs for popular programming languages.
               </p>
-              <Button variant="outline" size="sm" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+              <Button variant="outline" size="sm" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
                 Download SDKs
               </Button>
             </div>
             
-            <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-2">Support</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+            <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+              <h3 className="font-medium text-gray-900 dark:text-white mb-2">Support</h3>
+              <p className="text-sm text-gray-600 dark:text-white mb-3">
                 Get help with API integration and troubleshooting.
               </p>
-              <Button variant="outline" size="sm" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+              <Button variant="outline" size="sm" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
                 Contact Support
               </Button>
             </div>

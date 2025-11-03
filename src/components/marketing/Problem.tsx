@@ -54,7 +54,9 @@ export function Problem() {
               {[
                 { text: "Inaccurate forecasts & disconnected data", delay: 0 },
                 { text: "Poor financial visibility", delay: 100 },
-                { text: "Clunky, outdated tools", delay: 200 }
+                { text: "Clunky, outdated tools", delay: 200 },
+                { text: "New AI-focused systems make data hard to access", delay: 300 },
+                { text: "Unnecessary manual input", delay: 400 }
               ].map((item, index) => (
                 <div
                   key={index}

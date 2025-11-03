@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
-import { GlassCard } from "@/components/dashboard/atoms/GlassCard"
 import { 
   TrendingUp, 
   TrendingDown,
@@ -18,14 +17,11 @@ import {
 
 export default function ForecastRiskPage() {
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Forecast & Risk</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Predictive analytics and risk assessment for supply chain operations
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Forecast & Risk</h1>
         </div>
         <div className="flex items-center gap-3">
           <Button variant="outline">Export Forecast</Button>
@@ -41,15 +37,16 @@ export default function ForecastRiskPage() {
         <span>/</span>
         <span>Performance</span>
         <span>/</span>
-        <span className="text-gray-900 dark:text-gray-100">Forecast & Risk</span>
+        <span className="text-gray-900 dark:text-white">Forecast & Risk</span>
       </nav>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-400">SLA Compliance Forecast</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-white">SLA Compliance Forecast</p>
               <p className="text-3xl font-bold text-emerald-400">94.2%</p>
               <p className="text-sm text-emerald-500 flex items-center mt-1">
                 <TrendingUp className="h-4 w-4 mr-1" />
@@ -58,12 +55,14 @@ export default function ForecastRiskPage() {
             </div>
             <Target className="h-8 w-8 text-emerald-400" />
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-400">Risk Score</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-white">Risk Score</p>
               <p className="text-3xl font-bold text-amber-400">Medium</p>
               <p className="text-sm text-amber-500 flex items-center mt-1">
                 <AlertTriangle className="h-4 w-4 mr-1" />
@@ -72,12 +71,14 @@ export default function ForecastRiskPage() {
             </div>
             <AlertTriangle className="h-8 w-8 text-amber-400" />
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-400">Demand Forecast Accuracy</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-white">Demand Forecast Accuracy</p>
               <p className="text-3xl font-bold text-blue-400">87.5%</p>
               <p className="text-sm text-blue-500 flex items-center mt-1">
                 <BarChart3 className="h-4 w-4 mr-1" />
@@ -86,12 +87,14 @@ export default function ForecastRiskPage() {
             </div>
             <BarChart3 className="h-8 w-8 text-blue-400" />
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-400">AI Confidence</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-white">AI Confidence</p>
               <p className="text-3xl font-bold text-purple-400">92%</p>
               <p className="text-sm text-purple-500 flex items-center mt-1">
                 <Brain className="h-4 w-4 mr-1" />
@@ -100,26 +103,30 @@ export default function ForecastRiskPage() {
             </div>
             <Brain className="h-8 w-8 text-purple-400" />
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
       </div>
 
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 14-Day SLA Compliance Forecast */}
-        <GlassCard className="p-6">
-          <h3 className="text-lg font-semibold text-gray-100 mb-4">14-Day SLA Compliance Forecast</h3>
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">14-Day SLA Compliance Forecast</h3>
           <div className="h-64 bg-gray-800 rounded-lg flex items-center justify-center">
             <div className="text-center">
-              <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-              <p className="text-gray-400">SLA compliance forecast chart</p>
+              <BarChart3 className="h-12 w-12 text-gray-600 dark:text-white mx-auto mb-2" />
+              <p className="text-gray-600 dark:text-white">SLA compliance forecast chart</p>
               <p className="text-sm text-gray-500">Predicted to maintain 94%+ compliance</p>
             </div>
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
         {/* Risk Heatmap */}
-        <GlassCard className="p-6">
-          <h3 className="text-lg font-semibold text-gray-100 mb-4">Risk Heatmap</h3>
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Risk Heatmap</h3>
           <div className="grid grid-cols-3 gap-2">
             <div className="h-16 bg-green-500/20 border border-green-500/30 rounded flex items-center justify-center">
               <span className="text-green-300 text-xs">Low</span>
@@ -149,18 +156,20 @@ export default function ForecastRiskPage() {
               <span className="text-green-300 text-xs">Low</span>
             </div>
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
       </div>
 
       {/* What-If Simulator */}
-      <GlassCard className="p-6">
-        <h3 className="text-lg font-semibold text-gray-100 mb-4">What-If Scenario Simulator</h3>
+      <Card className="dashboard-card">
+          <CardContent className="p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">What-If Scenario Simulator</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Demand Increase (%)</label>
+              <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Demand Increase (%)</label>
               <div className="flex items-center gap-2">
-                <SlidersHorizontal className="h-4 w-4 text-gray-400" />
+                <SlidersHorizontal className="h-4 w-4 text-gray-600 dark:text-white" />
                 <input 
                   type="range" 
                   min="0" 
@@ -168,13 +177,13 @@ export default function ForecastRiskPage() {
                   defaultValue="10"
                   className="flex-1"
                 />
-                <span className="text-gray-300 w-12">10%</span>
+                <span className="text-gray-900 dark:text-white w-12">10%</span>
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Lead Time Extension (days)</label>
+              <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Lead Time Extension (days)</label>
               <div className="flex items-center gap-2">
-                <SlidersHorizontal className="h-4 w-4 text-gray-400" />
+                <SlidersHorizontal className="h-4 w-4 text-gray-600 dark:text-white" />
                 <input 
                   type="range" 
                   min="0" 
@@ -182,13 +191,13 @@ export default function ForecastRiskPage() {
                   defaultValue="5"
                   className="flex-1"
                 />
-                <span className="text-gray-300 w-12">5d</span>
+                <span className="text-gray-900 dark:text-white w-12">5d</span>
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Supplier Capacity (%)</label>
+              <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Supplier Capacity (%)</label>
               <div className="flex items-center gap-2">
-                <SlidersHorizontal className="h-4 w-4 text-gray-400" />
+                <SlidersHorizontal className="h-4 w-4 text-gray-600 dark:text-white" />
                 <input 
                   type="range" 
                   min="50" 
@@ -196,7 +205,7 @@ export default function ForecastRiskPage() {
                   defaultValue="85"
                   className="flex-1"
                 />
-                <span className="text-gray-300 w-12">85%</span>
+                <span className="text-gray-900 dark:text-white w-12">85%</span>
               </div>
             </div>
           </div>
@@ -228,11 +237,13 @@ export default function ForecastRiskPage() {
             </Button>
           </div>
         </div>
-      </GlassCard>
+      </CardContent>
+        </Card>
 
       {/* AI Risk Analysis Summary */}
-      <GlassCard className="p-6">
-        <h3 className="text-lg font-semibold text-gray-100 mb-4">AI Risk Analysis Summary</h3>
+      <Card className="dashboard-card">
+          <CardContent className="p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">AI Risk Analysis Summary</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
             <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
@@ -284,7 +295,8 @@ export default function ForecastRiskPage() {
             </div>
           </div>
         </div>
-      </GlassCard>
+      </CardContent>
+        </Card>
     </div>
   )
 }

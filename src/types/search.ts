@@ -126,6 +126,8 @@ export type SearchFilters = {
   mode?: string[]
   service?: string[]
   specialty?: string[]
+  partnerType?: string[]
+  customProductTypes?: string[]
 }
 
 // Analytics event types

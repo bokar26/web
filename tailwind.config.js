@@ -48,6 +48,10 @@ module.exports = {
           800: '#175a26',
           900: '#103a1a',
         },
+        dashboard: {
+          black: '#000000',
+          'card-dark': '#111111',
+        },
       },
       keyframes: {
         "accordion-down": {

@@ -153,7 +153,7 @@ export function Navbar() {
                     prefetch
                     className="text-sm text-gray-300 hover:text-[#00FF7F] transition-colors"
                   >
-                    Hi, {user?.firstName || user?.emailAddresses[0]?.emailAddress.split('@')[0]}
+                    Hi, {user?.firstName || user?.emailAddresses?.[0]?.emailAddress?.split('@')[0] || 'User'}
                   </Link>
                   <SignOutButton>
                     <Button size="sm" className="bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform">
@@ -208,7 +208,7 @@ export function Navbar() {
                             prefetch
                             className="mb-4 p-2 bg-white/10 rounded text-sm text-gray-300 hover:text-[#00FF7F] transition-colors block"
                           >
-                            Hi, {user?.firstName || user?.emailAddresses[0]?.emailAddress.split('@')[0]}
+                            Hi, {user?.firstName || user?.emailAddresses?.[0]?.emailAddress?.split('@')[0] || 'User'}
                           </Link>
                           <SignOutButton>
                             <Button className="w-full bg-[#00FF7F] text-black border border-white/10 hover:brightness-95 active:scale-95 transition-transform">

@@ -9,6 +9,16 @@ import { DetailDrawer } from "@/components/dashboard/search/DetailDrawer"
 import { sampleWarehouses } from "@/lib/mock/search"
 import { trackSearchView, trackSearchQuery, trackFilterApply, trackSortChange, trackViewToggle, trackEntityOpen, trackCompareClick, trackExportClick } from "@/lib/analytics"
 import { Warehouse, SearchFilters, ViewMode, FilterOption } from "@/types/search"
+import dynamic from "next/dynamic"
+
+const GlobeLoader = dynamic(() => import("@/components/globe/GlobeLoader"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center min-h-[400px]">
+      <div className="w-40 h-40 rounded-full border border-slate-200 dark:border-slate-700 animate-pulse" />
+    </div>
+  ),
+})
 
 export default function WarehousesPage() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -20,6 +30,7 @@ export default function WarehousesPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedEntity, setSelectedEntity] = useState<Warehouse | null>(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [hasSearched, setHasSearched] = useState(false)
 
   useEffect(() => {
     trackSearchView('warehouse')
@@ -117,7 +128,7 @@ export default function WarehousesPage() {
       sortable: true,
       width: '150px',
       render: (value: unknown, row: Warehouse) => (
-        <span className="text-sm">{row.city}, {value as string}</span>
+        <span className="text-sm text-gray-900 dark:text-white">{row.city}, {value as string}</span>
       ),
     },
     {
@@ -126,7 +137,7 @@ export default function WarehousesPage() {
       sortable: true,
       width: '120px',
       render: (value: unknown) => (
-        <span className="font-medium">{(value as number).toLocaleString()} sq ft</span>
+        <span className="font-medium text-gray-900 dark:text-white">{(value as number).toLocaleString()} sq ft</span>
       ),
     },
     {
@@ -232,6 +243,35 @@ export default function WarehousesPage() {
     setSelectedRows(new Set())
   }
 
+  const handleSearch = () => {
+    setHasSearched(true)
+    setCurrentPage(1)
+    trackSearchQuery('warehouse', searchQuery, filteredData.length)
+  }
+
+  const handleResetFilters = () => {
+    setFilters({})
+    setSearchQuery("")
+    setHasSearched(false)
+    setCurrentPage(1)
+    setSelectedRows(new Set())
+  }
+
+  const handleSaveSearch = () => {
+    const savedSearches = JSON.parse(localStorage.getItem('sla-saved-searches') || '[]')
+    const newSearch = {
+      id: Date.now().toString(),
+      name: `Search ${new Date().toLocaleDateString()}`,
+      filters: filters,
+      searchQuery: searchQuery,
+      entityType: 'warehouse',
+      createdAt: new Date().toISOString(),
+    }
+    savedSearches.push(newSearch)
+    localStorage.setItem('sla-saved-searches', JSON.stringify(savedSearches))
+    alert('Search saved successfully!')
+  }
+
   const renderWarehouseCard = (warehouse: Warehouse, isSelected: boolean) => (
     <EntityCard
       title={warehouse.name}
@@ -249,17 +289,16 @@ export default function WarehousesPage() {
   )
 
   return (
-    <div className="space-y-6">
+    <div className="p-6 space-y-4">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Warehouses</h1>
-        <p className="text-gray-600 mt-1">Find storage and fulfillment partners with the right capacity and services</p>
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white">Warehouses</h1>
       </div>
 
       {/* 2-Column Layout */}
-      <div className="flex gap-6 min-h-[calc(100vh-12rem)]">
+      <div className="flex gap-4 min-h-[calc(100vh-12rem)]">
         {/* Left Column: Search & Filters */}
-        <div className="w-80 flex-shrink-0 space-y-4 overflow-y-auto">
+        <div className="w-64 flex-shrink-0 space-y-4 overflow-y-auto">
           <SearchToolbar
             searchQuery={searchQuery}
             onSearchChange={handleSearchChange}
@@ -273,6 +312,10 @@ export default function WarehousesPage() {
             onFiltersChange={handleFiltersChange}
             resultCount={filteredData.length}
             entityType="warehouse"
+            onSearch={handleSearch}
+            onSaveSearch={handleSaveSearch}
+            onResetFilters={handleResetFilters}
+            hasSearchExecuted={hasSearched}
           />
           
           <FacetFilters
@@ -285,7 +328,14 @@ export default function WarehousesPage() {
 
         {/* Right Column: Results */}
         <div className="flex-1 overflow-y-auto">
-          {viewMode === 'table' ? (
+          {!hasSearched ? (
+            <div className="flex items-center justify-center min-h-[500px] w-full">
+              <GlobeLoader 
+                size={480}
+                subtitle="Ready to search worldwide..."
+              />
+            </div>
+          ) : viewMode === 'table' ? (
             <DataTable
               data={filteredData}
               columns={columns}

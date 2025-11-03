@@ -28,7 +28,7 @@ export function DashboardEditor({ layout, onLayoutChange, onClose }: DashboardEd
 
   if (!mounted) {
     return (
-      <div className="fixed inset-4 z-50 bg-white dark:bg-gray-800 border rounded shadow-lg flex items-center justify-center">
+      <div className="fixed inset-4 z-50 bg-white dark:bg-gray-950 border rounded shadow-lg flex items-center justify-center">
         <div className="text-gray-600 dark:text-gray-400">Loading editor...</div>
       </div>
     );
@@ -63,7 +63,7 @@ export function DashboardEditor({ layout, onLayoutChange, onClose }: DashboardEd
   };
 
   return (
-    <Card className="fixed inset-4 z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
+    <Card className="fixed inset-4 z-50 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 shadow-lg">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-lg font-semibold">Edit Dashboard</CardTitle>
         <Button variant="ghost" size="sm" onClick={onClose}>

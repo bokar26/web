@@ -91,17 +91,14 @@ export default function CostProjectionsPage() {
   const [selectedSupplier, setSelectedSupplier] = useState("all")
 
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Cost Projections</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Budget planning, cost forecasting, and variance analysis
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Cost Projections</h1>
         </div>
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+          <Button variant="outline" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
             <FileText className="h-4 w-4 mr-2" />
             Export Report
           </Button>
@@ -113,19 +110,19 @@ export default function CostProjectionsPage() {
       </div>
 
       {/* Filters */}
-      <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+      <Card className="dashboard-card">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-gray-100">Projection Parameters</CardTitle>
+          <CardTitle className="dashboard-card-title">Projection Parameters</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
-              <Label htmlFor="period" className="text-gray-700 dark:text-gray-300">Projection Period</Label>
+              <Label htmlFor="period" className="text-gray-700 dark:text-white">Projection Period</Label>
               <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
-                <SelectTrigger className="mt-1">
+                <SelectTrigger className="mt-1 bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white">
                   <SelectValue placeholder="Select period" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white">
                   <SelectItem value="3">3 Months</SelectItem>
                   <SelectItem value="6">6 Months</SelectItem>
                   <SelectItem value="12">12 Months</SelectItem>
@@ -134,12 +131,12 @@ export default function CostProjectionsPage() {
               </Select>
             </div>
             <div>
-              <Label htmlFor="category" className="text-gray-700 dark:text-gray-300">Cost Category</Label>
+              <Label htmlFor="category" className="text-gray-700 dark:text-white">Cost Category</Label>
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="mt-1">
+                <SelectTrigger className="mt-1 bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white">
                   <SelectValue placeholder="Select category" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white">
                   <SelectItem value="all">All Categories</SelectItem>
                   <SelectItem value="materials">Raw Materials</SelectItem>
                   <SelectItem value="labor">Labor</SelectItem>
@@ -148,12 +145,12 @@ export default function CostProjectionsPage() {
               </Select>
             </div>
             <div>
-              <Label htmlFor="supplier" className="text-gray-700 dark:text-gray-300">Supplier</Label>
+              <Label htmlFor="supplier" className="text-gray-700 dark:text-white">Supplier</Label>
               <Select value={selectedSupplier} onValueChange={setSelectedSupplier}>
-                <SelectTrigger className="mt-1">
+                <SelectTrigger className="mt-1 bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white">
                   <SelectValue placeholder="Select supplier" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white">
                   <SelectItem value="all">All Suppliers</SelectItem>
                   <SelectItem value="supplier-a">Supplier A</SelectItem>
                   <SelectItem value="supplier-b">Supplier B</SelectItem>
@@ -162,12 +159,12 @@ export default function CostProjectionsPage() {
               </Select>
             </div>
             <div>
-              <Label htmlFor="confidence" className="text-gray-700 dark:text-gray-300">Confidence Level</Label>
+              <Label htmlFor="confidence" className="text-gray-700 dark:text-white">Confidence Level</Label>
               <Input 
                 id="confidence" 
                 type="number" 
                 placeholder="85" 
-                className="mt-1"
+                className="mt-1 bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white"
                 defaultValue={85}
               />
             </div>
@@ -177,12 +174,12 @@ export default function CostProjectionsPage() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Projected Cost</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">$7.8M</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Total Projected Cost</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">$7.8M</p>
                 <p className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 mr-1" />
                   +8.2% vs current
@@ -193,12 +190,12 @@ export default function CostProjectionsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Budget Variance</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">+2.3%</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Budget Variance</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">+2.3%</p>
                 <p className="text-xs text-yellow-600 dark:text-yellow-400 flex items-center mt-1">
                   <AlertTriangle className="h-3 w-3 mr-1" />
                   Above budget
@@ -209,12 +206,12 @@ export default function CostProjectionsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Cost Accuracy</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">94.2%</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Cost Accuracy</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">94.2%</p>
                 <p className="text-xs text-blue-600 dark:text-blue-400 flex items-center mt-1">
                   <CheckCircle className="h-3 w-3 mr-1" />
                   High accuracy
@@ -225,12 +222,12 @@ export default function CostProjectionsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Risk Level</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">Medium</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Risk Level</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">Medium</p>
                 <p className="text-xs text-orange-600 dark:text-orange-400 flex items-center mt-1">
                   <AlertTriangle className="h-3 w-3 mr-1" />
                   Monitor closely
@@ -244,18 +241,18 @@ export default function CostProjectionsPage() {
 
       {/* Charts */}
       <Tabs defaultValue="projections" className="space-y-6">
-        <TabsList className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-          <TabsTrigger value="projections" className="text-gray-700 dark:text-gray-300">Cost Projections</TabsTrigger>
-          <TabsTrigger value="breakdown" className="text-gray-700 dark:text-gray-300">Cost Breakdown</TabsTrigger>
-          <TabsTrigger value="suppliers" className="text-gray-700 dark:text-gray-300">Supplier Costs</TabsTrigger>
-          <TabsTrigger value="drivers" className="text-gray-700 dark:text-gray-300">Cost Drivers</TabsTrigger>
+        <TabsList className="dashboard-card border">
+          <TabsTrigger value="projections" className="text-gray-700 dark:text-white">Cost Projections</TabsTrigger>
+          <TabsTrigger value="breakdown" className="text-gray-700 dark:text-white">Cost Breakdown</TabsTrigger>
+          <TabsTrigger value="suppliers" className="text-gray-700 dark:text-white">Supplier Costs</TabsTrigger>
+          <TabsTrigger value="drivers" className="text-gray-700 dark:text-white">Cost Drivers</TabsTrigger>
         </TabsList>
 
         <TabsContent value="projections" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card className="dashboard-card">
               <CardHeader>
-                <CardTitle className="text-gray-900 dark:text-gray-100">Budget vs Actual vs Forecast</CardTitle>
+                <CardTitle className="dashboard-card-title">Budget vs Actual vs Forecast</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -304,9 +301,9 @@ export default function CostProjectionsPage() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card className="dashboard-card">
               <CardHeader>
-                <CardTitle className="text-gray-900 dark:text-gray-100">Quarterly Budget Performance</CardTitle>
+                <CardTitle className="dashboard-card-title">Quarterly Budget Performance</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -334,9 +331,9 @@ export default function CostProjectionsPage() {
 
         <TabsContent value="breakdown" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card className="dashboard-card">
               <CardHeader>
-                <CardTitle className="text-gray-900 dark:text-gray-100">Cost Category Breakdown</CardTitle>
+                <CardTitle className="dashboard-card-title">Cost Category Breakdown</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -368,17 +365,17 @@ export default function CostProjectionsPage() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card className="dashboard-card">
               <CardHeader>
-                <CardTitle className="text-gray-900 dark:text-gray-100">Category Trends</CardTitle>
+                <CardTitle className="dashboard-card-title">Category Trends</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {costBreakdown.map((category, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
                       <div>
-                        <p className="font-medium text-gray-900 dark:text-gray-100">{category.category}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                        <p className="font-medium text-gray-900 dark:text-white">{category.category}</p>
+                        <p className="text-sm text-gray-600 dark:text-white">
                           {category.current}% → {category.projected}%
                         </p>
                       </div>
@@ -401,28 +398,28 @@ export default function CostProjectionsPage() {
         </TabsContent>
 
         <TabsContent value="suppliers" className="space-y-6">
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100">Supplier Cost Analysis</CardTitle>
+              <CardTitle className="dashboard-card-title">Supplier Cost Analysis</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-gray-200 dark:border-gray-700">
-                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Supplier</th>
-                      <th className="text-right py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Current Cost</th>
-                      <th className="text-right py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Projected Cost</th>
-                      <th className="text-right py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Variance</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Risk Level</th>
+                    <tr className="border-b border-gray-200 dark:border-gray-200 dark:border-gray-800">
+                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Supplier</th>
+                      <th className="text-right py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Current Cost</th>
+                      <th className="text-right py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Projected Cost</th>
+                      <th className="text-right py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Variance</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Risk Level</th>
                     </tr>
                   </thead>
                   <tbody>
                     {supplierCosts.map((supplier, index) => (
-                      <tr key={index} className="border-b border-gray-100 dark:border-gray-700">
-                        <td className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-gray-100">{supplier.supplier}</td>
-                        <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400 text-right">${supplier.current.toLocaleString()}</td>
-                        <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400 text-right">${supplier.projected.toLocaleString()}</td>
+                      <tr key={index} className="border-b border-gray-100 dark:border-gray-200 dark:border-gray-800">
+                        <td className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">{supplier.supplier}</td>
+                        <td className="py-3 px-4 text-sm text-gray-600 dark:text-white text-right">${supplier.current.toLocaleString()}</td>
+                        <td className="py-3 px-4 text-sm text-gray-600 dark:text-white text-right">${supplier.projected.toLocaleString()}</td>
                         <td className={`py-3 px-4 text-sm font-medium text-right ${
                           supplier.variance >= 0 ? 'text-red-600 dark:text-red-400' : 'text-emerald-600 dark:text-emerald-400'
                         }`}>
@@ -430,9 +427,9 @@ export default function CostProjectionsPage() {
                         </td>
                         <td className="py-3 px-4 text-center">
                           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            supplier.status === 'high' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' :
-                            supplier.status === 'medium' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
-                            'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200'
+                            supplier.status === 'high' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-white' :
+                            supplier.status === 'medium' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-white' :
+                            'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-white'
                           }`}>
                             {supplier.status.charAt(0).toUpperCase() + supplier.status.slice(1)}
                           </span>
@@ -447,17 +444,17 @@ export default function CostProjectionsPage() {
         </TabsContent>
 
         <TabsContent value="drivers" className="space-y-6">
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100">Cost Driver Analysis</CardTitle>
+              <CardTitle className="dashboard-card-title">Cost Driver Analysis</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {costDrivers.map((driver, index) => (
-                  <div key={index} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  <div key={index} className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-medium text-gray-900 dark:text-gray-100">{driver.driver}</h3>
-                      <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      <h3 className="font-medium text-gray-900 dark:text-white">{driver.driver}</h3>
+                      <span className="text-sm font-medium text-gray-600 dark:text-white">
                         {driver.confidence}% confidence
                       </span>
                     </div>

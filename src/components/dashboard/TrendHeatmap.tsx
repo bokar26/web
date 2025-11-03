@@ -38,7 +38,7 @@ export function TrendHeatmap({ data }: TrendHeatmapProps) {
             title={`${c.val} activities on ${c.dt.toDateString()}`}
             className={[
               "h-3 w-3 transition-colors hover:ring-1 hover:ring-emerald-500",
-              c.bucket === 0 && "bg-gray-100 dark:bg-gray-800",
+              c.bucket === 0 && "bg-gray-100 dark:bg-gray-950",
               c.bucket === 1 && "bg-emerald-100 dark:bg-emerald-900/50",
               c.bucket === 2 && "bg-emerald-200 dark:bg-emerald-800/60",
               c.bucket === 3 && "bg-emerald-300 dark:bg-emerald-700/70",
@@ -52,7 +52,7 @@ export function TrendHeatmap({ data }: TrendHeatmapProps) {
         <div className="flex items-center gap-2">
           <span>Less</span>
           <div className="flex gap-1">
-            <div className="w-3 h-3 bg-gray-100 dark:bg-gray-800" />
+            <div className="w-3 h-3 bg-gray-100 dark:bg-gray-950" />
             <div className="w-3 h-3 bg-emerald-100 dark:bg-emerald-900/50" />
             <div className="w-3 h-3 bg-emerald-200 dark:bg-emerald-800/60" />
             <div className="w-3 h-3 bg-emerald-300 dark:bg-emerald-700/70" />

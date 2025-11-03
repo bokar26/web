@@ -165,20 +165,20 @@ const categoryPerformance = [
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'excellent': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200'
+    case 'excellent': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-white'
     case 'good': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-    case 'fair': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-    case 'poor': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+    case 'fair': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-white'
+    case 'poor': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-white'
+    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white'
   }
 }
 
 const getRiskColor = (risk: string) => {
   switch (risk) {
-    case 'low': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200'
-    case 'medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-    case 'high': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+    case 'low': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-white'
+    case 'medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-white'
+    case 'high': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-white'
+    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white'
   }
 }
 
@@ -197,17 +197,14 @@ export default function SupplierPerformancePage() {
   })
 
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Supplier Performance</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Monitor supplier performance, track KPIs, and manage supplier relationships
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Supplier Performance</h1>
         </div>
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+          <Button variant="outline" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
             <BarChart3 className="h-4 w-4 mr-2" />
             Export Report
           </Button>
@@ -220,12 +217,12 @@ export default function SupplierPerformancePage() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Suppliers</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">5</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Total Suppliers</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">5</p>
                 <p className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 mr-1" />
                   +1 this month
@@ -236,12 +233,12 @@ export default function SupplierPerformancePage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Avg Performance</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">84.6%</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Avg Performance</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">84.6%</p>
                 <p className="text-xs text-blue-600 dark:text-blue-400 flex items-center mt-1">
                   <Target className="h-3 w-3 mr-1" />
                   Above target
@@ -252,12 +249,12 @@ export default function SupplierPerformancePage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">On-Time Delivery</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">89.4%</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">On-Time Delivery</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">89.4%</p>
                 <p className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center mt-1">
                   <CheckCircle className="h-3 w-3 mr-1" />
                   +2.1% vs last month
@@ -268,12 +265,12 @@ export default function SupplierPerformancePage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">At Risk Suppliers</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">1</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">At Risk Suppliers</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">1</p>
                 <p className="text-xs text-red-600 dark:text-red-400 flex items-center mt-1">
                   <AlertTriangle className="h-3 w-3 mr-1" />
                   Requires attention
@@ -286,16 +283,16 @@ export default function SupplierPerformancePage() {
       </div>
 
       {/* Filters */}
-      <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+      <Card className="dashboard-card">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-gray-100">Filter Suppliers</CardTitle>
+          <CardTitle className="dashboard-card-title">Filter Suppliers</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
-              <Label htmlFor="search" className="text-gray-700 dark:text-gray-300">Search</Label>
+              <Label htmlFor="search" className="text-gray-700 dark:text-white">Search</Label>
               <div className="relative mt-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-white" />
                 <Input 
                   id="search"
                   placeholder="Search suppliers..." 
@@ -306,7 +303,7 @@ export default function SupplierPerformancePage() {
               </div>
             </div>
             <div>
-              <Label htmlFor="category" className="text-gray-700 dark:text-gray-300">Category</Label>
+              <Label htmlFor="category" className="text-gray-700 dark:text-white">Category</Label>
               <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                 <SelectTrigger className="mt-1">
                   <SelectValue placeholder="All categories" />
@@ -321,7 +318,7 @@ export default function SupplierPerformancePage() {
               </Select>
             </div>
             <div>
-              <Label htmlFor="status" className="text-gray-700 dark:text-gray-300">Performance Status</Label>
+              <Label htmlFor="status" className="text-gray-700 dark:text-white">Performance Status</Label>
               <Select value={statusFilter} onValueChange={setStatusFilter}>
                 <SelectTrigger className="mt-1">
                   <SelectValue placeholder="All statuses" />
@@ -336,7 +333,7 @@ export default function SupplierPerformancePage() {
               </Select>
             </div>
             <div>
-              <Label htmlFor="risk" className="text-gray-700 dark:text-gray-300">Risk Level</Label>
+              <Label htmlFor="risk" className="text-gray-700 dark:text-white">Risk Level</Label>
               <Select>
                 <SelectTrigger className="mt-1">
                   <SelectValue placeholder="All risk levels" />
@@ -355,22 +352,22 @@ export default function SupplierPerformancePage() {
 
       {/* Main Content */}
       <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-          <TabsTrigger value="overview" className="text-gray-700 dark:text-gray-300">Overview</TabsTrigger>
-          <TabsTrigger value="detailed" className="text-gray-700 dark:text-gray-300">Detailed View</TabsTrigger>
-          <TabsTrigger value="trends" className="text-gray-700 dark:text-gray-300">Performance Trends</TabsTrigger>
-          <TabsTrigger value="categories" className="text-gray-700 dark:text-gray-300">Category Analysis</TabsTrigger>
+        <TabsList className="dashboard-card border">
+          <TabsTrigger value="overview" className="text-gray-700 dark:text-white">Overview</TabsTrigger>
+          <TabsTrigger value="detailed" className="text-gray-700 dark:text-white">Detailed View</TabsTrigger>
+          <TabsTrigger value="trends" className="text-gray-700 dark:text-white">Performance Trends</TabsTrigger>
+          <TabsTrigger value="categories" className="text-gray-700 dark:text-white">Category Analysis</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {filteredSuppliers.map((supplier) => (
-              <Card key={supplier.id} className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+              <Card key={supplier.id} className="dashboard-card">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="text-gray-900 dark:text-gray-100">{supplier.name}</CardTitle>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{supplier.category} • {supplier.location}</p>
+                      <CardTitle className="dashboard-card-title">{supplier.name}</CardTitle>
+                      <p className="text-sm text-gray-600 dark:text-white">{supplier.category} • {supplier.location}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <Badge className={getStatusColor(supplier.status)}>
@@ -385,34 +382,34 @@ export default function SupplierPerformancePage() {
                 <CardContent>
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Overall Score</p>
-                      <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{supplier.overallScore}</p>
+                      <p className="text-sm text-gray-600 dark:text-white">Overall Score</p>
+                      <p className="text-2xl font-bold text-gray-900 dark:text-white">{supplier.overallScore}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Total Orders</p>
-                      <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{supplier.totalOrders}</p>
+                      <p className="text-sm text-gray-600 dark:text-white">Total Orders</p>
+                      <p className="text-2xl font-bold text-gray-900 dark:text-white">{supplier.totalOrders}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Total Value</p>
-                      <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">${(supplier.totalValue / 1000000).toFixed(1)}M</p>
+                      <p className="text-sm text-gray-600 dark:text-white">Total Value</p>
+                      <p className="text-lg font-semibold text-gray-900 dark:text-white">${(supplier.totalValue / 1000000).toFixed(1)}M</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Avg Lead Time</p>
-                      <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{supplier.avgLeadTime} days</p>
+                      <p className="text-sm text-gray-600 dark:text-white">Avg Lead Time</p>
+                      <p className="text-lg font-semibold text-gray-900 dark:text-white">{supplier.avgLeadTime} days</p>
                     </div>
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">On-Time Delivery</span>
-                      <span className="font-medium text-gray-900 dark:text-gray-100">{supplier.onTimeDelivery}%</span>
+                      <span className="text-gray-600 dark:text-white">On-Time Delivery</span>
+                      <span className="font-medium text-gray-900 dark:text-white">{supplier.onTimeDelivery}%</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Quality Score</span>
-                      <span className="font-medium text-gray-900 dark:text-gray-100">{supplier.qualityScore}%</span>
+                      <span className="text-gray-600 dark:text-white">Quality Score</span>
+                      <span className="font-medium text-gray-900 dark:text-white">{supplier.qualityScore}%</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Cost Competitiveness</span>
-                      <span className="font-medium text-gray-900 dark:text-gray-100">{supplier.costCompetitiveness}%</span>
+                      <span className="text-gray-600 dark:text-white">Cost Competitiveness</span>
+                      <span className="font-medium text-gray-900 dark:text-white">{supplier.costCompetitiveness}%</span>
                     </div>
                   </div>
                 </CardContent>
@@ -422,33 +419,33 @@ export default function SupplierPerformancePage() {
         </TabsContent>
 
         <TabsContent value="detailed" className="space-y-6">
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100">Detailed Supplier Performance</CardTitle>
+              <CardTitle className="dashboard-card-title">Detailed Supplier Performance</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-gray-200 dark:border-gray-700">
-                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Supplier</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Overall Score</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">On-Time %</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Quality %</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Cost Score</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Communication</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Innovation</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Defect Rate</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Status</th>
+                    <tr className="border-b border-gray-200 dark:border-gray-200 dark:border-gray-800">
+                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Supplier</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Overall Score</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">On-Time %</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Quality %</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Cost Score</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Communication</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Innovation</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Defect Rate</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Status</th>
                     </tr>
                   </thead>
                   <tbody>
                     {filteredSuppliers.map((supplier) => (
-                      <tr key={supplier.id} className="border-b border-gray-100 dark:border-gray-700">
+                      <tr key={supplier.id} className="border-b border-gray-100 dark:border-gray-200 dark:border-gray-800">
                         <td className="py-3 px-4">
                           <div>
-                            <p className="font-medium text-gray-900 dark:text-gray-100">{supplier.name}</p>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">{supplier.category}</p>
+                            <p className="font-medium text-gray-900 dark:text-white">{supplier.name}</p>
+                            <p className="text-sm text-gray-600 dark:text-white">{supplier.category}</p>
                           </div>
                         </td>
                         <td className="py-3 px-4 text-center">
@@ -530,9 +527,9 @@ export default function SupplierPerformancePage() {
         </TabsContent>
 
         <TabsContent value="trends" className="space-y-6">
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100">Supplier Performance Trends</CardTitle>
+              <CardTitle className="dashboard-card-title">Supplier Performance Trends</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={400}>
@@ -561,27 +558,27 @@ export default function SupplierPerformancePage() {
         </TabsContent>
 
         <TabsContent value="categories" className="space-y-6">
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100">Category Performance Analysis</CardTitle>
+              <CardTitle className="dashboard-card-title">Category Performance Analysis</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {categoryPerformance.map((category, index) => (
-                  <div key={index} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                    <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-2">{category.category}</h3>
+                  <div key={index} className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+                    <h3 className="font-medium text-gray-900 dark:text-white mb-2">{category.category}</h3>
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-600 dark:text-gray-400">Avg Score</span>
-                        <span className="font-medium text-gray-900 dark:text-gray-100">{category.avgScore}%</span>
+                        <span className="text-gray-600 dark:text-white">Avg Score</span>
+                        <span className="font-medium text-gray-900 dark:text-white">{category.avgScore}%</span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-600 dark:text-gray-400">Suppliers</span>
-                        <span className="font-medium text-gray-900 dark:text-gray-100">{category.suppliers}</span>
+                        <span className="text-gray-600 dark:text-white">Suppliers</span>
+                        <span className="font-medium text-gray-900 dark:text-white">{category.suppliers}</span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-600 dark:text-gray-400">Total Value</span>
-                        <span className="font-medium text-gray-900 dark:text-gray-100">${(category.totalValue / 1000000).toFixed(1)}M</span>
+                        <span className="text-gray-600 dark:text-white">Total Value</span>
+                        <span className="font-medium text-gray-900 dark:text-white">${(category.totalValue / 1000000).toFixed(1)}M</span>
                       </div>
                     </div>
                   </div>

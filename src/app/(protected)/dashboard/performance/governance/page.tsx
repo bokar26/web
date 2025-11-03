@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
-import { GlassCard } from "@/components/dashboard/atoms/GlassCard"
 import { 
   FileText, 
   Calendar,
@@ -19,14 +18,11 @@ import {
 
 export default function GovernanceContractsPage() {
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Governance & Contracts</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Manage contracts, compliance, and governance frameworks
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Governance & Contracts</h1>
         </div>
         <div className="flex items-center gap-3">
           <Button variant="outline">Export Contracts</Button>
@@ -42,15 +38,16 @@ export default function GovernanceContractsPage() {
         <span>/</span>
         <span>Performance</span>
         <span>/</span>
-        <span className="text-gray-900 dark:text-gray-100">Governance & Contracts</span>
+        <span className="text-gray-900 dark:text-white">Governance & Contracts</span>
       </nav>
 
       {/* Contract Summary */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-400">Active Contracts</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-white">Active Contracts</p>
               <p className="text-3xl font-bold text-blue-400">47</p>
               <p className="text-sm text-blue-500 flex items-center mt-1">
                 <FileText className="h-4 w-4 mr-1" />
@@ -59,12 +56,14 @@ export default function GovernanceContractsPage() {
             </div>
             <FileText className="h-8 w-8 text-blue-400" />
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-400">Compliance Rate</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-white">Compliance Rate</p>
               <p className="text-3xl font-bold text-emerald-400">94.2%</p>
               <p className="text-sm text-emerald-500 flex items-center mt-1">
                 <CheckCircle className="h-4 w-4 mr-1" />
@@ -73,12 +72,14 @@ export default function GovernanceContractsPage() {
             </div>
             <Shield className="h-8 w-8 text-emerald-400" />
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-400">Renewals Due</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-white">Renewals Due</p>
               <p className="text-3xl font-bold text-amber-400">8</p>
               <p className="text-sm text-amber-500 flex items-center mt-1">
                 <Calendar className="h-4 w-4 mr-1" />
@@ -87,12 +88,14 @@ export default function GovernanceContractsPage() {
             </div>
             <Calendar className="h-8 w-8 text-amber-400" />
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-400">Risk Contracts</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-white">Risk Contracts</p>
               <p className="text-3xl font-bold text-red-400">3</p>
               <p className="text-sm text-red-500 flex items-center mt-1">
                 <AlertTriangle className="h-4 w-4 mr-1" />
@@ -101,14 +104,16 @@ export default function GovernanceContractsPage() {
             </div>
             <AlertTriangle className="h-8 w-8 text-red-400" />
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
       </div>
 
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Upcoming Renewals Timeline */}
-        <GlassCard className="p-6">
-          <h3 className="text-lg font-semibold text-gray-100 mb-4">Upcoming Renewals Timeline</h3>
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Upcoming Renewals Timeline</h3>
           <div className="space-y-4">
             <div className="flex items-center gap-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
               <Calendar className="h-5 w-5 text-red-400" />
@@ -146,88 +151,92 @@ export default function GovernanceContractsPage() {
               <Badge className="bg-green-500/20 text-green-300">Planned</Badge>
             </div>
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
         {/* Performance Trends */}
-        <GlassCard className="p-6">
-          <h3 className="text-lg font-semibold text-gray-100 mb-4">Contract Performance Trends</h3>
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contract Performance Trends</h3>
           <div className="h-64 bg-gray-800 rounded-lg flex items-center justify-center">
             <div className="text-center">
-              <TrendingUp className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-              <p className="text-gray-400">Performance trends chart</p>
+              <TrendingUp className="h-12 w-12 text-gray-600 dark:text-white mx-auto mb-2" />
+              <p className="text-gray-600 dark:text-white">Performance trends chart</p>
               <p className="text-sm text-gray-500">Showing compliance improvements</p>
             </div>
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
       </div>
 
       {/* SLA Contracts Table */}
-      <GlassCard className="p-6">
-        <h3 className="text-lg font-semibold text-gray-100 mb-4">SLA Contracts Overview</h3>
+      <Card className="dashboard-card">
+          <CardContent className="p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">SLA Contracts Overview</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
-            <thead className="bg-gray-800/50">
+            <thead className="bg-gray-100 dark:bg-gray-900/50">
               <tr>
-                <th className="py-3 px-4 text-sm font-medium text-gray-300">Contract ID</th>
-                <th className="py-3 px-4 text-sm font-medium text-gray-300">Supplier</th>
-                <th className="py-3 px-4 text-sm font-medium text-gray-300">SLA Type</th>
-                <th className="py-3 px-4 text-sm font-medium text-gray-300">Performance</th>
-                <th className="py-3 px-4 text-sm font-medium text-gray-300">Status</th>
-                <th className="py-3 px-4 text-sm font-medium text-gray-300">Expires</th>
-                <th className="py-3 px-4 text-sm font-medium text-gray-300">Actions</th>
+                <th className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">Contract ID</th>
+                <th className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">Supplier</th>
+                <th className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">SLA Type</th>
+                <th className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">Performance</th>
+                <th className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">Status</th>
+                <th className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">Expires</th>
+                <th className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-gray-800">
-                <td className="py-4 px-4 text-gray-100">CON-2024-001</td>
-                <td className="py-4 px-4 text-gray-300">TextileCorp Asia</td>
-                <td className="py-4 px-4 text-gray-300">Delivery SLA</td>
+              <tr className="border-b border-gray-200 dark:border-gray-800">
+                <td className="py-4 px-4 text-gray-900 dark:text-white">CON-2024-001</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">TextileCorp Asia</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">Delivery SLA</td>
                 <td className="py-4 px-4">
                   <div className="flex items-center gap-2">
                     <Progress value={95} className="w-16 h-2" />
-                    <span className="text-sm text-gray-400">95%</span>
+                    <span className="text-sm text-gray-600 dark:text-white">95%</span>
                   </div>
                 </td>
                 <td className="py-4 px-4">
                   <Badge className="bg-emerald-500/20 text-emerald-300">Compliant</Badge>
                 </td>
-                <td className="py-4 px-4 text-gray-300">2024-02-15</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">2024-02-15</td>
                 <td className="py-4 px-4">
                   <Button variant="outline" size="sm">View Details</Button>
                 </td>
               </tr>
-              <tr className="border-b border-gray-800">
-                <td className="py-4 px-4 text-gray-100">CON-2024-002</td>
-                <td className="py-4 px-4 text-gray-300">Component Manufacturing Inc</td>
-                <td className="py-4 px-4 text-gray-300">Quality SLA</td>
+              <tr className="border-b border-gray-200 dark:border-gray-800">
+                <td className="py-4 px-4 text-gray-900 dark:text-white">CON-2024-002</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">Component Manufacturing Inc</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">Quality SLA</td>
                 <td className="py-4 px-4">
                   <div className="flex items-center gap-2">
                     <Progress value={88} className="w-16 h-2" />
-                    <span className="text-sm text-gray-400">88%</span>
+                    <span className="text-sm text-gray-600 dark:text-white">88%</span>
                   </div>
                 </td>
                 <td className="py-4 px-4">
                   <Badge className="bg-amber-500/20 text-amber-300">At Risk</Badge>
                 </td>
-                <td className="py-4 px-4 text-gray-300">2024-03-20</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">2024-03-20</td>
                 <td className="py-4 px-4">
                   <Button variant="outline" size="sm">View Details</Button>
                 </td>
               </tr>
-              <tr className="border-b border-gray-800">
-                <td className="py-4 px-4 text-gray-100">CON-2024-003</td>
-                <td className="py-4 px-4 text-gray-300">Packaging Solutions Ltd</td>
-                <td className="py-4 px-4 text-gray-300">Service SLA</td>
+              <tr className="border-b border-gray-200 dark:border-gray-800">
+                <td className="py-4 px-4 text-gray-900 dark:text-white">CON-2024-003</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">Packaging Solutions Ltd</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">Service SLA</td>
                 <td className="py-4 px-4">
                   <div className="flex items-center gap-2">
                     <Progress value={92} className="w-16 h-2" />
-                    <span className="text-sm text-gray-400">92%</span>
+                    <span className="text-sm text-gray-600 dark:text-white">92%</span>
                   </div>
                 </td>
                 <td className="py-4 px-4">
                   <Badge className="bg-emerald-500/20 text-emerald-300">Compliant</Badge>
                 </td>
-                <td className="py-4 px-4 text-gray-300">2024-04-10</td>
+                <td className="py-4 px-4 text-gray-900 dark:text-white">2024-04-10</td>
                 <td className="py-4 px-4">
                   <Button variant="outline" size="sm">View Details</Button>
                 </td>
@@ -235,7 +244,8 @@ export default function GovernanceContractsPage() {
             </tbody>
           </table>
         </div>
-      </GlassCard>
+      </CardContent>
+        </Card>
     </div>
   )
 }

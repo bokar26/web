@@ -6,9 +6,21 @@ import { FacetFilters } from "@/components/dashboard/search/FacetFilters"
 import { DataTable } from "@/components/dashboard/search/DataTable"
 import { CardGrid, EntityCard } from "@/components/dashboard/search/CardGrid"
 import { DetailDrawer } from "@/components/dashboard/search/DetailDrawer"
-import { sampleSuppliers } from "@/lib/mock/search"
+import { sampleSuppliers, sampleFactories } from "@/lib/mock/search"
 import { trackSearchView, trackSearchQuery, trackFilterApply, trackSortChange, trackViewToggle, trackEntityOpen, trackCompareClick, trackExportClick } from "@/lib/analytics"
-import { Supplier, SearchFilters, ViewMode, FilterOption } from "@/types/search"
+import { Supplier, Factory, SearchFilters, ViewMode } from "@/types/search"
+import dynamic from "next/dynamic"
+
+const GlobeLoader = dynamic(() => import("@/components/globe/GlobeLoader"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center min-h-[400px]">
+      <div className="w-40 h-40 rounded-full border border-slate-200 dark:border-slate-700 animate-pulse" />
+    </div>
+  ),
+})
+
+type UnifiedSupplier = (Supplier & { __type: 'supplier' }) | (Factory & { __type: 'factory' })
 
 export default function SuppliersPage() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -18,24 +30,105 @@ export default function SuppliersPage() {
   const [sortBy, setSortBy] = useState<string>("name")
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc")
   const [currentPage, setCurrentPage] = useState(1)
-  const [selectedEntity, setSelectedEntity] = useState<Supplier | null>(null)
+  const [selectedEntity, setSelectedEntity] = useState<UnifiedSupplier | null>(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [hasSearched, setHasSearched] = useState(false)
 
-  // Track page view on mount
+  // Combine suppliers and factories with type markers
+  const allEntities = useMemo(() => {
+    const suppliers = sampleSuppliers.map(s => ({ ...s, __type: 'supplier' as const }))
+    const factories = sampleFactories.map(f => ({ ...f, __type: 'factory' as const }))
+    return [...suppliers, ...factories] as UnifiedSupplier[]
+  }, [])
+
   useEffect(() => {
     trackSearchView('supplier')
   }, [])
 
-  // Generate filter options from data
+  // Generate filter options from combined data
   const availableOptions = useMemo(() => {
-    const countries = Array.from(new Set(sampleSuppliers.map(s => s.country)))
-      .map(country => ({ value: country, label: country, count: sampleSuppliers.filter(s => s.country === country).length }))
+    const countries = Array.from(new Set(allEntities.map(e => e.country)))
+      .map(country => ({ 
+        value: country, 
+        label: country, 
+        count: allEntities.filter(e => e.country === country).length 
+      }))
     
-    const certifications = Array.from(new Set(sampleSuppliers.flatMap(s => s.certifications)))
-      .map(cert => ({ value: cert, label: cert, count: sampleSuppliers.filter(s => s.certifications.includes(cert)).length }))
+    const certifications = Array.from(new Set(allEntities.flatMap(e => e.certifications)))
+      .map(cert => ({ 
+        value: cert, 
+        label: cert, 
+        count: allEntities.filter(e => e.certifications.includes(cert)).length 
+      }))
     
-    const specialties = Array.from(new Set(sampleSuppliers.flatMap(s => s.specialties)))
-      .map(specialty => ({ value: specialty, label: specialty, count: sampleSuppliers.filter(s => s.specialties.includes(specialty)).length }))
+    // Expanded apparel product options
+    const apparelProducts: FilterOption[] = [
+      { value: 'T-Shirts', label: 'T-Shirts' },
+      { value: 'Polo Shirts', label: 'Polo Shirts' },
+      { value: 'Button-Down Shirts', label: 'Button-Down Shirts' },
+      { value: 'Dress Shirts', label: 'Dress Shirts' },
+      { value: 'Blouses', label: 'Blouses' },
+      { value: 'Jeans', label: 'Jeans' },
+      { value: 'Trousers', label: 'Trousers' },
+      { value: 'Pants', label: 'Pants' },
+      { value: 'Shorts', label: 'Shorts' },
+      { value: 'Dresses', label: 'Dresses' },
+      { value: 'Skirts', label: 'Skirts' },
+      { value: 'Hoodies', label: 'Hoodies' },
+      { value: 'Sweatshirts', label: 'Sweatshirts' },
+      { value: 'Jackets', label: 'Jackets' },
+      { value: 'Coats', label: 'Coats' },
+      { value: 'Activewear', label: 'Activewear' },
+      { value: 'Sportswear', label: 'Sportswear' },
+      { value: 'Leggings', label: 'Leggings' },
+      { value: 'Athletic Apparel', label: 'Athletic Apparel' },
+      { value: 'Underwear', label: 'Underwear' },
+      { value: 'Lingerie', label: 'Lingerie' },
+      { value: 'Socks', label: 'Socks' },
+      { value: 'Hosiery', label: 'Hosiery' },
+      { value: 'Hats', label: 'Hats' },
+      { value: 'Caps', label: 'Caps' },
+      { value: 'Accessories', label: 'Accessories' },
+      { value: 'Shoes', label: 'Shoes' },
+      { value: 'Boots', label: 'Boots' },
+      { value: 'Sneakers', label: 'Sneakers' },
+      { value: 'Sandals', label: 'Sandals' },
+      { value: 'Bags', label: 'Bags' },
+      { value: 'Backpacks', label: 'Backpacks' },
+      { value: 'Wallets', label: 'Wallets' },
+      { value: 'Swimwear', label: 'Swimwear' },
+      { value: 'Beachwear', label: 'Beachwear' },
+      { value: 'Pajamas', label: 'Pajamas' },
+      { value: 'Loungewear', label: 'Loungewear' },
+      { value: 'Scarves', label: 'Scarves' },
+      { value: 'Gloves', label: 'Gloves' },
+      { value: 'Belts', label: 'Belts' },
+      { value: 'Ties', label: 'Ties' },
+      { value: 'Suits', label: 'Suits' },
+      { value: 'Blazers', label: 'Blazers' },
+      { value: 'Vests', label: 'Vests' },
+      { value: 'Sweaters', label: 'Sweaters' },
+      { value: 'Cardigans', label: 'Cardigans' },
+      { value: 'Pullovers', label: 'Pullovers' },
+      { value: 'Tank Tops', label: 'Tank Tops' },
+      { value: 'Camisoles', label: 'Camisoles' },
+      { value: 'Formal Wear', label: 'Formal Wear' },
+      { value: 'Casual Wear', label: 'Casual Wear' },
+      { value: 'Children\'s Wear', label: 'Children\'s Wear' },
+      { value: 'Baby Clothing', label: 'Baby Clothing' },
+      { value: 'Uniforms', label: 'Uniforms' },
+      { value: 'Workwear', label: 'Workwear' },
+      { value: 'Outerwear', label: 'Outerwear' },
+    ]
+
+    const specialties = apparelProducts.map(product => ({
+      ...product,
+      count: allEntities.filter(e => {
+        const entitySpecialties = '__type' in e && e.__type === 'supplier' ? e.specialties :
+          '__type' in e && e.__type === 'factory' ? e.specialties : []
+        return entitySpecialties.includes(product.value)
+      }).length
+    }))
 
     return {
       countries,
@@ -45,48 +138,93 @@ export default function SuppliersPage() {
       modes: [],
       services: [],
     }
-  }, [])
+  }, [allEntities])
 
   // Filter and sort data
   const filteredData = useMemo(() => {
-    let filtered = sampleSuppliers
+    let filtered = allEntities
 
     // Apply search query
     if (searchQuery) {
       const query = searchQuery.toLowerCase()
-      filtered = filtered.filter(supplier =>
-        supplier.name.toLowerCase().includes(query) ||
-        supplier.country.toLowerCase().includes(query) ||
-        supplier.specialties.some(s => s.toLowerCase().includes(query)) ||
-        supplier.certifications.some(c => c.toLowerCase().includes(query))
+      filtered = filtered.filter(entity =>
+        entity.name.toLowerCase().includes(query) ||
+        entity.country.toLowerCase().includes(query) ||
+        ('specialties' in entity && entity.specialties.some((s: string) => s.toLowerCase().includes(query))) ||
+        entity.certifications.some(c => c.toLowerCase().includes(query)) ||
+        ('capabilities' in entity && entity.capabilities.some((c: string) => c.toLowerCase().includes(query)))
       )
+    }
+
+    // Apply type filter
+    if (filters.partnerType && filters.partnerType.length > 0) {
+      filtered = filtered.filter(e => {
+        if (filters.partnerType!.includes('Supplier') && e.__type === 'supplier') return true
+        if (filters.partnerType!.includes('Factory') && e.__type === 'factory') return true
+        return false
+      })
     }
 
     // Apply filters
     if (filters.country && filters.country.length > 0) {
-      filtered = filtered.filter(s => filters.country!.includes(s.country))
+      filtered = filtered.filter(e => filters.country!.includes(e.country))
     }
     if (filters.certification && filters.certification.length > 0) {
-      filtered = filtered.filter(s => 
-        filters.certification!.some(cert => s.certifications.includes(cert))
+      filtered = filtered.filter(e => 
+        filters.certification!.some(cert => e.certifications.includes(cert))
       )
     }
     if (filters.specialty && filters.specialty.length > 0) {
-      filtered = filtered.filter(s => 
-        filters.specialty!.some(specialty => s.specialties.includes(specialty))
-      )
+      filtered = filtered.filter(e => {
+        const entitySpecialties = '__type' in e && e.__type === 'supplier' ? e.specialties :
+          '__type' in e && e.__type === 'factory' ? e.specialties : []
+        return filters.specialty!.some(specialty => entitySpecialties.includes(specialty))
+      })
+    }
+    // Apply custom product types filter (also include)
+    if (filters.customProductTypes && filters.customProductTypes.length > 0) {
+      filtered = filtered.filter(e => {
+        const entitySpecialties = '__type' in e && e.__type === 'supplier' ? e.specialties :
+          '__type' in e && e.__type === 'factory' ? e.specialties : []
+        // Match if entity has any of the custom product types (case-insensitive partial match)
+        return filters.customProductTypes!.some(customType => 
+          entitySpecialties.some(specialty => 
+            specialty.toLowerCase().includes(customType.toLowerCase()) ||
+            customType.toLowerCase().includes(specialty.toLowerCase())
+          )
+        )
+      })
     }
     if (filters.moqRange) {
       const [min, max] = filters.moqRange
-      filtered = filtered.filter(s => s.moq >= min && s.moq <= max)
+      filtered = filtered.filter(e => 'moq' in e && e.moq >= min && e.moq <= max)
+    }
+    if (filters.capacityRange) {
+      const [min, max] = filters.capacityRange
+      filtered = filtered.filter(e => 'capacity' in e && e.capacity >= min && e.capacity <= max)
+    }
+    if (filters.utilizationRange) {
+      const [min, max] = filters.utilizationRange
+      filtered = filtered.filter(e => 'utilization' in e && e.utilization >= min && e.utilization <= max)
     }
 
     // Apply sorting
     filtered.sort((a, b) => {
-      let aValue = a[sortBy as keyof Supplier]
-      let bValue = b[sortBy as keyof Supplier]
+      // Handle special __type sorting
+      if (sortBy === '__type') {
+        const aType = a.__type
+        const bType = b.__type
+        if (sortDirection === 'asc') {
+          return aType < bType ? -1 : aType > bType ? 1 : 0
+        } else {
+          return aType > bType ? -1 : aType < bType ? 1 : 0
+        }
+      }
       
-      // Handle undefined values
+      let aValue: any = a[sortBy as keyof typeof a]
+      let bValue: any = b[sortBy as keyof typeof b]
+      
+      // Handle undefined values - entities without this field go to end
       if (aValue === undefined && bValue === undefined) return 0
       if (aValue === undefined) return 1
       if (bValue === undefined) return -1
@@ -104,80 +242,89 @@ export default function SuppliersPage() {
     })
 
     return filtered
-  }, [searchQuery, filters, sortBy, sortDirection])
+  }, [searchQuery, filters, sortBy, sortDirection, allEntities])
 
-  // Table columns
-  const columns = [
+  // Table columns - unified for both types
+  const columns = useMemo(() => [
     {
-      key: 'name' as keyof Supplier,
+      key: '__type' as keyof UnifiedSupplier,
+      label: 'Type',
+      sortable: true,
+      width: '100px',
+      render: (value: unknown, row: UnifiedSupplier) => (
+        <span className="font-medium text-gray-900 dark:text-white">
+          {row.__type === 'supplier' ? 'Supplier' : 'Factory'}
+        </span>
+      ),
+    },
+    {
+      key: 'name' as keyof UnifiedSupplier,
       label: 'Name',
       sortable: true,
       width: '200px',
     },
     {
-      key: 'country' as keyof Supplier,
+      key: 'country' as keyof UnifiedSupplier,
       label: 'Country',
       sortable: true,
       width: '120px',
     },
     {
-      key: 'onTimePercent' as keyof Supplier,
+      key: 'onTimePercent' as keyof UnifiedSupplier,
       label: 'On-Time %',
       sortable: true,
       width: '100px',
-      render: (value: unknown) => (
-        <span className={`font-medium ${(value as number) >= 95 ? 'text-green-600' : (value as number) >= 90 ? 'text-yellow-600' : 'text-red-600'}`}>
-          {value as number}%
-        </span>
-      ),
+      render: (value: unknown, row: UnifiedSupplier) => {
+        if (row.__type === 'supplier' && 'onTimePercent' in row) {
+          const val = row.onTimePercent
+          return (
+            <span className={`font-medium ${val >= 95 ? 'text-green-600' : val >= 90 ? 'text-yellow-600' : 'text-red-600'}`}>
+              {val}%
+            </span>
+          )
+        }
+        return <span className="text-gray-400 dark:text-gray-600">-</span>
+      },
     },
     {
-      key: 'defectRate' as keyof Supplier,
-      label: 'Defect Rate',
+      key: 'capacity' as keyof UnifiedSupplier,
+      label: 'Capacity',
+      sortable: true,
+      width: '120px',
+      render: (value: unknown, row: UnifiedSupplier) => {
+        if (row.__type === 'factory' && 'capacity' in row) {
+          return (
+            <span className="font-medium text-gray-900 dark:text-white">
+              {row.capacity.toLocaleString()} units/month
+            </span>
+          )
+        }
+        return <span className="text-gray-400 dark:text-gray-600">-</span>
+      },
+    },
+    {
+      key: 'moq' as keyof UnifiedSupplier,
+      label: 'MOQ',
       sortable: true,
       width: '100px',
-      render: (value: unknown) => (
-        <span className={`font-medium ${(value as number) <= 0.02 ? 'text-green-600' : (value as number) <= 0.05 ? 'text-yellow-600' : 'text-red-600'}`}>
-          {((value as number) * 100).toFixed(1)}%
-        </span>
-      ),
+      render: (value: unknown) => {
+        if (value !== undefined) {
+          return (
+            <span className="font-medium text-gray-900 dark:text-white">
+              {(value as number).toLocaleString()}
+            </span>
+          )
+        }
+        return <span className="text-gray-400 dark:text-gray-600">-</span>
+      },
     },
     {
-      key: 'avgLeadTimeDays' as keyof Supplier,
-      label: 'Lead Time',
-      sortable: true,
-      width: '100px',
-      render: (value: unknown) => (
-        <span className="font-medium">{value as number} days</span>
-      ),
-    },
-    {
-      key: 'riskIndex' as keyof Supplier,
-      label: 'Risk',
-      sortable: true,
-      width: '80px',
-      render: (value: unknown) => (
-        <span className={`font-medium ${(value as number) <= 2 ? 'text-green-600' : (value as number) <= 3 ? 'text-yellow-600' : 'text-red-600'}`}>
-          {value as number}/5
-        </span>
-      ),
-    },
-    {
-      key: 'certifications' as keyof Supplier,
+      key: 'certifications' as keyof UnifiedSupplier,
       label: 'Certifications',
       sortable: false,
       width: '200px',
     },
-    {
-      key: 'moq' as keyof Supplier,
-      label: 'MOQ',
-      sortable: true,
-      width: '100px',
-      render: (value: unknown) => (
-        <span className="font-medium">{(value as number).toLocaleString()}</span>
-      ),
-    },
-  ]
+  ], [])
 
   // Event handlers
   const handleSearchChange = (query: string) => {
@@ -217,62 +364,111 @@ export default function SuppliersPage() {
 
   const handleSelectAll = (selected: boolean) => {
     if (selected) {
-      const allIds = new Set(filteredData.map(s => s.id))
+      const allIds = new Set(filteredData.map(e => e.id))
       setSelectedRows(allIds)
     } else {
       setSelectedRows(new Set())
     }
   }
 
-  const handleRowClick = (supplier: Supplier) => {
-    setSelectedEntity(supplier)
+  const handleRowClick = (entity: UnifiedSupplier) => {
+    setSelectedEntity(entity)
     setIsDrawerOpen(true)
-    trackEntityOpen('supplier', supplier.id)
+    trackEntityOpen('supplier', entity.id)
   }
 
   const handleCompare = () => {
     trackCompareClick('supplier', selectedRows.size)
-    // TODO: Implement compare functionality
   }
 
   const handleExport = () => {
     trackExportClick('supplier')
-    // TODO: Implement export functionality
   }
 
   const handleClearSelection = () => {
     setSelectedRows(new Set())
   }
 
-  // Render supplier card for grid view
-  const renderSupplierCard = (supplier: Supplier, isSelected: boolean) => (
-    <EntityCard
-      title={supplier.name}
-      subtitle={`${supplier.country}, ${supplier.region}`}
-      metrics={[
-        { label: 'On-Time %', value: supplier.onTimePercent, format: 'percentage', color: supplier.onTimePercent >= 95 ? 'green' : supplier.onTimePercent >= 90 ? 'yellow' : 'red' },
-        { label: 'Defect Rate', value: (supplier.defectRate * 100).toFixed(1), format: 'percentage', color: supplier.defectRate <= 0.02 ? 'green' : supplier.defectRate <= 0.05 ? 'yellow' : 'red' },
-        { label: 'Lead Time', value: supplier.avgLeadTimeDays, format: 'number' },
-        { label: 'Risk Index', value: `${supplier.riskIndex}/5`, format: 'text', color: supplier.riskIndex <= 2 ? 'green' : supplier.riskIndex <= 3 ? 'yellow' : 'red' },
-      ]}
-      badges={supplier.certifications.slice(0, 3).map(cert => ({ text: cert, variant: 'secondary' as const }))}
-      description={`MOQ: ${supplier.moq.toLocaleString()} units • ${supplier.specialties.slice(0, 2).join(', ')}`}
-      onViewDetails={() => handleRowClick(supplier)}
-    />
-  )
+  const handleSearch = () => {
+    setHasSearched(true)
+    setCurrentPage(1)
+    trackSearchQuery('supplier', searchQuery, filteredData.length)
+  }
+
+  const handleResetFilters = () => {
+    setFilters({})
+    setSearchQuery("")
+    setHasSearched(false)
+    setCurrentPage(1)
+    setSelectedRows(new Set())
+  }
+
+  const handleSaveSearch = () => {
+    const savedSearches = JSON.parse(localStorage.getItem('sla-saved-searches') || '[]')
+    const newSearch = {
+      id: Date.now().toString(),
+      name: `Search ${new Date().toLocaleDateString()}`,
+      filters: filters,
+      searchQuery: searchQuery,
+      entityType: 'supplier-factory',
+      createdAt: new Date().toISOString(),
+    }
+    savedSearches.push(newSearch)
+    localStorage.setItem('sla-saved-searches', JSON.stringify(savedSearches))
+    // You could add a toast notification here
+    alert('Search saved successfully!')
+  }
+
+  // Render entity card for grid view
+  const renderEntityCard = (entity: UnifiedSupplier, isSelected: boolean) => {
+    if (entity.__type === 'supplier') {
+      return (
+        <EntityCard
+          key={entity.id}
+          title={entity.name}
+          subtitle={`${entity.country}, ${entity.region}`}
+          metrics={[
+            { label: 'On-Time %', value: entity.onTimePercent, format: 'percentage', color: entity.onTimePercent >= 95 ? 'green' : entity.onTimePercent >= 90 ? 'yellow' : 'red' },
+            { label: 'Defect Rate', value: (entity.defectRate * 100).toFixed(1), format: 'percentage', color: entity.defectRate <= 0.02 ? 'green' : entity.defectRate <= 0.05 ? 'yellow' : 'red' },
+            { label: 'Lead Time', value: entity.avgLeadTimeDays, format: 'number' },
+            { label: 'Risk Index', value: `${entity.riskIndex}/5`, format: 'text', color: entity.riskIndex <= 2 ? 'green' : entity.riskIndex <= 3 ? 'yellow' : 'red' },
+          ]}
+          badges={entity.certifications.slice(0, 3).map(cert => ({ text: cert, variant: 'secondary' as const }))}
+          description={`MOQ: ${entity.moq.toLocaleString()} units • ${entity.specialties.slice(0, 2).join(', ')}`}
+          onViewDetails={() => handleRowClick(entity)}
+        />
+      )
+    } else {
+      return (
+        <EntityCard
+          key={entity.id}
+          title={entity.name}
+          subtitle={`${entity.country}, ${entity.region}`}
+          metrics={[
+            { label: 'Capacity', value: entity.capacity, format: 'number' },
+            { label: 'Utilization', value: entity.utilization, format: 'percentage', color: entity.utilization >= 80 ? 'green' : entity.utilization >= 60 ? 'yellow' : 'red' },
+            { label: 'Compliance', value: entity.complianceScore, format: 'number', color: entity.complianceScore >= 90 ? 'green' : entity.complianceScore >= 80 ? 'yellow' : 'red' },
+            { label: 'Employees', value: entity.employeeCount, format: 'number' },
+          ]}
+          badges={entity.capabilities.slice(0, 3).map(cap => ({ text: cap, variant: 'secondary' as const }))}
+          description={`Est. ${entity.establishedYear} • ${entity.specialties.slice(0, 2).join(', ')}`}
+          onViewDetails={() => handleRowClick(entity)}
+        />
+      )
+    }
+  }
 
   return (
-    <div className="space-y-6">
+    <div className="p-6 space-y-4">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Suppliers</h1>
-        <p className="text-gray-600 mt-1">Find and compare suppliers for your apparel supply chain</p>
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white">Suppliers</h1>
       </div>
 
       {/* 2-Column Layout */}
-      <div className="flex gap-6 min-h-[calc(100vh-12rem)]">
+      <div className="flex gap-4 min-h-[calc(100vh-12rem)]">
         {/* Left Column: Search & Filters */}
-        <div className="w-80 flex-shrink-0 space-y-4 overflow-y-auto">
+        <div className="w-64 flex-shrink-0 space-y-4 overflow-y-auto">
           <SearchToolbar
             searchQuery={searchQuery}
             onSearchChange={handleSearchChange}
@@ -285,20 +481,31 @@ export default function SuppliersPage() {
             filters={filters}
             onFiltersChange={handleFiltersChange}
             resultCount={filteredData.length}
-            entityType="supplier"
+            entityType="supplier-factory"
+            onSearch={handleSearch}
+            onSaveSearch={handleSaveSearch}
+            onResetFilters={handleResetFilters}
+            hasSearchExecuted={hasSearched}
           />
           
           <FacetFilters
             filters={filters}
             onFiltersChange={handleFiltersChange}
-            entityType="supplier"
+            entityType="supplier-factory"
             availableOptions={availableOptions}
           />
         </div>
 
         {/* Right Column: Results */}
         <div className="flex-1 overflow-y-auto">
-          {viewMode === 'table' ? (
+          {!hasSearched ? (
+            <div className="flex items-center justify-center min-h-[500px] w-full">
+              <GlobeLoader 
+                size={480}
+                subtitle="Ready to search worldwide..."
+              />
+            </div>
+          ) : viewMode === 'table' ? (
             <DataTable
               data={filteredData}
               columns={columns}
@@ -311,7 +518,7 @@ export default function SuppliersPage() {
               onSort={handleSort}
               currentPage={currentPage}
               onPageChange={setCurrentPage}
-              getRowId={(supplier) => supplier.id}
+              getRowId={(entity) => entity.id}
             />
           ) : (
             <CardGrid
@@ -319,8 +526,8 @@ export default function SuppliersPage() {
               selectedRows={selectedRows}
               onRowSelect={handleRowSelect}
               onRowClick={handleRowClick}
-              renderCard={renderSupplierCard}
-              getRowId={(supplier) => supplier.id}
+              renderCard={renderEntityCard}
+              getRowId={(entity) => entity.id}
             />
           )}
         </div>
@@ -331,7 +538,7 @@ export default function SuppliersPage() {
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
         entity={selectedEntity}
-        entityType="supplier"
+        entityType={selectedEntity?.__type === 'supplier' ? 'supplier' : 'factory'}
       />
     </div>
   )

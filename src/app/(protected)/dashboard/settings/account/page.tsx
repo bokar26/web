@@ -65,14 +65,11 @@ export default function AccountSettingsPage() {
   }
 
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Account Settings</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Manage your account information and preferences
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Account Settings</h1>
         </div>
         <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
           <Save className="h-4 w-4 mr-2" />
@@ -83,9 +80,9 @@ export default function AccountSettingsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Profile Information */}
         <div className="lg:col-span-2 space-y-6">
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100 flex items-center gap-2">
+              <CardTitle className="dashboard-card-title flex items-center gap-2">
                 <User className="h-5 w-5" />
                 Profile Information
               </CardTitle>
@@ -93,7 +90,7 @@ export default function AccountSettingsPage() {
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="firstName" className="text-gray-700 dark:text-gray-300">First Name</Label>
+                  <Label htmlFor="firstName" className="text-gray-700 dark:text-white">First Name</Label>
                   <Input 
                     id="firstName"
                     value={profile.firstName}
@@ -102,7 +99,7 @@ export default function AccountSettingsPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="lastName" className="text-gray-700 dark:text-gray-300">Last Name</Label>
+                  <Label htmlFor="lastName" className="text-gray-700 dark:text-white">Last Name</Label>
                   <Input 
                     id="lastName"
                     value={profile.lastName}
@@ -114,9 +111,9 @@ export default function AccountSettingsPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="email" className="text-gray-700 dark:text-gray-300">Email Address</Label>
+                  <Label htmlFor="email" className="text-gray-700 dark:text-white">Email Address</Label>
                   <div className="relative mt-1">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-white" />
                     <Input 
                       id="email"
                       type="email"
@@ -127,9 +124,9 @@ export default function AccountSettingsPage() {
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor="phone" className="text-gray-700 dark:text-gray-300">Phone Number</Label>
+                  <Label htmlFor="phone" className="text-gray-700 dark:text-white">Phone Number</Label>
                   <div className="relative mt-1">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-white" />
                     <Input 
                       id="phone"
                       value={profile.phone}
@@ -142,7 +139,7 @@ export default function AccountSettingsPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="title" className="text-gray-700 dark:text-gray-300">Job Title</Label>
+                  <Label htmlFor="title" className="text-gray-700 dark:text-white">Job Title</Label>
                   <Input 
                     id="title"
                     value={profile.title}
@@ -151,7 +148,7 @@ export default function AccountSettingsPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="department" className="text-gray-700 dark:text-gray-300">Department</Label>
+                  <Label htmlFor="department" className="text-gray-700 dark:text-white">Department</Label>
                   <Input 
                     id="department"
                     value={profile.department}
@@ -162,9 +159,9 @@ export default function AccountSettingsPage() {
               </div>
 
               <div>
-                <Label htmlFor="company" className="text-gray-700 dark:text-gray-300">Company</Label>
+                <Label htmlFor="company" className="text-gray-700 dark:text-white">Company</Label>
                 <div className="relative mt-1">
-                  <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-white" />
                   <Input 
                     id="company"
                     value={profile.company}
@@ -176,16 +173,16 @@ export default function AccountSettingsPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100 flex items-center gap-2">
+              <CardTitle className="dashboard-card-title flex items-center gap-2">
                 <MapPin className="h-5 w-5" />
                 Address Information
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="address" className="text-gray-700 dark:text-gray-300">Street Address</Label>
+                <Label htmlFor="address" className="text-gray-700 dark:text-white">Street Address</Label>
                 <Input 
                   id="address"
                   value={profile.address}
@@ -196,7 +193,7 @@ export default function AccountSettingsPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <Label htmlFor="city" className="text-gray-700 dark:text-gray-300">City</Label>
+                  <Label htmlFor="city" className="text-gray-700 dark:text-white">City</Label>
                   <Input 
                     id="city"
                     value={profile.city}
@@ -205,7 +202,7 @@ export default function AccountSettingsPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="state" className="text-gray-700 dark:text-gray-300">State/Province</Label>
+                  <Label htmlFor="state" className="text-gray-700 dark:text-white">State/Province</Label>
                   <Input 
                     id="state"
                     value={profile.state}
@@ -214,7 +211,7 @@ export default function AccountSettingsPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="zipCode" className="text-gray-700 dark:text-gray-300">ZIP/Postal Code</Label>
+                  <Label htmlFor="zipCode" className="text-gray-700 dark:text-white">ZIP/Postal Code</Label>
                   <Input 
                     id="zipCode"
                     value={profile.zipCode}
@@ -225,7 +222,7 @@ export default function AccountSettingsPage() {
               </div>
 
               <div>
-                <Label htmlFor="country" className="text-gray-700 dark:text-gray-300">Country</Label>
+                <Label htmlFor="country" className="text-gray-700 dark:text-white">Country</Label>
                 <Select value={profile.country} onValueChange={(value) => handleProfileChange('country', value)}>
                   <SelectTrigger className="mt-1">
                     <SelectValue />
@@ -243,9 +240,9 @@ export default function AccountSettingsPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100 flex items-center gap-2">
+              <CardTitle className="dashboard-card-title flex items-center gap-2">
                 <Bell className="h-5 w-5" />
                 Notification Preferences
               </CardTitle>
@@ -254,10 +251,10 @@ export default function AccountSettingsPage() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                    <Mail className="h-4 w-4 text-gray-600 dark:text-white" />
                     <div>
-                      <Label className="text-gray-700 dark:text-gray-300">Email Notifications</Label>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Receive notifications via email</p>
+                      <Label className="text-gray-700 dark:text-white">Email Notifications</Label>
+                      <p className="text-sm text-gray-600 dark:text-white">Receive notifications via email</p>
                     </div>
                   </div>
                   <Switch 
@@ -270,10 +267,10 @@ export default function AccountSettingsPage() {
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Smartphone className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                    <Smartphone className="h-4 w-4 text-gray-600 dark:text-white" />
                     <div>
-                      <Label className="text-gray-700 dark:text-gray-300">SMS Notifications</Label>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Receive notifications via SMS</p>
+                      <Label className="text-gray-700 dark:text-white">SMS Notifications</Label>
+                      <p className="text-sm text-gray-600 dark:text-white">Receive notifications via SMS</p>
                     </div>
                   </div>
                   <Switch 
@@ -286,10 +283,10 @@ export default function AccountSettingsPage() {
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Monitor className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                    <Monitor className="h-4 w-4 text-gray-600 dark:text-white" />
                     <div>
-                      <Label className="text-gray-700 dark:text-gray-300">Push Notifications</Label>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Receive browser push notifications</p>
+                      <Label className="text-gray-700 dark:text-white">Push Notifications</Label>
+                      <p className="text-sm text-gray-600 dark:text-white">Receive browser push notifications</p>
                     </div>
                   </div>
                   <Switch 
@@ -302,8 +299,8 @@ export default function AccountSettingsPage() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label className="text-gray-700 dark:text-gray-300">Weekly Reports</Label>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Receive weekly performance reports</p>
+                    <Label className="text-gray-700 dark:text-white">Weekly Reports</Label>
+                    <p className="text-sm text-gray-600 dark:text-white">Receive weekly performance reports</p>
                   </div>
                   <Switch 
                     checked={notifications.weeklyReports}
@@ -315,8 +312,8 @@ export default function AccountSettingsPage() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label className="text-gray-700 dark:text-gray-300">Alert Notifications</Label>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Receive alerts for critical issues</p>
+                    <Label className="text-gray-700 dark:text-white">Alert Notifications</Label>
+                    <p className="text-sm text-gray-600 dark:text-white">Receive alerts for critical issues</p>
                   </div>
                   <Switch 
                     checked={notifications.alerts}
@@ -328,8 +325,8 @@ export default function AccountSettingsPage() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label className="text-gray-700 dark:text-gray-300">Product Updates</Label>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Receive notifications about product updates</p>
+                    <Label className="text-gray-700 dark:text-white">Product Updates</Label>
+                    <p className="text-sm text-gray-600 dark:text-white">Receive notifications about product updates</p>
                   </div>
                   <Switch 
                     checked={notifications.updates}
@@ -343,16 +340,16 @@ export default function AccountSettingsPage() {
 
         {/* Settings Sidebar */}
         <div className="space-y-6">
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100 flex items-center gap-2">
+              <CardTitle className="dashboard-card-title flex items-center gap-2">
                 <Globe className="h-5 w-5" />
                 Regional Settings
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="timezone" className="text-gray-700 dark:text-gray-300">Timezone</Label>
+                <Label htmlFor="timezone" className="text-gray-700 dark:text-white">Timezone</Label>
                 <Select value={profile.timezone} onValueChange={(value) => handleProfileChange('timezone', value)}>
                   <SelectTrigger className="mt-1">
                     <SelectValue />
@@ -370,7 +367,7 @@ export default function AccountSettingsPage() {
               </div>
 
               <div>
-                <Label htmlFor="language" className="text-gray-700 dark:text-gray-300">Language</Label>
+                <Label htmlFor="language" className="text-gray-700 dark:text-white">Language</Label>
                 <Select value={profile.language} onValueChange={(value) => handleProfileChange('language', value)}>
                   <SelectTrigger className="mt-1">
                     <SelectValue />
@@ -387,7 +384,7 @@ export default function AccountSettingsPage() {
               </div>
 
               <div>
-                <Label htmlFor="dateFormat" className="text-gray-700 dark:text-gray-300">Date Format</Label>
+                <Label htmlFor="dateFormat" className="text-gray-700 dark:text-white">Date Format</Label>
                 <Select value={profile.dateFormat} onValueChange={(value) => handleProfileChange('dateFormat', value)}>
                   <SelectTrigger className="mt-1">
                     <SelectValue />
@@ -402,7 +399,7 @@ export default function AccountSettingsPage() {
               </div>
 
               <div>
-                <Label htmlFor="currency" className="text-gray-700 dark:text-gray-300">Currency</Label>
+                <Label htmlFor="currency" className="text-gray-700 dark:text-white">Currency</Label>
                 <Select value={profile.currency} onValueChange={(value) => handleProfileChange('currency', value)}>
                   <SelectTrigger className="mt-1">
                     <SelectValue />
@@ -420,23 +417,23 @@ export default function AccountSettingsPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100 flex items-center gap-2">
+              <CardTitle className="dashboard-card-title flex items-center gap-2">
                 <Shield className="h-5 w-5" />
                 Security
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Button variant="outline" className="w-full text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+              <Button variant="outline" className="w-full text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
                 <Key className="h-4 w-4 mr-2" />
                 Change Password
               </Button>
-              <Button variant="outline" className="w-full text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+              <Button variant="outline" className="w-full text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
                 <Shield className="h-4 w-4 mr-2" />
                 Two-Factor Auth
               </Button>
-              <Button variant="outline" className="w-full text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+              <Button variant="outline" className="w-full text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
                 <Monitor className="h-4 w-4 mr-2" />
                 Active Sessions
               </Button>

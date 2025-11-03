@@ -13,9 +13,9 @@ interface GoalProgressProps {
 
 export function GoalProgress({ title, progress, target, percentOfGoal, onEditDashboard }: GoalProgressProps) {
   return (
-    <Card className="hover:shadow-lg transition-shadow">
+    <Card className="dashboard-card hover:shadow-lg transition-shadow">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-gray-900 dark:text-white">
+        <CardTitle className="dashboard-card-title text-sm font-medium">
           Goal
         </CardTitle>
         <Button 

@@ -23,7 +23,7 @@ import {
   Download as DownloadIcon
 } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { GlassCard } from "@/components/dashboard/atoms/GlassCard"
+import { Card } from "@/components/ui/card"
 
 interface POTableProps {
   orders: PurchaseOrder[];
@@ -70,14 +70,14 @@ export const POTable: React.FC<POTableProps> = ({
   };
 
   return (
-    <GlassCard className="p-0 overflow-hidden">
+    <Card className="dashboard-card p-0 overflow-hidden">
       <div className="flex justify-between items-center p-4">
-        <h2 className="text-xl font-semibold text-gray-100">Purchase Order Tracker</h2>
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Purchase Order Tracker</h2>
         <Button
           variant="outline"
           size="sm"
           onClick={onExport}
-          className="bg-gray-700 hover:bg-gray-600 border-gray-600 text-gray-200"
+          className="bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
         >
           <DownloadIcon className="h-4 w-4 mr-2" />
           Export CSV
@@ -85,49 +85,49 @@ export const POTable: React.FC<POTableProps> = ({
       </div>
       <div className="overflow-x-auto custom-scrollbar">
         <table className="w-full text-left">
-          <thead className="bg-gray-800/50 border-b border-gray-700">
+          <thead className="bg-gray-100 dark:bg-gray-900/50 border-b border-gray-200 dark:border-gray-800">
             <tr>
-              <th className="py-3 px-4 text-sm font-medium text-gray-300 cursor-pointer" onClick={() => onSort('id')}>
+              <th className="py-3 px-4 text-sm font-medium text-gray-600 dark:text-white cursor-pointer" onClick={() => onSort('id')}>
                 PO # {renderSortIcon('id')}
               </th>
-              <th className="py-3 px-4 text-sm font-medium text-gray-300 cursor-pointer" onClick={() => onSort('supplier')}>
+              <th className="py-3 px-4 text-sm font-medium text-gray-600 dark:text-white cursor-pointer" onClick={() => onSort('supplier')}>
                 Supplier {renderSortIcon('supplier')}
               </th>
-              <th className="py-3 px-4 text-sm font-medium text-gray-300 cursor-pointer" onClick={() => onSort('orderDate')}>
+              <th className="py-3 px-4 text-sm font-medium text-gray-600 dark:text-white cursor-pointer" onClick={() => onSort('orderDate')}>
                 Order Date {renderSortIcon('orderDate')}
               </th>
-              <th className="py-3 px-4 text-sm font-medium text-gray-300 cursor-pointer" onClick={() => onSort('eta')}>
+              <th className="py-3 px-4 text-sm font-medium text-gray-600 dark:text-white cursor-pointer" onClick={() => onSort('eta')}>
                 ETA / Actual Delivery {renderSortIcon('eta')}
               </th>
-              <th className="py-3 px-4 text-sm font-medium text-gray-300">Status</th>
-              <th className="py-3 px-4 text-sm font-medium text-gray-300">SLA Status</th>
-              <th className="py-3 px-4 text-sm font-medium text-gray-300 text-right cursor-pointer" onClick={() => onSort('amount')}>
+              <th className="py-3 px-4 text-sm font-medium text-gray-600 dark:text-white">Status</th>
+              <th className="py-3 px-4 text-sm font-medium text-gray-600 dark:text-white">SLA Status</th>
+              <th className="py-3 px-4 text-sm font-medium text-gray-600 dark:text-white text-right cursor-pointer" onClick={() => onSort('amount')}>
                 Amount ($) {renderSortIcon('amount')}
               </th>
-              <th className="py-3 px-4 text-sm font-medium text-gray-300">Progress</th>
-              <th className="py-3 px-4 text-sm font-medium text-gray-300 text-center">Actions</th>
+              <th className="py-3 px-4 text-sm font-medium text-gray-600 dark:text-white">Progress</th>
+              <th className="py-3 px-4 text-sm font-medium text-gray-600 dark:text-white text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((order) => (
               <tr
                 key={order.id}
-                className="border-b border-gray-800 hover:bg-gray-700/30 transition-colors cursor-pointer"
+                className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900/50 transition-colors cursor-pointer"
                 onClick={() => onOrderClick(order)}
               >
                 <td className="py-4 px-4">
-                  <div className="font-medium text-gray-100">{order.id}</div>
-                  <div className="text-sm text-gray-400">{order.region}</div>
+                  <div className="font-medium text-gray-900 dark:text-white">{order.id}</div>
+                  <div className="text-sm text-gray-600 dark:text-white">{order.region}</div>
                 </td>
                 <td className="py-4 px-4">
-                  <div className="font-medium text-gray-100">{order.supplier.name}</div>
-                  <div className="text-sm text-gray-400">{order.supplier.contact.email}</div>
+                  <div className="font-medium text-gray-900 dark:text-white">{order.supplier.name}</div>
+                  <div className="text-sm text-gray-600 dark:text-white">{order.supplier.contact.email}</div>
                 </td>
-                <td className="py-4 px-4 text-gray-300">{order.orderDate}</td>
+                <td className="py-4 px-4 text-gray-600 dark:text-white">{order.orderDate}</td>
                 <td className="py-4 px-4">
-                  <div className="text-gray-300">{order.eta}</div>
+                  <div className="text-gray-600 dark:text-white">{order.eta}</div>
                   {order.actualDelivery && (
-                    <div className="text-sm text-gray-400">Actual: {order.actualDelivery}</div>
+                    <div className="text-sm text-gray-600 dark:text-white">Actual: {order.actualDelivery}</div>
                   )}
                 </td>
                 <td className="py-4 px-4">
@@ -140,13 +140,13 @@ export const POTable: React.FC<POTableProps> = ({
                     {order.slaStatus.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                   </Badge>
                 </td>
-                <td className="py-4 px-4 text-right text-gray-300">
+                <td className="py-4 px-4 text-right text-gray-600 dark:text-white">
                   ${order.amount.toLocaleString()}
                 </td>
                 <td className="py-4 px-4">
                   <div className="flex items-center gap-2">
                     <Progress value={order.progress} className="flex-1 h-2" />
-                    <span className="text-sm text-gray-400 w-12">{order.progress}%</span>
+                    <span className="text-sm text-gray-600 dark:text-white w-12">{order.progress}%</span>
                   </div>
                 </td>
                 <td className="py-4 px-4 text-center">
@@ -156,7 +156,7 @@ export const POTable: React.FC<POTableProps> = ({
                         <MoreVertical className="h-4 w-4" />
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="bg-gray-800 border-gray-700">
+                    <DropdownMenuContent align="end" className="bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800">
                       <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
                         <Eye className="h-4 w-4 mr-2" />
                         View Details
@@ -185,6 +185,6 @@ export const POTable: React.FC<POTableProps> = ({
           </tbody>
         </table>
       </div>
-    </GlassCard>
+    </Card>
   )
 }

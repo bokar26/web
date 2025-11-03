@@ -1,7 +1,6 @@
 "use client"
 
-import { useState } from "react"
-import { Search, Grid3X3, List, Download, Filter } from "lucide-react"
+import { Search, Grid3X3, List, Download, RotateCcw, Bookmark } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -19,7 +18,11 @@ interface SearchToolbarProps {
   filters: SearchFilters
   onFiltersChange: (filters: SearchFilters) => void
   resultCount: number
-  entityType: 'supplier' | 'factory' | 'warehouse' | 'forwarder' | 'carrier'
+  entityType: 'supplier' | 'factory' | 'warehouse' | 'forwarder' | 'carrier' | 'supplier-factory' | 'logistics'
+  onSearch: () => void
+  onSaveSearch: () => void
+  onResetFilters: () => void
+  hasSearchExecuted?: boolean
 }
 
 export function SearchToolbar({
@@ -35,24 +38,24 @@ export function SearchToolbar({
   onFiltersChange,
   resultCount,
   entityType,
+  onSearch,
+  onSaveSearch,
+  onResetFilters,
+  hasSearchExecuted = false,
 }: SearchToolbarProps) {
-  const [showFilters, setShowFilters] = useState(false)
-
   const hasActiveFilters = Object.values(filters).some(value => 
     Array.isArray(value) ? value.length > 0 : value !== undefined && value !== ''
   )
-
-  const clearAllFilters = () => {
-    onFiltersChange({})
-  }
 
   const getEntityLabel = () => {
     switch (entityType) {
       case 'supplier': return 'Suppliers'
       case 'factory': return 'Factories'
+      case 'supplier-factory': return 'Suppliers'
       case 'warehouse': return 'Warehouses'
       case 'forwarder': return 'Freight Forwarders'
       case 'carrier': return 'Carriers'
+      case 'logistics': return 'Logistics'
       default: return 'Items'
     }
   }
@@ -64,22 +67,26 @@ export function SearchToolbar({
         <div className="flex items-center space-x-4 flex-1">
           {/* Search input */}
           <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-white" />
             <Input
               placeholder={`Search ${getEntityLabel().toLowerCase()}...`}
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="pl-10"
+              className="pl-10 bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white"
             />
           </div>
 
           {/* View mode toggle */}
-          <div className="flex items-center border border-gray-200 rounded-lg">
+          <div className="flex items-center border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden">
             <Button
               variant={viewMode === 'table' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => onViewModeChange('table')}
-              className="rounded-r-none"
+              className={`rounded-r-none text-gray-900 dark:text-white ${
+                viewMode === 'table' 
+                  ? 'bg-white dark:bg-gray-950' 
+                  : 'bg-transparent hover:bg-gray-50 dark:hover:bg-gray-900'
+              }`}
             >
               <List className="h-4 w-4" />
             </Button>
@@ -87,27 +94,47 @@ export function SearchToolbar({
               variant={viewMode === 'grid' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => onViewModeChange('grid')}
-              className="rounded-l-none"
+              className={`rounded-l-none text-gray-900 dark:text-white ${
+                viewMode === 'grid' 
+                  ? 'bg-white dark:bg-gray-950' 
+                  : 'bg-transparent hover:bg-gray-50 dark:hover:bg-gray-900'
+              }`}
             >
               <Grid3X3 className="h-4 w-4" />
             </Button>
           </div>
 
-          {/* Filter toggle */}
+          {/* Search button */}
           <Button
-            variant={hasActiveFilters ? 'default' : 'outline'}
             size="sm"
-            onClick={() => setShowFilters(!showFilters)}
+            onClick={onSearch}
+            className="bg-blue-600 hover:bg-blue-700 text-white"
           >
-            <Filter className="h-4 w-4 mr-2" />
-            Filters
-            {hasActiveFilters && (
-              <Badge variant="secondary" className="ml-2">
-                {Object.values(filters).filter(v => 
-                  Array.isArray(v) ? v.length > 0 : v !== undefined && v !== ''
-                ).length}
-              </Badge>
-            )}
+            <Search className="h-4 w-4 mr-2" />
+            Search
+          </Button>
+
+          {/* Save Search button */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onSaveSearch}
+            className="text-gray-900 dark:text-white border-gray-300 dark:border-gray-800"
+            disabled={!hasSearchExecuted}
+          >
+            <Bookmark className="h-4 w-4 mr-2" />
+            Save Search
+          </Button>
+
+          {/* Reset Filters button */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onResetFilters}
+            className="text-gray-900 dark:text-white border-gray-300 dark:border-gray-800"
+          >
+            <RotateCcw className="h-4 w-4 mr-2" />
+            Reset Filters
           </Button>
         </div>
 
@@ -115,19 +142,19 @@ export function SearchToolbar({
         <div className="flex items-center space-x-2">
           {selectedCount > 0 && (
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-gray-600 dark:text-white">
                 {selectedCount} selected
               </span>
-              <Button variant="outline" size="sm" onClick={onCompare}>
+              <Button variant="outline" size="sm" onClick={onCompare} className="text-gray-900 dark:text-white border-gray-300 dark:border-gray-800">
                 Compare
               </Button>
-              <Button variant="outline" size="sm" onClick={onClearSelection}>
+              <Button variant="outline" size="sm" onClick={onClearSelection} className="text-gray-900 dark:text-white border-gray-300 dark:border-gray-800">
                 Clear
               </Button>
             </div>
           )}
           
-          <Button variant="outline" size="sm" onClick={onExport}>
+          <Button variant="outline" size="sm" onClick={onExport} className="text-gray-900 dark:text-white border-gray-300 dark:border-gray-800">
             <Download className="h-4 w-4 mr-2" />
             Export
           </Button>
@@ -135,29 +162,20 @@ export function SearchToolbar({
       </div>
 
       {/* Results summary */}
-      <div className="flex items-center justify-between text-sm text-gray-600">
-        <div>
-          {resultCount > 0 ? (
-            <span>
-              Showing {resultCount} {getEntityLabel().toLowerCase()}
-              {searchQuery && ` matching "${searchQuery}"`}
-            </span>
-          ) : (
-            <span>No {getEntityLabel().toLowerCase()} found</span>
-          )}
+      {hasSearchExecuted && (
+        <div className="flex items-center justify-between text-sm text-gray-600 dark:text-white">
+          <div>
+            {resultCount > 0 ? (
+              <span>
+                Showing {resultCount} {getEntityLabel().toLowerCase()}
+                {searchQuery && ` matching "${searchQuery}"`}
+              </span>
+            ) : (
+              <span>No {getEntityLabel().toLowerCase()} found</span>
+            )}
+          </div>
         </div>
-        
-        {hasActiveFilters && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={clearAllFilters}
-            className="text-gray-500 hover:text-gray-700"
-          >
-            Clear all filters
-          </Button>
-        )}
-      </div>
+      )}
     </div>
   )
 }

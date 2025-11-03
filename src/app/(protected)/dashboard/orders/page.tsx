@@ -14,9 +14,6 @@ export default function OrdersPage() {
             <ShoppingCart className="h-8 w-8 mr-3 text-emerald-500" />
             Orders Management
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Track and manage all your orders.
-          </p>
         </div>
         <div className="flex space-x-2">
           <Button variant="outline">
@@ -33,7 +30,7 @@ export default function OrdersPage() {
       {/* Search and Filter */}
       <div className="flex items-center space-x-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-white" />
           <Input
             placeholder="Search orders..."
             className="pl-10"
@@ -63,7 +60,7 @@ export default function OrdersPage() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-200 dark:border-gray-700">
+                <tr className="border-b border-gray-200 dark:border-gray-200 dark:border-gray-800">
                   <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-white">ORDER</th>
                   <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-white">CUSTOMER</th>
                   <th className="text-left py-3 px-4 font-medium text-gray-900 dark:text-white">PRODUCT</th>
@@ -84,13 +81,13 @@ export default function OrdersPage() {
       {/* Empty State */}
       <Card className="text-center py-12">
         <CardContent>
-          <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
-            <ShoppingCart className="h-12 w-12 text-gray-400" />
+          <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-950 rounded-full flex items-center justify-center">
+            <ShoppingCart className="h-12 w-12 text-gray-600 dark:text-white" />
           </div>
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
             No orders found
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
+          <p className="text-gray-600 dark:text-white mb-6">
             Get started by creating your first order.
           </p>
           <Button className="bg-emerald-500 hover:bg-emerald-600 text-white">

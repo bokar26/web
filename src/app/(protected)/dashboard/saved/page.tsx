@@ -14,9 +14,6 @@ export default function SavedPage() {
             <Bookmark className="h-8 w-8 mr-3 text-emerald-500" />
             Saved
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Manage your saved vendors and quotes.
-          </p>
         </div>
         <div className="flex space-x-2">
           <Button variant="outline">
@@ -46,7 +43,7 @@ export default function SavedPage() {
           {/* Search */}
           <div className="flex items-center space-x-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-white" />
               <Input
                 placeholder="Search vendors..."
                 className="pl-10"
@@ -64,13 +61,13 @@ export default function SavedPage() {
           {/* Empty State */}
           <Card className="text-center py-12">
             <CardContent>
-              <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
-                <Building className="h-12 w-12 text-gray-400" />
+              <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-950 rounded-full flex items-center justify-center">
+                <Building className="h-12 w-12 text-gray-600 dark:text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                 No vendors found
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
+              <p className="text-gray-600 dark:text-white mb-6">
                 No saved vendors available
               </p>
               <Button className="bg-emerald-500 hover:bg-emerald-600 text-white">
@@ -84,7 +81,7 @@ export default function SavedPage() {
           {/* Search */}
           <div className="flex items-center space-x-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600 dark:text-white" />
               <Input
                 placeholder="Search quotes..."
                 className="pl-10"
@@ -102,13 +99,13 @@ export default function SavedPage() {
           {/* Empty State */}
           <Card className="text-center py-12">
             <CardContent>
-              <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
-                <FileText className="h-12 w-12 text-gray-400" />
+              <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-950 rounded-full flex items-center justify-center">
+                <FileText className="h-12 w-12 text-gray-600 dark:text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                 No quotes found
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
+              <p className="text-gray-600 dark:text-white mb-6">
                 No saved quotes available
               </p>
               <Button className="bg-emerald-500 hover:bg-emerald-600 text-white">

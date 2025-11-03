@@ -31,14 +31,14 @@ export function CardGrid<T>({
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {Array.from({ length: 6 }, (_, i) => (
-          <div key={i} className="border border-gray-200 rounded-lg p-6 animate-pulse">
+          <div key={i} className="border border-gray-200 dark:border-gray-800 rounded-lg p-6 animate-pulse bg-gray-50 dark:bg-gray-900">
             <div className="space-y-3">
-              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-              <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-              <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+              <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-3/4"></div>
+              <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded w-1/2"></div>
+              <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded w-2/3"></div>
               <div className="flex space-x-2">
-                <div className="h-6 bg-gray-200 rounded w-16"></div>
-                <div className="h-6 bg-gray-200 rounded w-20"></div>
+                <div className="h-6 bg-gray-200 dark:bg-gray-800 rounded w-16"></div>
+                <div className="h-6 bg-gray-200 dark:bg-gray-800 rounded w-20"></div>
               </div>
             </div>
           </div>
@@ -50,7 +50,7 @@ export function CardGrid<T>({
   if (data.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-600">No data available</p>
+        <p className="text-gray-600 dark:text-white">No data available</p>
       </div>
     )
   }
@@ -67,10 +67,10 @@ export function CardGrid<T>({
             key={rowId}
             className={`relative border rounded-lg p-6 transition-all duration-200 ${
               isSelected
-                ? 'border-blue-500 bg-blue-50'
+                ? 'border-blue-500 bg-blue-50 dark:bg-gray-900/50'
                 : isHovered
-                ? 'border-gray-300 bg-gray-50'
-                : 'border-gray-200 bg-white'
+                ? 'border-gray-300 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50'
+                : 'border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950'
             } ${onRowClick ? 'cursor-pointer' : ''}`}
             onClick={() => onRowClick?.(row)}
             onMouseEnter={() => setHoveredCard(rowId)}
@@ -169,11 +169,11 @@ export function EntityCard({
     <div className="space-y-4">
       {/* Header */}
       <div className="space-y-1">
-        <h3 className="font-semibold text-gray-900 text-lg leading-tight">
+        <h3 className="font-semibold text-gray-900 dark:text-white text-lg leading-tight">
           {title}
         </h3>
         {subtitle && (
-          <p className="text-sm text-gray-600">{subtitle}</p>
+          <p className="text-sm text-gray-600 dark:text-white">{subtitle}</p>
         )}
       </div>
 
@@ -181,7 +181,7 @@ export function EntityCard({
       <div className="grid grid-cols-2 gap-3">
         {metrics.map((metric, index) => (
           <div key={index} className="space-y-1">
-            <p className="text-xs text-gray-500 uppercase tracking-wide">
+            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">
               {metric.label}
             </p>
             <p className={`text-sm font-medium ${getMetricColor(metric.color)}`}>
@@ -209,7 +209,7 @@ export function EntityCard({
 
       {/* Description */}
       {description && (
-        <p className="text-sm text-gray-600 line-clamp-2">{description}</p>
+        <p className="text-sm text-gray-600 dark:text-white line-clamp-2">{description}</p>
       )}
 
       {/* Actions */}

@@ -145,7 +145,7 @@ export default function CarriersPage() {
       sortable: true,
       width: '100px',
       render: (value: unknown) => (
-        <span className="font-medium">${value as number}</span>
+        <span className="font-medium text-gray-900 dark:text-white">${value as number}</span>
       ),
     },
     {
@@ -160,7 +160,7 @@ export default function CarriersPage() {
       sortable: true,
       width: '100px',
       render: (value: unknown) => (
-        <span className="font-medium">{value as number}</span>
+        <span className="font-medium text-gray-900 dark:text-white">{value as number}</span>
       ),
     },
   ]
@@ -244,17 +244,16 @@ export default function CarriersPage() {
   )
 
   return (
-    <div className="space-y-6">
+    <div className="p-6 space-y-4">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Carriers</h1>
-        <p className="text-gray-600 mt-1">Find transportation partners with reliable delivery and competitive rates</p>
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white">Carriers</h1>
       </div>
 
       {/* 2-Column Layout */}
-      <div className="flex gap-6 min-h-[calc(100vh-12rem)]">
+      <div className="flex gap-4 min-h-[calc(100vh-12rem)]">
         {/* Left Column: Search & Filters */}
-        <div className="w-80 flex-shrink-0 space-y-4 overflow-y-auto">
+        <div className="w-64 flex-shrink-0 space-y-4 overflow-y-auto">
           <SearchToolbar
             searchQuery={searchQuery}
             onSearchChange={handleSearchChange}

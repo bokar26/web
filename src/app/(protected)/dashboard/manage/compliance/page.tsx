@@ -1,9 +1,10 @@
 "use client";
 
-import { GlassCard } from "@/components/dashboard/atoms/GlassCard";
+
 import { complianceRecords } from "@/lib/mockData";
 import { Shield, AlertTriangle, CheckCircle, Clock, FileText, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function CompliancePage() {
   const getStatusColor = (status: string) => {
@@ -15,7 +16,7 @@ export default function CompliancePage() {
       case 'expired':
         return 'text-red-400 bg-red-900/20 border-red-500/30';
       default:
-        return 'text-gray-400 bg-gray-900/20 border-gray-500/30';
+        return 'text-gray-600 dark:text-white bg-gray-900/20 border-gray-500/30';
     }
   };
 
@@ -28,7 +29,7 @@ export default function CompliancePage() {
       case 'expired':
         return <AlertTriangle className="w-4 h-4 text-red-400" />;
       default:
-        return <Shield className="w-4 h-4 text-gray-400" />;
+        return <Shield className="w-4 h-4 text-gray-600 dark:text-white" />;
     }
   };
 
@@ -41,7 +42,7 @@ export default function CompliancePage() {
       case 'pending':
         return 'text-amber-400';
       default:
-        return 'text-gray-400';
+        return 'text-gray-600 dark:text-white';
     }
   };
 
@@ -57,14 +58,15 @@ export default function CompliancePage() {
     <div className="dashboard-bg min-h-screen p-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-white mb-2">Compliance</h1>
-        <p className="text-gray-300">Certification management and audit compliance tracking</p>
+        <p className="text-gray-900 dark:text-white">Certification management and audit compliance tracking</p>
       </div>
 
       {/* Expiry Timeline */}
-      <GlassCard className="p-6 mb-6">
+      <Card className="dashboard-card mb-6">
+        <CardContent className="p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-white">Certification Expiry Timeline</h3>
-          <div className="text-sm text-gray-400">Next 90 days</div>
+          <div className="text-sm text-gray-600 dark:text-white">Next 90 days</div>
         </div>
         
         <div className="relative">
@@ -85,8 +87,8 @@ export default function CompliancePage() {
                         {record.status.toUpperCase()}
                       </div>
                     </div>
-                    <div className="text-sm text-gray-300 mb-1">{record.certification}</div>
-                    <div className="flex items-center justify-between text-xs text-gray-400">
+                    <div className="text-sm text-gray-900 dark:text-white mb-1">{record.certification}</div>
+                    <div className="flex items-center justify-between text-xs text-gray-600 dark:text-white">
                       <span>Expires: {record.expiryDate}</span>
                       <span className={daysUntilExpiry < 30 ? 'text-red-400' : daysUntilExpiry < 60 ? 'text-amber-400' : 'text-green-400'}>
                         {daysUntilExpiry > 0 ? `${daysUntilExpiry} days left` : `${Math.abs(daysUntilExpiry)} days overdue`}
@@ -98,10 +100,12 @@ export default function CompliancePage() {
             })}
           </div>
         </div>
-      </GlassCard>
+      </CardContent>
+        </Card>
 
       {/* Compliance Records Table */}
-      <GlassCard className="p-6 mb-6">
+      <Card className="dashboard-card mb-6">
+        <CardContent className="p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-white">Compliance Records</h3>
           <Button className="bg-green-600 hover:bg-green-700 text-white">
@@ -113,23 +117,23 @@ export default function CompliancePage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-700">
-                <th className="text-left text-sm font-medium text-gray-300 py-3">Partner</th>
-                <th className="text-left text-sm font-medium text-gray-300 py-3">Certification</th>
-                <th className="text-center text-sm font-medium text-gray-300 py-3">Status</th>
-                <th className="text-center text-sm font-medium text-gray-300 py-3">Score</th>
-                <th className="text-center text-sm font-medium text-gray-300 py-3">Expiry Date</th>
-                <th className="text-left text-sm font-medium text-gray-300 py-3">Auditor</th>
-                <th className="text-center text-sm font-medium text-gray-300 py-3">Actions</th>
+                <th className="text-left text-sm font-medium text-gray-900 dark:text-white py-3">Partner</th>
+                <th className="text-left text-sm font-medium text-gray-900 dark:text-white py-3">Certification</th>
+                <th className="text-center text-sm font-medium text-gray-900 dark:text-white py-3">Status</th>
+                <th className="text-center text-sm font-medium text-gray-900 dark:text-white py-3">Score</th>
+                <th className="text-center text-sm font-medium text-gray-900 dark:text-white py-3">Expiry Date</th>
+                <th className="text-left text-sm font-medium text-gray-900 dark:text-white py-3">Auditor</th>
+                <th className="text-center text-sm font-medium text-gray-900 dark:text-white py-3">Actions</th>
               </tr>
             </thead>
             <tbody>
               {complianceRecords.map((record, index) => (
-                <tr key={index} className="border-b border-gray-800 hover:bg-gray-800/50">
+                <tr key={index} className="border-b border-gray-800 hover:bg-gray-100 dark:bg-gray-900/50">
                   <td className="py-3">
                     <div className="text-sm font-medium text-white">{record.partner}</div>
                   </td>
                   <td className="py-3">
-                    <div className="text-sm text-gray-300">{record.certification}</div>
+                    <div className="text-sm text-gray-900 dark:text-white">{record.certification}</div>
                   </td>
                   <td className="py-3 text-center">
                     <div className="flex items-center justify-center space-x-2">
@@ -148,13 +152,13 @@ export default function CompliancePage() {
                     </div>
                   </td>
                   <td className="py-3 text-center">
-                    <div className="text-sm text-gray-300">{record.expiryDate}</div>
+                    <div className="text-sm text-gray-900 dark:text-white">{record.expiryDate}</div>
                   </td>
                   <td className="py-3">
-                    <div className="text-sm text-gray-300">{record.auditor}</div>
+                    <div className="text-sm text-gray-900 dark:text-white">{record.auditor}</div>
                   </td>
                   <td className="py-3 text-center">
-                    <Button variant="outline" size="sm" className="text-gray-300 border-gray-600">
+                    <Button variant="outline" size="sm" className="text-gray-900 dark:text-white border-gray-600">
                       <FileText className="w-3 h-3 mr-1" />
                       View
                     </Button>
@@ -164,10 +168,12 @@ export default function CompliancePage() {
             </tbody>
           </table>
         </div>
-      </GlassCard>
+      </CardContent>
+        </Card>
 
       {/* Corrective Actions */}
-      <GlassCard className="p-6 mb-6">
+      <Card className="dashboard-card">
+        <CardContent className="p-6">
         <h3 className="text-lg font-semibold text-white mb-4">Corrective Actions</h3>
         
         <div className="space-y-4">
@@ -189,8 +195,8 @@ export default function CompliancePage() {
                       {action.status.toUpperCase()}
                     </div>
                   </div>
-                  <div className="text-sm text-gray-300 mb-2">{action.action}</div>
-                  <div className="flex items-center justify-between text-xs text-gray-400">
+                  <div className="text-sm text-gray-900 dark:text-white mb-2">{action.action}</div>
+                  <div className="flex items-center justify-between text-xs text-gray-600 dark:text-white">
                     <span>Due: {action.dueDate}</span>
                     <span className={getActionStatusColor(action.status)}>
                       {action.status === 'completed' ? 'Completed' :
@@ -201,53 +207,62 @@ export default function CompliancePage() {
               ))
             )}
         </div>
-      </GlassCard>
+      </CardContent>
+        </Card>
 
       {/* Compliance KPIs */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <Shield className="w-5 h-5 text-green-400" />
-            <span className="text-sm text-gray-400">Active Certifications</span>
+            <span className="text-sm text-gray-600 dark:text-white">Active Certifications</span>
           </div>
           <div className="text-2xl font-bold text-white mb-1">
             {complianceRecords.filter(r => r.status === 'active').length}
           </div>
           <div className="text-sm text-green-400">+2 this quarter</div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <Clock className="w-5 h-5 text-amber-400" />
-            <span className="text-sm text-gray-400">Expiring Soon</span>
+            <span className="text-sm text-gray-600 dark:text-white">Expiring Soon</span>
           </div>
           <div className="text-2xl font-bold text-white mb-1">
             {complianceRecords.filter(r => r.status === 'expiring').length}
           </div>
-          <div className="text-sm text-gray-400">Next 60 days</div>
-        </GlassCard>
+          <div className="text-sm text-gray-600 dark:text-white">Next 60 days</div>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <AlertTriangle className="w-5 h-5 text-red-400" />
-            <span className="text-sm text-gray-400">Expired</span>
+            <span className="text-sm text-gray-600 dark:text-white">Expired</span>
           </div>
           <div className="text-2xl font-bold text-white mb-1">
             {complianceRecords.filter(r => r.status === 'expired').length}
           </div>
           <div className="text-sm text-red-400">Require renewal</div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <CheckCircle className="w-5 h-5 text-blue-400" />
-            <span className="text-sm text-gray-400">Avg Score</span>
+            <span className="text-sm text-gray-600 dark:text-white">Avg Score</span>
           </div>
           <div className="text-2xl font-bold text-white mb-1">
             {Math.round(complianceRecords.reduce((sum, r) => sum + r.score, 0) / complianceRecords.length)}
           </div>
           <div className="text-sm text-green-400">+3 vs last audit</div>
-        </GlassCard>
+        </CardContent>
+        </Card>
       </div>
     </div>
   );

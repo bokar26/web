@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { GlassCard } from "@/components/dashboard/atoms/GlassCard";
+
 import { shippingPlans } from "@/lib/mockData";
 import { MapPin, Ship, Clock, DollarSign, TrendingDown, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function ShippingPlansPage() {
   const [selectedPlan, setSelectedPlan] = useState<typeof shippingPlans[0] | null>(null);
@@ -13,15 +14,16 @@ export default function ShippingPlansPage() {
     <div className="dashboard-bg min-h-screen p-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-white mb-2">Shipping Plans</h1>
-        <p className="text-gray-300">Optimize routes and reduce shipping costs with AI-powered recommendations</p>
+        <p className="text-gray-900 dark:text-white">Optimize routes and reduce shipping costs with AI-powered recommendations</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Interactive Map */}
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white">Route Map</h3>
-            <div className="flex items-center space-x-2 text-sm text-gray-400">
+            <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-white">
               <div className="w-3 h-3 rounded-full bg-blue-500"></div>
               <span>Current</span>
               <div className="w-3 h-3 rounded-full bg-green-500 ml-4"></div>
@@ -50,10 +52,12 @@ export default function ShippingPlansPage() {
               </div>
             ))}
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
 
         {/* Route Comparison Table */}
-        <GlassCard className="p-6">
+        <Card className="dashboard-card">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white">Route Comparison</h3>
             <Button className="bg-green-600 hover:bg-green-700 text-white">
@@ -79,14 +83,14 @@ export default function ShippingPlansPage() {
                       {plan.origin.name} → {plan.destination.name}
                     </span>
                   </div>
-                  <span className="text-xs text-gray-400">{plan.carrier}</span>
+                  <span className="text-xs text-gray-600 dark:text-white">{plan.carrier}</span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <div className="flex items-center space-x-2 mb-2">
-                      <Clock className="w-4 h-4 text-gray-400" />
-                      <span className="text-gray-300">ETA</span>
+                      <Clock className="w-4 h-4 text-gray-600 dark:text-white" />
+                      <span className="text-gray-900 dark:text-white">ETA</span>
                     </div>
                     <div className="text-white font-medium">{plan.currentETA}</div>
                     <div className="text-green-400 text-xs">
@@ -96,8 +100,8 @@ export default function ShippingPlansPage() {
                   
                   <div>
                     <div className="flex items-center space-x-2 mb-2">
-                      <DollarSign className="w-4 h-4 text-gray-400" />
-                      <span className="text-gray-300">Cost</span>
+                      <DollarSign className="w-4 h-4 text-gray-600 dark:text-white" />
+                      <span className="text-gray-900 dark:text-white">Cost</span>
                     </div>
                     <div className="text-white font-medium">${plan.currentCost}</div>
                     <div className="text-green-400 text-xs flex items-center">
@@ -108,23 +112,25 @@ export default function ShippingPlansPage() {
                 </div>
 
                 <div className="mt-3 pt-3 border-t border-gray-600">
-                  <div className="text-xs text-gray-400">
+                  <div className="text-xs text-gray-600 dark:text-white">
                     Recommended: {plan.recommendedRoute}
                   </div>
                 </div>
               </div>
             ))}
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
       </div>
 
       {/* Selected Plan Details */}
       {selectedPlan && (
-        <GlassCard className="p-6 mt-6">
+        <Card className="dashboard-card mt-6">
+          <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white">Plan Details</h3>
             <div className="flex items-center space-x-2">
-              <Button variant="outline" className="text-gray-300 border-gray-600">
+              <Button variant="outline" className="text-gray-900 dark:text-white border-gray-600">
                 Simulate Alternative
               </Button>
               <Button className="bg-green-600 hover:bg-green-700 text-white">
@@ -135,59 +141,59 @@ export default function ShippingPlansPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-4">
-              <h4 className="text-sm font-semibold text-gray-300">Current Route</h4>
+              <h4 className="text-sm font-semibold text-gray-900 dark:text-white">Current Route</h4>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Origin:</span>
+                  <span className="text-gray-600 dark:text-white">Origin:</span>
                   <span className="text-white">{selectedPlan.origin.name}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Destination:</span>
+                  <span className="text-gray-600 dark:text-white">Destination:</span>
                   <span className="text-white">{selectedPlan.destination.name}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Carrier:</span>
+                  <span className="text-gray-600 dark:text-white">Carrier:</span>
                   <span className="text-white">{selectedPlan.carrier}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">ETA:</span>
+                  <span className="text-gray-600 dark:text-white">ETA:</span>
                   <span className="text-white">{selectedPlan.currentETA}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Cost:</span>
+                  <span className="text-gray-600 dark:text-white">Cost:</span>
                   <span className="text-white">${selectedPlan.currentCost}</span>
                 </div>
               </div>
             </div>
 
             <div className="space-y-4">
-              <h4 className="text-sm font-semibold text-gray-300">Recommended Route</h4>
+              <h4 className="text-sm font-semibold text-gray-900 dark:text-white">Recommended Route</h4>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Route:</span>
+                  <span className="text-gray-600 dark:text-white">Route:</span>
                   <span className="text-white">{selectedPlan.recommendedRoute}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">ETA:</span>
+                  <span className="text-gray-600 dark:text-white">ETA:</span>
                   <span className="text-green-400">{selectedPlan.recommendedETA}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Cost:</span>
+                  <span className="text-gray-600 dark:text-white">Cost:</span>
                   <span className="text-green-400">${selectedPlan.recommendedCost}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Time Saved:</span>
+                  <span className="text-gray-600 dark:text-white">Time Saved:</span>
                   <span className="text-green-400">{selectedPlan.timeSaved} days</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Cost Saved:</span>
+                  <span className="text-gray-600 dark:text-white">Cost Saved:</span>
                   <span className="text-green-400">${selectedPlan.savings}</span>
                 </div>
               </div>
             </div>
 
             <div className="space-y-4">
-              <h4 className="text-sm font-semibold text-gray-300">Impact</h4>
+              <h4 className="text-sm font-semibold text-gray-900 dark:text-white">Impact</h4>
               <div className="space-y-3">
                 <div className="p-3 rounded-lg bg-green-900/20 border border-green-500/30">
                   <div className="flex items-center space-x-2 mb-1">
@@ -195,7 +201,7 @@ export default function ShippingPlansPage() {
                     <span className="text-sm font-medium text-green-400">Cost Reduction</span>
                   </div>
                   <div className="text-lg font-bold text-green-400">${selectedPlan.savings}</div>
-                  <div className="text-xs text-gray-400">per shipment</div>
+                  <div className="text-xs text-gray-600 dark:text-white">per shipment</div>
                 </div>
                 
                 <div className="p-3 rounded-lg bg-blue-900/20 border border-blue-500/30">
@@ -204,12 +210,13 @@ export default function ShippingPlansPage() {
                     <span className="text-sm font-medium text-blue-400">Time Savings</span>
                   </div>
                   <div className="text-lg font-bold text-blue-400">{selectedPlan.timeSaved} days</div>
-                  <div className="text-xs text-gray-400">faster delivery</div>
+                  <div className="text-xs text-gray-600 dark:text-white">faster delivery</div>
                 </div>
               </div>
             </div>
           </div>
-        </GlassCard>
+        </CardContent>
+        </Card>
       )}
     </div>
   );

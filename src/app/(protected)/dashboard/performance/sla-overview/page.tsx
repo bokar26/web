@@ -105,35 +105,32 @@ const slaTrends = [
 
 const getSeverityColor = (severity: string) => {
   switch (severity) {
-    case 'high': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-    case 'medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-    case 'low': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200'
-    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+    case 'high': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-white'
+    case 'medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-white'
+    case 'low': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-white'
+    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white'
   }
 }
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'resolved': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200'
-    case 'investigating': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-    case 'pending': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+    case 'resolved': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-white'
+    case 'investigating': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-white'
+    case 'pending': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-white'
+    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white'
   }
 }
 
 export default function SLAOverviewPage() {
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">SLA Overview</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Monitor SLA compliance, track breaches, and analyze supplier performance
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">SLA Overview</h1>
         </div>
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+          <Button variant="outline" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
             <FileText className="h-4 w-4 mr-2" />
             Export Report
           </Button>
@@ -146,12 +143,12 @@ export default function SLAOverviewPage() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Overall SLA Compliance</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">95%</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Overall SLA Compliance</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">95%</p>
                 <p className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 mr-1" />
                   +2% vs last month
@@ -162,12 +159,12 @@ export default function SLAOverviewPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Active Breaches</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">3</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Active Breaches</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">3</p>
                 <p className="text-xs text-yellow-600 dark:text-yellow-400 flex items-center mt-1">
                   <AlertTriangle className="h-3 w-3 mr-1" />
                   Requires attention
@@ -178,12 +175,12 @@ export default function SLAOverviewPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Avg Response Time</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">2.5h</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Avg Response Time</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">2.5h</p>
                 <p className="text-xs text-red-600 dark:text-red-400 flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 mr-1" />
                   Above target
@@ -194,12 +191,12 @@ export default function SLAOverviewPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Financial Impact</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">$26.7K</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Financial Impact</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">$26.7K</p>
                 <p className="text-xs text-red-600 dark:text-red-400 flex items-center mt-1">
                   <TrendingDown className="h-3 w-3 mr-1" />
                   -15% vs last month
@@ -212,16 +209,16 @@ export default function SLAOverviewPage() {
       </div>
 
       {/* SLA Metrics */}
-      <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+      <Card className="dashboard-card">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-gray-100">SLA Performance Metrics</CardTitle>
+          <CardTitle className="dashboard-card-title">SLA Performance Metrics</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {slaMetrics.map((metric, index) => (
-              <div key={index} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div key={index} className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-medium text-gray-900 dark:text-gray-100">{metric.metric}</h3>
+                  <h3 className="font-medium text-gray-900 dark:text-white">{metric.metric}</h3>
                   <span className={`text-sm font-medium ${
                     metric.status === 'good' ? 'text-emerald-600 dark:text-emerald-400' :
                     metric.status === 'warning' ? 'text-yellow-600 dark:text-yellow-400' :
@@ -231,10 +228,10 @@ export default function SLAOverviewPage() {
                   </span>
                 </div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                  <span className="text-2xl font-bold text-gray-900 dark:text-white">
                     {typeof metric.current === 'number' && metric.current < 10 ? metric.current : `${metric.current}%`}
                   </span>
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                  <span className="text-sm text-gray-600 dark:text-white">
                     Target: {typeof metric.target === 'number' && metric.target < 10 ? metric.target : `${metric.target}%`}
                   </span>
                 </div>
@@ -252,7 +249,7 @@ export default function SLAOverviewPage() {
                   <span className={`text-sm ${
                     metric.trend === 'up' ? 'text-emerald-600 dark:text-emerald-400' :
                     metric.trend === 'down' ? 'text-red-600 dark:text-red-400' :
-                    'text-gray-600 dark:text-gray-400'
+                    'text-gray-600 dark:text-white'
                   }`}>
                     {metric.trend === 'up' ? <TrendingUp className="h-4 w-4" /> :
                      metric.trend === 'down' ? <TrendingDown className="h-4 w-4" /> :
@@ -267,17 +264,17 @@ export default function SLAOverviewPage() {
 
       {/* Main Content */}
       <Tabs defaultValue="compliance" className="space-y-6">
-        <TabsList className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-          <TabsTrigger value="compliance" className="text-gray-700 dark:text-gray-300">Compliance Trends</TabsTrigger>
-          <TabsTrigger value="breaches" className="text-gray-700 dark:text-gray-300">SLA Breaches</TabsTrigger>
-          <TabsTrigger value="suppliers" className="text-gray-700 dark:text-gray-300">Supplier Performance</TabsTrigger>
-          <TabsTrigger value="trends" className="text-gray-700 dark:text-gray-300">Historical Trends</TabsTrigger>
+        <TabsList className="dashboard-card border">
+          <TabsTrigger value="compliance" className="text-gray-700 dark:text-white">Compliance Trends</TabsTrigger>
+          <TabsTrigger value="breaches" className="text-gray-700 dark:text-white">SLA Breaches</TabsTrigger>
+          <TabsTrigger value="suppliers" className="text-gray-700 dark:text-white">Supplier Performance</TabsTrigger>
+          <TabsTrigger value="trends" className="text-gray-700 dark:text-white">Historical Trends</TabsTrigger>
         </TabsList>
 
         <TabsContent value="compliance" className="space-y-6">
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100">SLA Compliance Trends</CardTitle>
+              <CardTitle className="dashboard-card-title">SLA Compliance Trends</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={400}>
@@ -328,17 +325,17 @@ export default function SLAOverviewPage() {
         </TabsContent>
 
         <TabsContent value="breaches" className="space-y-6">
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100">Recent SLA Breaches</CardTitle>
+              <CardTitle className="dashboard-card-title">Recent SLA Breaches</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {slaBreaches.map((breach) => (
-                  <div key={breach.id} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+                  <div key={breach.id} className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-200 dark:border-gray-800">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
-                        <h3 className="font-medium text-gray-900 dark:text-gray-100">{breach.id}</h3>
+                        <h3 className="font-medium text-gray-900 dark:text-white">{breach.id}</h3>
                         <Badge className={getSeverityColor(breach.severity)}>
                           {breach.severity.charAt(0).toUpperCase() + breach.severity.slice(1)}
                         </Badge>
@@ -346,25 +343,25 @@ export default function SLAOverviewPage() {
                           {breach.status.charAt(0).toUpperCase() + breach.status.slice(1)}
                         </Badge>
                       </div>
-                      <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      <span className="text-sm font-medium text-gray-600 dark:text-white">
                         {breach.date}
                       </span>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2">
                       <div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Supplier</p>
-                        <p className="font-medium text-gray-900 dark:text-gray-100">{breach.supplier}</p>
+                        <p className="text-sm text-gray-600 dark:text-white">Supplier</p>
+                        <p className="font-medium text-gray-900 dark:text-white">{breach.supplier}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Type</p>
-                        <p className="font-medium text-gray-900 dark:text-gray-100">{breach.type}</p>
+                        <p className="text-sm text-gray-600 dark:text-white">Type</p>
+                        <p className="font-medium text-gray-900 dark:text-white">{breach.type}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Financial Impact</p>
+                        <p className="text-sm text-gray-600 dark:text-white">Financial Impact</p>
                         <p className="font-medium text-red-600 dark:text-red-400">{breach.impact}</p>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{breach.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-white">{breach.description}</p>
                   </div>
                 ))}
               </div>
@@ -373,27 +370,27 @@ export default function SLAOverviewPage() {
         </TabsContent>
 
         <TabsContent value="suppliers" className="space-y-6">
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100">Supplier SLA Performance</CardTitle>
+              <CardTitle className="dashboard-card-title">Supplier SLA Performance</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-gray-200 dark:border-gray-700">
-                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Supplier</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Delivery SLA</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Quality SLA</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Cost SLA</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Overall</th>
-                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Breaches</th>
+                    <tr className="border-b border-gray-200 dark:border-gray-200 dark:border-gray-800">
+                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Supplier</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Delivery SLA</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Quality SLA</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Cost SLA</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Overall</th>
+                      <th className="text-center py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Breaches</th>
                     </tr>
                   </thead>
                   <tbody>
                     {supplierSLA.map((supplier, index) => (
-                      <tr key={index} className="border-b border-gray-100 dark:border-gray-700">
-                        <td className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-gray-100">{supplier.supplier}</td>
+                      <tr key={index} className="border-b border-gray-100 dark:border-gray-200 dark:border-gray-800">
+                        <td className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">{supplier.supplier}</td>
                         <td className="py-3 px-4 text-center">
                           <span className={`text-sm font-medium ${
                             supplier.delivery >= 95 ? 'text-emerald-600 dark:text-emerald-400' :
@@ -423,9 +420,9 @@ export default function SLAOverviewPage() {
                         </td>
                         <td className="py-3 px-4 text-center">
                           <Badge className={
-                            supplier.overall >= 95 ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200' :
-                            supplier.overall >= 90 ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
-                            'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                            supplier.overall >= 95 ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-white' :
+                            supplier.overall >= 90 ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-white' :
+                            'bg-red-100 text-red-800 dark:bg-red-900 dark:text-white'
                           }>
                             {supplier.overall}%
                           </Badge>
@@ -449,9 +446,9 @@ export default function SLAOverviewPage() {
         </TabsContent>
 
         <TabsContent value="trends" className="space-y-6">
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100">Historical SLA Trends</CardTitle>
+              <CardTitle className="dashboard-card-title">Historical SLA Trends</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={400}>

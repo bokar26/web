@@ -20,22 +20,22 @@ import { secondaryMetrics } from "@/lib/mockData"
 // Defer heavy chart components with requestIdleCallback
 const MetricChart = dynamic(() => import("@/components/dashboard/MetricChart").then(m => ({ default: m.MetricChart })), {
   ssr: false,
-  loading: () => <div className="h-[200px] bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+  loading: () => <div className="h-[200px] bg-gray-200 dark:bg-gray-900 rounded animate-pulse" />
 });
 
 const VendorBreakdown = dynamic(() => import("@/components/dashboard/VendorBreakdown").then(m => ({ default: m.VendorBreakdown })), {
   ssr: false,
-  loading: () => <div className="h-[300px] bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+  loading: () => <div className="h-[300px] bg-gray-200 dark:bg-gray-900 rounded animate-pulse" />
 });
 
 const SLASuggestions = dynamic(() => import("@/components/dashboard/SLASuggestions").then(m => ({ default: m.SLASuggestions })), {
   ssr: false,
-  loading: () => <div className="h-[200px] bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+  loading: () => <div className="h-[200px] bg-gray-200 dark:bg-gray-900 rounded animate-pulse" />
 });
 
 const TrendHeatmap = dynamic(() => import("@/components/dashboard/TrendHeatmap").then(m => ({ default: m.TrendHeatmap })), {
   ssr: false,
-  loading: () => <div className="h-[300px] bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+  loading: () => <div className="h-[300px] bg-gray-200 dark:bg-gray-900 rounded animate-pulse" />
 });
 
 function ChartWhenIdle({ component: Component, ...props }: { component: React.ComponentType<Record<string, unknown>>; [key: string]: unknown }) {
@@ -50,7 +50,7 @@ function ChartWhenIdle({ component: Component, ...props }: { component: React.Co
     }
   }, []);
 
-  return ready ? <Component {...props} /> : <div className="h-48 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />;
+  return ready ? <Component {...props} /> : <div className="h-48 bg-gray-200 dark:bg-gray-900 rounded animate-pulse" />;
 }
 
 interface DashboardContentProps {
@@ -158,7 +158,7 @@ export function DashboardContent({
       {/* Secondary Metrics Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
         {secondaryMetrics.map((metric, index) => (
-          <Card key={index} className="hover:shadow-lg transition-shadow">
+          <Card key={index} className="dashboard-card hover:shadow-lg transition-shadow">
             <CardContent>
               <p className="text-xs font-medium text-gray-600 dark:text-gray-400">
                 {metric.title}

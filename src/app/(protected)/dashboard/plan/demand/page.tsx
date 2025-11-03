@@ -78,17 +78,14 @@ export default function DemandForecastPage() {
   const [selectedCategory, setSelectedCategory] = useState("all")
 
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Demand Forecast</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            AI-driven demand forecasting and seasonal trend analysis
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Demand Forecast</h1>
         </div>
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+          <Button variant="outline" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
             <Calendar className="h-4 w-4 mr-2" />
             Export Report
           </Button>
@@ -100,19 +97,19 @@ export default function DemandForecastPage() {
       </div>
 
       {/* Filters */}
-      <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+      <Card className="dashboard-card">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-gray-100">Forecast Parameters</CardTitle>
+          <CardTitle className="dashboard-card-title">Forecast Parameters</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
-              <Label htmlFor="period" className="text-gray-700 dark:text-gray-300">Forecast Period</Label>
+              <Label htmlFor="period" className="text-gray-700 dark:text-white">Forecast Period</Label>
               <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
-                <SelectTrigger className="mt-1">
+                <SelectTrigger className="mt-1 bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white">
                   <SelectValue placeholder="Select period" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white">
                   <SelectItem value="3">3 Months</SelectItem>
                   <SelectItem value="6">6 Months</SelectItem>
                   <SelectItem value="12">12 Months</SelectItem>
@@ -121,12 +118,12 @@ export default function DemandForecastPage() {
               </Select>
             </div>
             <div>
-              <Label htmlFor="channel" className="text-gray-700 dark:text-gray-300">Sales Channel</Label>
+              <Label htmlFor="channel" className="text-gray-700 dark:text-white">Sales Channel</Label>
               <Select value={selectedChannel} onValueChange={setSelectedChannel}>
-                <SelectTrigger className="mt-1">
+                <SelectTrigger className="mt-1 bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white">
                   <SelectValue placeholder="Select channel" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white">
                   <SelectItem value="all">All Channels</SelectItem>
                   <SelectItem value="online">Online</SelectItem>
                   <SelectItem value="retail">Retail</SelectItem>
@@ -135,12 +132,12 @@ export default function DemandForecastPage() {
               </Select>
             </div>
             <div>
-              <Label htmlFor="category" className="text-gray-700 dark:text-gray-300">Product Category</Label>
+              <Label htmlFor="category" className="text-gray-700 dark:text-white">Product Category</Label>
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="mt-1">
+                <SelectTrigger className="mt-1 bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white">
                   <SelectValue placeholder="Select category" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white">
                   <SelectItem value="all">All Categories</SelectItem>
                   <SelectItem value="apparel">Apparel</SelectItem>
                   <SelectItem value="accessories">Accessories</SelectItem>
@@ -149,12 +146,12 @@ export default function DemandForecastPage() {
               </Select>
             </div>
             <div>
-              <Label htmlFor="confidence" className="text-gray-700 dark:text-gray-300">Confidence Level</Label>
+              <Label htmlFor="confidence" className="text-gray-700 dark:text-white">Confidence Level</Label>
               <Input 
                 id="confidence" 
                 type="number" 
                 placeholder="95" 
-                className="mt-1"
+                className="mt-1 bg-white dark:bg-gray-950 border-gray-300 dark:border-gray-800 text-gray-900 dark:text-white"
                 defaultValue={95}
               />
             </div>
@@ -164,12 +161,12 @@ export default function DemandForecastPage() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Forecast Accuracy</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">97.2%</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Forecast Accuracy</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">97.2%</p>
                 <p className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 mr-1" />
                   +2.1% vs last month
@@ -180,12 +177,12 @@ export default function DemandForecastPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Next Month Forecast</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">18,500</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Next Month Forecast</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">18,500</p>
                 <p className="text-xs text-blue-600 dark:text-blue-400 flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 mr-1" />
                   +8.3% vs current
@@ -196,12 +193,12 @@ export default function DemandForecastPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Seasonal Variance</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">±12.5%</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Seasonal Variance</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">±12.5%</p>
                 <p className="text-xs text-yellow-600 dark:text-yellow-400 flex items-center mt-1">
                   <AlertTriangle className="h-3 w-3 mr-1" />
                   Peak season ahead
@@ -212,13 +209,13 @@ export default function DemandForecastPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Model Confidence</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">94.8%</p>
-                <p className="text-xs text-gray-600 dark:text-gray-400 flex items-center mt-1">
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Model Confidence</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">94.8%</p>
+                <p className="text-xs text-gray-600 dark:text-white flex items-center mt-1">
                   <Target className="h-3 w-3 mr-1" />
                   High confidence
                 </p>
@@ -231,17 +228,17 @@ export default function DemandForecastPage() {
 
       {/* Charts */}
       <Tabs defaultValue="forecast" className="space-y-6">
-        <TabsList className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-          <TabsTrigger value="forecast" className="text-gray-700 dark:text-gray-300">Forecast Trends</TabsTrigger>
-          <TabsTrigger value="seasonal" className="text-gray-700 dark:text-gray-300">Seasonal Analysis</TabsTrigger>
-          <TabsTrigger value="channels" className="text-gray-700 dark:text-gray-300">Channel Breakdown</TabsTrigger>
-          <TabsTrigger value="sku" className="text-gray-700 dark:text-gray-300">SKU Performance</TabsTrigger>
+        <TabsList className="dashboard-card border">
+          <TabsTrigger value="forecast" className="text-gray-700 dark:text-white">Forecast Trends</TabsTrigger>
+          <TabsTrigger value="seasonal" className="text-gray-700 dark:text-white">Seasonal Analysis</TabsTrigger>
+          <TabsTrigger value="channels" className="text-gray-700 dark:text-white">Channel Breakdown</TabsTrigger>
+          <TabsTrigger value="sku" className="text-gray-700 dark:text-white">SKU Performance</TabsTrigger>
         </TabsList>
 
         <TabsContent value="forecast" className="space-y-6">
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100">Demand Forecast vs Actual</CardTitle>
+              <CardTitle className="dashboard-card-title">Demand Forecast vs Actual</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={400}>
@@ -281,9 +278,9 @@ export default function DemandForecastPage() {
 
         <TabsContent value="seasonal" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card className="dashboard-card">
               <CardHeader>
-                <CardTitle className="text-gray-900 dark:text-gray-100">Seasonal Demand Patterns</CardTitle>
+                <CardTitle className="dashboard-card-title">Seasonal Demand Patterns</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -305,17 +302,17 @@ export default function DemandForecastPage() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card className="dashboard-card">
               <CardHeader>
-                <CardTitle className="text-gray-900 dark:text-gray-100">Seasonal Growth Rates</CardTitle>
+                <CardTitle className="dashboard-card-title">Seasonal Growth Rates</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {seasonalTrends.map((season, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
                       <div>
-                        <p className="font-medium text-gray-900 dark:text-gray-100">{season.season}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{season.demand.toLocaleString()} units</p>
+                        <p className="font-medium text-gray-900 dark:text-white">{season.season}</p>
+                        <p className="text-sm text-gray-600 dark:text-white">{season.demand.toLocaleString()} units</p>
                       </div>
                       <div className={`flex items-center text-sm font-medium ${
                         season.growth >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'
@@ -337,9 +334,9 @@ export default function DemandForecastPage() {
 
         <TabsContent value="channels" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card className="dashboard-card">
               <CardHeader>
-                <CardTitle className="text-gray-900 dark:text-gray-100">Channel Distribution</CardTitle>
+                <CardTitle className="dashboard-card-title">Channel Distribution</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -371,22 +368,22 @@ export default function DemandForecastPage() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card className="dashboard-card">
               <CardHeader>
-                <CardTitle className="text-gray-900 dark:text-gray-100">Channel Performance</CardTitle>
+                <CardTitle className="dashboard-card-title">Channel Performance</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {channelBreakdown.map((channel, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
                       <div className="flex items-center">
                         <div 
                           className="w-4 h-4 rounded-full mr-3" 
                           style={{ backgroundColor: channel.color }}
                         />
-                        <span className="font-medium text-gray-900 dark:text-gray-100">{channel.name}</span>
+                        <span className="font-medium text-gray-900 dark:text-white">{channel.name}</span>
                       </div>
-                      <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{channel.value}%</span>
+                      <span className="text-sm font-medium text-gray-600 dark:text-white">{channel.value}%</span>
                     </div>
                   ))}
                 </div>
@@ -396,29 +393,29 @@ export default function DemandForecastPage() {
         </TabsContent>
 
         <TabsContent value="sku" className="space-y-6">
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <Card className="dashboard-card">
             <CardHeader>
-              <CardTitle className="text-gray-900 dark:text-gray-100">SKU Performance Analysis</CardTitle>
+              <CardTitle className="dashboard-card-title">SKU Performance Analysis</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-gray-200 dark:border-gray-700">
-                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">SKU</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Category</th>
-                      <th className="text-right py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Forecast</th>
-                      <th className="text-right py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Actual</th>
-                      <th className="text-right py-3 px-4 text-sm font-medium text-gray-700 dark:text-gray-300">Variance</th>
+                    <tr className="border-b border-gray-200 dark:border-gray-200 dark:border-gray-800">
+                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">SKU</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Category</th>
+                      <th className="text-right py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Forecast</th>
+                      <th className="text-right py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Actual</th>
+                      <th className="text-right py-3 px-4 text-sm font-medium text-gray-700 dark:text-white">Variance</th>
                     </tr>
                   </thead>
                   <tbody>
                     {skuPerformance.map((sku, index) => (
-                      <tr key={index} className="border-b border-gray-100 dark:border-gray-700">
-                        <td className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-gray-100">{sku.sku}</td>
-                        <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">{sku.category}</td>
-                        <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400 text-right">{sku.forecast.toLocaleString()}</td>
-                        <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400 text-right">{sku.actual.toLocaleString()}</td>
+                      <tr key={index} className="border-b border-gray-100 dark:border-gray-200 dark:border-gray-800">
+                        <td className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-white">{sku.sku}</td>
+                        <td className="py-3 px-4 text-sm text-gray-600 dark:text-white">{sku.category}</td>
+                        <td className="py-3 px-4 text-sm text-gray-600 dark:text-white text-right">{sku.forecast.toLocaleString()}</td>
+                        <td className="py-3 px-4 text-sm text-gray-600 dark:text-white text-right">{sku.actual.toLocaleString()}</td>
                         <td className={`py-3 px-4 text-sm font-medium text-right ${
                           sku.variance >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'
                         }`}>

@@ -14,20 +14,20 @@ export function KpiCard({ title, value, unit, deltaPct, trend }: KpiCardProps) {
   const isPositive = trend === 'up' ? deltaPct > 0 : deltaPct < 0
 
   return (
-    <Card className="hover:shadow-lg transition-shadow">
+    <Card className="dashboard-card hover:shadow-lg transition-shadow">
       <CardContent>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs font-medium text-gray-600 dark:text-gray-400">
+            <p className="text-xs font-medium text-gray-600 dark:text-white">
               {title}
             </p>
             <div className="flex items-baseline mt-1">
-              <p className="text-xl font-semibold text-gray-900 dark:text-white leading-tight">
-                {value}
-              </p>
-              <p className="ml-1 text-sm text-gray-500 dark:text-gray-400">
-                {unit}
-              </p>
+            <p className="text-xl font-semibold text-gray-900 dark:text-white leading-tight">
+              {value}
+            </p>
+            <p className="ml-1 text-sm text-gray-500 dark:text-white">
+              {unit}
+            </p>
             </div>
           </div>
           <div className={cn(

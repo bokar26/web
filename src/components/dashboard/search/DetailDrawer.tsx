@@ -55,54 +55,54 @@ export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDraw
   const renderSupplierDetails = (supplier: Supplier) => (
     <div className="space-y-6">
       {/* Overview */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Overview</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Overview</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-sm text-gray-500">On-Time Delivery</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">On-Time Delivery</p>
             <p className="text-lg font-semibold text-green-600">{supplier.onTimePercent}%</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Defect Rate</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Defect Rate</p>
             <p className="text-lg font-semibold text-red-600">{(supplier.defectRate * 100).toFixed(1)}%</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Avg Lead Time</p>
-            <p className="text-lg font-semibold">{supplier.avgLeadTimeDays} days</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Avg Lead Time</p>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">{supplier.avgLeadTimeDays} days</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Risk Index</p>
-            <p className="text-lg font-semibold">{supplier.riskIndex}/5</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Risk Index</p>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">{supplier.riskIndex}/5</p>
           </div>
         </div>
       </Card>
 
       {/* Business Details */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Business Details</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Business Details</h3>
         <div className="space-y-3">
           <div className="flex items-center space-x-2">
-            <MapPin className="h-4 w-4 text-gray-400" />
-            <span className="text-sm">{supplier.country}, {supplier.region}</span>
+            <MapPin className="h-4 w-4 text-gray-600 dark:text-white" />
+            <span className="text-sm text-gray-900 dark:text-white">{supplier.country}, {supplier.region}</span>
           </div>
           <div className="flex items-center space-x-2">
-            <Package className="h-4 w-4 text-gray-400" />
-            <span className="text-sm">MOQ: {supplier.moq.toLocaleString()} units</span>
+            <Package className="h-4 w-4 text-gray-600 dark:text-white" />
+            <span className="text-sm text-gray-900 dark:text-white">MOQ: {supplier.moq.toLocaleString()} units</span>
           </div>
           <div className="flex items-center space-x-2">
-            <Calendar className="h-4 w-4 text-gray-400" />
-            <span className="text-sm">Last Order: {supplier.lastOrderDate}</span>
+            <Calendar className="h-4 w-4 text-gray-600 dark:text-white" />
+            <span className="text-sm text-gray-900 dark:text-white">Last Order: {supplier.lastOrderDate}</span>
           </div>
           <div className="flex items-center space-x-2">
-            <Users className="h-4 w-4 text-gray-400" />
-            <span className="text-sm">Total Orders: {supplier.totalOrders}</span>
+            <Users className="h-4 w-4 text-gray-600 dark:text-white" />
+            <span className="text-sm text-gray-900 dark:text-white">Total Orders: {supplier.totalOrders}</span>
           </div>
         </div>
       </Card>
 
       {/* Certifications */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Certifications</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Certifications</h3>
         <div className="flex flex-wrap gap-2">
           {supplier.certifications.map((cert, index) => (
             <Badge key={index} variant="secondary">{cert}</Badge>
@@ -111,8 +111,8 @@ export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDraw
       </Card>
 
       {/* Specialties */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Specialties</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Specialties</h3>
         <div className="flex flex-wrap gap-2">
           {supplier.specialties.map((specialty, index) => (
             <Badge key={index} variant="outline">{specialty}</Badge>
@@ -121,16 +121,16 @@ export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDraw
       </Card>
 
       {/* Contact */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Contact Information</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Contact Information</h3>
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
-            <Mail className="h-4 w-4 text-gray-400" />
-            <span className="text-sm">{supplier.contactEmail}</span>
+            <Mail className="h-4 w-4 text-gray-600 dark:text-white" />
+            <span className="text-sm text-gray-900 dark:text-white">{supplier.contactEmail}</span>
           </div>
           {supplier.website && (
             <div className="flex items-center space-x-2">
-              <Globe className="h-4 w-4 text-gray-400" />
+              <Globe className="h-4 w-4 text-gray-600 dark:text-white" />
               <a href={supplier.website} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">
                 {supplier.website}
                 <ExternalLink className="inline h-3 w-3 ml-1" />
@@ -145,31 +145,31 @@ export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDraw
   const renderFactoryDetails = (factory: Factory) => (
     <div className="space-y-6">
       {/* Overview */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Overview</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Overview</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-sm text-gray-500">Capacity</p>
-            <p className="text-lg font-semibold">{factory.capacity.toLocaleString()} units/month</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Capacity</p>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">{factory.capacity.toLocaleString()} units/month</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Utilization</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Utilization</p>
             <p className="text-lg font-semibold text-blue-600">{factory.utilization}%</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Compliance Score</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Compliance Score</p>
             <p className="text-lg font-semibold text-green-600">{factory.complianceScore}/100</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Employees</p>
-            <p className="text-lg font-semibold">{factory.employeeCount}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Employees</p>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">{factory.employeeCount}</p>
           </div>
         </div>
       </Card>
 
       {/* Capabilities */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Capabilities</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Capabilities</h3>
         <div className="flex flex-wrap gap-2">
           {factory.capabilities.map((capability, index) => (
             <Badge key={index} variant="secondary">{capability}</Badge>
@@ -178,20 +178,20 @@ export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDraw
       </Card>
 
       {/* Additional details similar to supplier */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Business Details</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Business Details</h3>
         <div className="space-y-3">
           <div className="flex items-center space-x-2">
-            <MapPin className="h-4 w-4 text-gray-400" />
-            <span className="text-sm">{factory.country}, {factory.region}</span>
+            <MapPin className="h-4 w-4 text-gray-600 dark:text-white" />
+            <span className="text-sm text-gray-900 dark:text-white">{factory.country}, {factory.region}</span>
           </div>
           <div className="flex items-center space-x-2">
-            <Calendar className="h-4 w-4 text-gray-400" />
-            <span className="text-sm">Established: {factory.establishedYear}</span>
+            <Calendar className="h-4 w-4 text-gray-600 dark:text-white" />
+            <span className="text-sm text-gray-900 dark:text-white">Established: {factory.establishedYear}</span>
           </div>
           <div className="flex items-center space-x-2">
-            <Package className="h-4 w-4 text-gray-400" />
-            <span className="text-sm">MOQ: {factory.moq.toLocaleString()} units</span>
+            <Package className="h-4 w-4 text-gray-600 dark:text-white" />
+            <span className="text-sm text-gray-900 dark:text-white">MOQ: {factory.moq.toLocaleString()} units</span>
           </div>
         </div>
       </Card>
@@ -201,31 +201,31 @@ export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDraw
   const renderWarehouseDetails = (warehouse: Warehouse) => (
     <div className="space-y-6">
       {/* Overview */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Overview</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Overview</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-sm text-gray-500">Capacity</p>
-            <p className="text-lg font-semibold">{warehouse.capacity.toLocaleString()} sq ft</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Capacity</p>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">{warehouse.capacity.toLocaleString()} sq ft</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Utilization</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Utilization</p>
             <p className="text-lg font-semibold text-blue-600">{warehouse.utilization}%</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Pick Rate</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Pick Rate</p>
             <p className="text-lg font-semibold text-green-600">{warehouse.slaPickRate}%</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Pack Rate</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Pack Rate</p>
             <p className="text-lg font-semibold text-green-600">{warehouse.slaPackRate}%</p>
           </div>
         </div>
       </Card>
 
       {/* Services */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Services</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Services</h3>
         <div className="flex flex-wrap gap-2">
           {warehouse.services.map((service, index) => (
             <Badge key={index} variant="secondary">{service}</Badge>
@@ -234,16 +234,16 @@ export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDraw
       </Card>
 
       {/* Volume */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Volume</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Volume</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-sm text-gray-500">Inbound</p>
-            <p className="text-lg font-semibold">{warehouse.inboundVolume.toLocaleString()} units/month</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Inbound</p>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">{warehouse.inboundVolume.toLocaleString()} units/month</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Outbound</p>
-            <p className="text-lg font-semibold">{warehouse.outboundVolume.toLocaleString()} units/month</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Outbound</p>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">{warehouse.outboundVolume.toLocaleString()} units/month</p>
           </div>
         </div>
       </Card>
@@ -253,44 +253,44 @@ export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDraw
   const renderForwarderDetails = (forwarder: FreightForwarder) => (
     <div className="space-y-6">
       {/* Overview */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Overview</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Overview</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-sm text-gray-500">Service Rating</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Service Rating</p>
             <p className="text-lg font-semibold text-green-600">{forwarder.serviceRating}/5</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Quote Responsiveness</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Quote Responsiveness</p>
             <p className="text-lg font-semibold text-blue-600">{forwarder.quoteResponsiveness}%</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Transit Variance</p>
-            <p className="text-lg font-semibold">{forwarder.avgTransitVariance} days</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Transit Variance</p>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">{forwarder.avgTransitVariance} days</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Total Shipments</p>
-            <p className="text-lg font-semibold">{forwarder.totalShipments.toLocaleString()}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Total Shipments</p>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">{forwarder.totalShipments.toLocaleString()}</p>
           </div>
         </div>
       </Card>
 
       {/* Lanes */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Lanes Served</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Lanes Served</h3>
         <div className="space-y-2">
           {forwarder.lanes.map((lane, index) => (
             <div key={index} className="flex items-center space-x-2">
-              <Truck className="h-4 w-4 text-gray-400" />
-              <span className="text-sm">{lane}</span>
+              <Truck className="h-4 w-4 text-gray-600 dark:text-white" />
+              <span className="text-sm text-gray-900 dark:text-white">{lane}</span>
             </div>
           ))}
         </div>
       </Card>
 
       {/* Modes */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Transport Modes</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Transport Modes</h3>
         <div className="flex flex-wrap gap-2">
           {forwarder.modes.map((mode, index) => (
             <Badge key={index} variant="outline">{mode}</Badge>
@@ -303,42 +303,42 @@ export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDraw
   const renderCarrierDetails = (carrier: Carrier) => (
     <div className="space-y-6">
       {/* Overview */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Overview</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Overview</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-sm text-gray-500">On-Time %</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">On-Time %</p>
             <p className="text-lg font-semibold text-green-600">{carrier.onTimePercent}%</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Claims Rate</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Claims Rate</p>
             <p className="text-lg font-semibold text-red-600">{(carrier.claimsRate * 100).toFixed(1)}%</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Cost per Mile</p>
-            <p className="text-lg font-semibold">${carrier.costPerMile}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Cost per Mile</p>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">${carrier.costPerMile}</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Fleet Size</p>
-            <p className="text-lg font-semibold">{carrier.fleetSize}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Fleet Size</p>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">{carrier.fleetSize}</p>
           </div>
         </div>
       </Card>
 
       {/* Service Level */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Service Level</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Service Level</h3>
         <Badge variant="secondary" className="text-sm">{carrier.serviceLevel}</Badge>
       </Card>
 
       {/* Lanes */}
-      <Card className="p-4">
-        <h3 className="font-semibold text-lg mb-3">Lanes</h3>
+      <Card className="dashboard-card p-4">
+        <h3 className="font-semibold text-lg mb-3 text-gray-900 dark:text-white">Lanes</h3>
         <div className="space-y-2">
           {carrier.lanes.map((lane, index) => (
             <div key={index} className="flex items-center space-x-2">
-              <Truck className="h-4 w-4 text-gray-400" />
-              <span className="text-sm">{lane}</span>
+              <Truck className="h-4 w-4 text-gray-600 dark:text-white" />
+              <span className="text-sm text-gray-900 dark:text-white">{lane}</span>
             </div>
           ))}
         </div>
@@ -380,9 +380,9 @@ export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDraw
 
         <div className="space-y-6">
           {/* Entity Header */}
-          <div className="border-b pb-4">
-            <h2 className="text-2xl font-bold text-gray-900">{entity.name}</h2>
-            <p className="text-gray-600 mt-1">{entity.country}, {entity.region}</p>
+          <div className="border-b border-gray-200 dark:border-gray-800 pb-4">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{entity.name}</h2>
+            <p className="text-gray-600 dark:text-white mt-1">{entity.country}, {entity.region}</p>
             {entity.website && (
               <div className="mt-2">
                 <a

@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { GlassCard } from "@/components/dashboard/atoms/GlassCard"
+import { Card } from "@/components/ui/card"
 import { poKPIs } from "@/lib/mockData"
 import { ArrowDown, ArrowUp, CheckCircle, Clock, DollarSign, Package, Truck } from "lucide-react"
 
@@ -30,9 +30,9 @@ const KPICard: React.FC<KPICardProps> = ({
   const TrendIcon = trend === 'up' ? ArrowUp : trend === 'down' ? ArrowDown : null;
 
   return (
-    <GlassCard className={`p-5 flex flex-col justify-between h-full ${bgColorClass}`}>
+    <Card className={`dashboard-card p-5 flex flex-col justify-between h-full ${bgColorClass}`}>
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-medium text-gray-400">{title}</h3>
+        <h3 className="text-sm font-medium text-gray-600 dark:text-white">{title}</h3>
         <Icon className={`h-6 w-6 ${iconColorClass}`} />
       </div>
       <div className="mt-4">
@@ -44,7 +44,7 @@ const KPICard: React.FC<KPICardProps> = ({
           </p>
         )}
       </div>
-    </GlassCard>
+    </Card>
   )
 }
 

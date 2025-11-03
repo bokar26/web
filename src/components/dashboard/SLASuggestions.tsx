@@ -13,9 +13,9 @@ interface SLASuggestionsProps {
 
 export function SLASuggestions({ suggestions }: SLASuggestionsProps) {
   return (
-    <Card className="hover:shadow-lg transition-shadow">
+    <Card className="dashboard-card hover:shadow-lg transition-shadow">
       <CardHeader>
-        <CardTitle className="text-sm font-medium text-gray-900 dark:text-white flex items-center">
+        <CardTitle className="dashboard-card-title text-sm font-medium flex items-center">
           <Lightbulb className="h-5 w-5 mr-2 text-emerald-500" />
           SLA suggestions
         </CardTitle>

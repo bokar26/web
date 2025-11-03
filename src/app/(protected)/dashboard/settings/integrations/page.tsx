@@ -111,10 +111,10 @@ const integrations = [
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'connected': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200'
-    case 'disconnected': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-    case 'error': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+    case 'connected': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-white'
+    case 'disconnected': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-white'
+    case 'error': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-white'
+    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white'
   }
 }
 
@@ -124,7 +124,7 @@ const getHealthColor = (health: string) => {
     case 'good': return 'text-blue-600 dark:text-blue-400'
     case 'warning': return 'text-yellow-600 dark:text-yellow-400'
     case 'error': return 'text-red-600 dark:text-red-400'
-    default: return 'text-gray-600 dark:text-gray-400'
+    default: return 'text-gray-600 dark:text-white'
   }
 }
 
@@ -156,17 +156,14 @@ export default function IntegrationsPage() {
   const errorCount = integrations.filter(i => i.status === 'error').length
 
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Integrations</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Manage system integrations and data synchronization
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Integrations</h1>
         </div>
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+          <Button variant="outline" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
             <RefreshCw className="h-4 w-4 mr-2" />
             Sync All
           </Button>
@@ -179,12 +176,12 @@ export default function IntegrationsPage() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Integrations</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{totalCount}</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Total Integrations</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{totalCount}</p>
                 <p className="text-xs text-blue-600 dark:text-blue-400 flex items-center mt-1">
                   <Plug className="h-3 w-3 mr-1" />
                   {connectedCount} active
@@ -195,12 +192,12 @@ export default function IntegrationsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Connected</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{connectedCount}</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Connected</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{connectedCount}</p>
                 <p className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center mt-1">
                   <CheckCircle className="h-3 w-3 mr-1" />
                   {Math.round((connectedCount / totalCount) * 100)}% of total
@@ -211,12 +208,12 @@ export default function IntegrationsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Last Sync</p>
-                <p className="text-lg font-bold text-gray-900 dark:text-gray-100">2 min ago</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Last Sync</p>
+                <p className="text-lg font-bold text-gray-900 dark:text-white">2 min ago</p>
                 <p className="text-xs text-blue-600 dark:text-blue-400 flex items-center mt-1">
                   <Activity className="h-3 w-3 mr-1" />
                   Real-time sync
@@ -227,12 +224,12 @@ export default function IntegrationsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Issues</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{errorCount}</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Issues</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{errorCount}</p>
                 <p className="text-xs text-red-600 dark:text-red-400 flex items-center mt-1">
                   <AlertTriangle className="h-3 w-3 mr-1" />
                   Requires attention
@@ -252,16 +249,16 @@ export default function IntegrationsPage() {
           const isEnabled = enabledIntegrations.includes(integration.id)
           
           return (
-            <Card key={integration.id} className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card key={integration.id} className="dashboard-card">
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                      <IconComponent className="h-6 w-6 text-gray-600 dark:text-gray-400" />
+                    <div className="p-2 bg-gray-100 dark:bg-gray-900 rounded-lg">
+                      <IconComponent className="h-6 w-6 text-gray-600 dark:text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-gray-900 dark:text-gray-100">{integration.name}</CardTitle>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{integration.category}</p>
+                      <CardTitle className="dashboard-card-title">{integration.name}</CardTitle>
+                      <p className="text-sm text-gray-600 dark:text-white">{integration.category}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -273,21 +270,21 @@ export default function IntegrationsPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">{integration.description}</p>
+                <p className="text-gray-600 dark:text-white mb-4">{integration.description}</p>
                 
                 <div className="space-y-3 mb-4">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-400">Sync Frequency</span>
-                    <span className="font-medium text-gray-900 dark:text-gray-100">{integration.syncFrequency}</span>
+                    <span className="text-gray-600 dark:text-white">Sync Frequency</span>
+                    <span className="font-medium text-gray-900 dark:text-white">{integration.syncFrequency}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-400">Last Sync</span>
-                    <span className="font-medium text-gray-900 dark:text-gray-100">
+                    <span className="text-gray-600 dark:text-white">Last Sync</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
                       {new Date(integration.lastSync).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-400">Health Status</span>
+                    <span className="text-gray-600 dark:text-white">Health Status</span>
                     <span className={`font-medium ${getHealthColor(integration.health)}`}>
                       {integration.health.charAt(0).toUpperCase() + integration.health.slice(1)}
                     </span>
@@ -295,7 +292,7 @@ export default function IntegrationsPage() {
                 </div>
 
                 <div className="mb-4">
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Features</p>
+                  <p className="text-sm font-medium text-gray-700 dark:text-white mb-2">Features</p>
                   <div className="flex flex-wrap gap-1">
                     {integration.features.map((feature, index) => (
                       <Badge key={index} variant="outline" className="text-xs">
@@ -312,16 +309,16 @@ export default function IntegrationsPage() {
                       checked={isEnabled}
                       onCheckedChange={() => toggleIntegration(integration.id)}
                     />
-                    <Label htmlFor={`enable-${integration.id}`} className="text-sm text-gray-700 dark:text-gray-300">
+                    <Label htmlFor={`enable-${integration.id}`} className="text-sm text-gray-700 dark:text-white">
                       Enable Integration
                     </Label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+                    <Button variant="outline" size="sm" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
                       <Settings className="h-3 w-3 mr-1" />
                       Configure
                     </Button>
-                    <Button variant="outline" size="sm" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+                    <Button variant="outline" size="sm" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
                       <ExternalLink className="h-3 w-3 mr-1" />
                       View
                     </Button>
@@ -334,9 +331,9 @@ export default function IntegrationsPage() {
       </div>
 
       {/* Integration Status Summary */}
-      <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+      <Card className="dashboard-card">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-gray-100">Integration Status Summary</CardTitle>
+          <CardTitle className="dashboard-card-title">Integration Status Summary</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

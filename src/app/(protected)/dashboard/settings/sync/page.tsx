@@ -107,12 +107,12 @@ const syncStatus = [
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'completed': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200'
+    case 'completed': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-white'
     case 'syncing': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-    case 'error': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-    case 'paused': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-    case 'scheduled': return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
-    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+    case 'error': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-white'
+    case 'paused': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-white'
+    case 'scheduled': return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white'
+    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white'
   }
 }
 
@@ -137,19 +137,16 @@ export default function DataSyncStatusPage() {
   const avgSuccessRate = syncStatus.reduce((sum, sync) => sum + sync.successRate, 0) / syncStatus.length
 
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Data Sync Status</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Monitor data synchronization across all integrated systems
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Data Sync Status</h1>
         </div>
         <div className="flex items-center gap-3">
           <Button 
             variant="outline" 
-            className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600"
+            className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800"
             onClick={() => setAutoRefresh(!autoRefresh)}
           >
             {autoRefresh ? <Pause className="h-4 w-4 mr-2" /> : <Play className="h-4 w-4 mr-2" />}
@@ -164,12 +161,12 @@ export default function DataSyncStatusPage() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed Syncs</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{completedSyncs}</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Completed Syncs</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{completedSyncs}</p>
                 <p className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center mt-1">
                   <CheckCircle className="h-3 w-3 mr-1" />
                   {Math.round((completedSyncs / syncStatus.length) * 100)}% success rate
@@ -180,12 +177,12 @@ export default function DataSyncStatusPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Currently Syncing</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{syncingCount}</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Currently Syncing</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{syncingCount}</p>
                 <p className="text-xs text-blue-600 dark:text-blue-400 flex items-center mt-1">
                   <RefreshCw className="h-3 w-3 mr-1" />
                   Active processes
@@ -196,12 +193,12 @@ export default function DataSyncStatusPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Records</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{totalRecords.toLocaleString()}</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Total Records</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{totalRecords.toLocaleString()}</p>
                 <p className="text-xs text-blue-600 dark:text-blue-400 flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 mr-1" />
                   Processed today
@@ -212,12 +209,12 @@ export default function DataSyncStatusPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+        <Card className="dashboard-card">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Error Count</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{errorCount}</p>
+                <p className="text-sm font-medium text-gray-600 dark:text-white">Error Count</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{errorCount}</p>
                 <p className="text-xs text-red-600 dark:text-red-400 flex items-center mt-1">
                   <AlertTriangle className="h-3 w-3 mr-1" />
                   Require attention
@@ -236,16 +233,16 @@ export default function DataSyncStatusPage() {
           const StatusIcon = getStatusIcon(sync.status)
           
           return (
-            <Card key={sync.id} className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card key={sync.id} className="dashboard-card">
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                      <IconComponent className="h-6 w-6 text-gray-600 dark:text-gray-400" />
+                    <div className="p-2 bg-gray-100 dark:bg-gray-900 rounded-lg">
+                      <IconComponent className="h-6 w-6 text-gray-600 dark:text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-gray-900 dark:text-gray-100">{sync.name}</CardTitle>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{sync.type}</p>
+                      <CardTitle className="dashboard-card-title">{sync.name}</CardTitle>
+                      <p className="text-sm text-gray-600 dark:text-white">{sync.type}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -257,7 +254,7 @@ export default function DataSyncStatusPage() {
                       sync.status === 'syncing' ? 'text-blue-600 dark:text-blue-400' :
                       sync.status === 'error' ? 'text-red-600 dark:text-red-400' :
                       sync.status === 'paused' ? 'text-yellow-600 dark:text-yellow-400' :
-                      'text-gray-600 dark:text-gray-400'
+                      'text-gray-600 dark:text-white'
                     }`} />
                   </div>
                 </div>
@@ -266,8 +263,8 @@ export default function DataSyncStatusPage() {
                 {sync.status === 'syncing' && (
                   <div className="mb-4">
                     <div className="flex justify-between text-sm mb-2">
-                      <span className="text-gray-600 dark:text-gray-400">Sync Progress</span>
-                      <span className="font-medium text-gray-900 dark:text-gray-100">{sync.progress}%</span>
+                      <span className="text-gray-600 dark:text-white">Sync Progress</span>
+                      <span className="font-medium text-gray-900 dark:text-white">{sync.progress}%</span>
                     </div>
                     <Progress value={sync.progress} className="h-2" />
                   </div>
@@ -275,16 +272,16 @@ export default function DataSyncStatusPage() {
 
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Records Processed</p>
-                    <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                    <p className="text-sm text-gray-600 dark:text-white">Records Processed</p>
+                    <p className="text-lg font-semibold text-gray-900 dark:text-white">
                       {sync.recordsProcessed.toLocaleString()}
                       {sync.totalRecords > 0 && (
-                        <span className="text-sm text-gray-500 dark:text-gray-400"> / {sync.totalRecords.toLocaleString()}</span>
+                        <span className="text-sm text-gray-500 dark:text-white"> / {sync.totalRecords.toLocaleString()}</span>
                       )}
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Success Rate</p>
+                    <p className="text-sm text-gray-600 dark:text-white">Success Rate</p>
                     <p className={`text-lg font-semibold ${
                       sync.successRate >= 95 ? 'text-emerald-600 dark:text-emerald-400' :
                       sync.successRate >= 85 ? 'text-blue-600 dark:text-blue-400' :
@@ -295,31 +292,31 @@ export default function DataSyncStatusPage() {
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Sync Duration</p>
-                    <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{sync.syncDuration}</p>
+                    <p className="text-sm text-gray-600 dark:text-white">Sync Duration</p>
+                    <p className="text-lg font-semibold text-gray-900 dark:text-white">{sync.syncDuration}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Data Size</p>
-                    <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{sync.dataSize}</p>
+                    <p className="text-sm text-gray-600 dark:text-white">Data Size</p>
+                    <p className="text-lg font-semibold text-gray-900 dark:text-white">{sync.dataSize}</p>
                   </div>
                 </div>
 
                 <div className="space-y-2 mb-4">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-400">Last Sync</span>
-                    <span className="font-medium text-gray-900 dark:text-gray-100">
+                    <span className="text-gray-600 dark:text-white">Last Sync</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
                       {new Date(sync.lastSync).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-400">Next Sync</span>
-                    <span className="font-medium text-gray-900 dark:text-gray-100">
+                    <span className="text-gray-600 dark:text-white">Next Sync</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
                       {sync.nextSync === 'Paused' ? 'Paused' : new Date(sync.nextSync).toLocaleString()}
                     </span>
                   </div>
                   {sync.errorCount > 0 && (
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Errors</span>
+                      <span className="text-gray-600 dark:text-white">Errors</span>
                       <span className="font-medium text-red-600 dark:text-red-400">{sync.errorCount}</span>
                     </div>
                   )}
@@ -327,8 +324,8 @@ export default function DataSyncStatusPage() {
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Activity className="h-4 w-4 text-gray-400" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <Activity className="h-4 w-4 text-gray-600 dark:text-white" />
+                    <span className="text-sm text-gray-600 dark:text-white">
                       {sync.status === 'syncing' ? 'Syncing in progress...' :
                        sync.status === 'completed' ? 'Last sync completed successfully' :
                        sync.status === 'error' ? 'Sync failed - check logs' :
@@ -337,7 +334,7 @@ export default function DataSyncStatusPage() {
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+                    <Button variant="outline" size="sm" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
                       <Settings className="h-3 w-3 mr-1" />
                       Configure
                     </Button>
@@ -352,7 +349,7 @@ export default function DataSyncStatusPage() {
                         Retry
                       </Button>
                     ) : (
-                      <Button variant="outline" size="sm" className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600">
+                      <Button variant="outline" size="sm" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
                         <RefreshCw className="h-3 w-3 mr-1" />
                         Sync Now
                       </Button>
@@ -366,9 +363,9 @@ export default function DataSyncStatusPage() {
       </div>
 
       {/* Sync Summary */}
-      <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+      <Card className="dashboard-card">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-gray-100">Sync Summary</CardTitle>
+          <CardTitle className="dashboard-card-title">Sync Summary</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
