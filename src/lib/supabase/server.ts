@@ -33,7 +33,7 @@ function diagnoseSupabaseEnv() {
     console.log(
       `[Supabase Env Diagnostic] Server: ✓ Supabase env vars loaded successfully`
     );
-  } catch (error) {
+  } catch {
     console.warn(
       `[Supabase Env Diagnostic] Server: ⚠️ Invalid SUPABASE_URL format: ${supabaseUrl}`
     );

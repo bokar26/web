@@ -1,10 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { BookDemoCTA } from "@/components/BookDemoCTA"
-import { ArrowRight, Play } from "lucide-react"
-import Image from "next/image"
+import { ArrowRight } from "lucide-react"
 
 interface HeroProps {
   headline?: string
@@ -17,15 +15,6 @@ export function Hero({
   subcopy = "SLA fuses ERP essentials with AI and ML intelligence to build faster, smarter, and more robust workflows.",
   socialProof = "Driven by the world's most precise optimization models",
 }: HeroProps) {
-  const scrollToSection = (href: string) => {
-    if (href.startsWith("#")) {
-      const element = document.querySelector(href)
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" })
-      }
-    }
-  }
-
   return (
     <section className="relative min-h-screen flex flex-col justify-start pt-4 md:pt-6 overflow-hidden">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 md:py-6">
