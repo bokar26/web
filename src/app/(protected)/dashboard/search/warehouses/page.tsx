@@ -1,12 +1,14 @@
 "use client"
 
 import { useState, useMemo, useEffect } from "react"
+import { useUser } from "@clerk/nextjs"
 import { SearchToolbar } from "@/components/dashboard/search/SearchToolbar"
 import { FacetFilters } from "@/components/dashboard/search/FacetFilters"
 import { DataTable } from "@/components/dashboard/search/DataTable"
 import { CardGrid, EntityCard } from "@/components/dashboard/search/CardGrid"
 import { DetailDrawer } from "@/components/dashboard/search/DetailDrawer"
 import { sampleWarehouses } from "@/lib/mock/search"
+import { saveVendor } from "@/app/(protected)/dashboard/manage/vendors/actions"
 import { trackSearchView, trackSearchQuery, trackFilterApply, trackSortChange, trackViewToggle, trackEntityOpen, trackCompareClick, trackExportClick } from "@/lib/analytics"
 import { Warehouse, SearchFilters, ViewMode, FilterOption } from "@/types/search"
 import dynamic from "next/dynamic"
@@ -21,6 +23,7 @@ const GlobeLoader = dynamic(() => import("@/components/globe/GlobeLoader"), {
 })
 
 export default function WarehousesPage() {
+  const { user } = useUser()
   const [searchQuery, setSearchQuery] = useState("")
   const [filters, setFilters] = useState<SearchFilters>({})
   const [viewMode, setViewMode] = useState<ViewMode>("table")
@@ -31,6 +34,10 @@ export default function WarehousesPage() {
   const [selectedEntity, setSelectedEntity] = useState<Warehouse | null>(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
+  
+  // State for saving vendors
+  const [savingVendorId, setSavingVendorId] = useState<string | null>(null)
+  const [savedVendorIds, setSavedVendorIds] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     trackSearchView('warehouse')
@@ -272,6 +279,34 @@ export default function WarehousesPage() {
     alert('Search saved successfully!')
   }
 
+  const handleSaveVendor = async () => {
+    if (!user?.id || !selectedEntity) {
+      alert('Please sign in to save vendors')
+      return
+    }
+
+    const warehouse = selectedEntity
+    setSavingVendorId(warehouse.id)
+    try {
+      const result = await saveVendor({
+        source: 'warehouse',
+        sourceId: warehouse.id,
+        ownerUserId: user.id,
+        row: warehouse,
+      })
+
+      if (result.upserted) {
+        setSavedVendorIds(prev => new Set(prev).add(warehouse.id))
+        alert(result.wasInsert ? 'Added to Vendors' : 'Already saved')
+      }
+    } catch (err) {
+      console.error('Failed to save vendor:', err)
+      alert('Failed to save vendor')
+    } finally {
+      setSavingVendorId(null)
+    }
+  }
+
   const renderWarehouseCard = (warehouse: Warehouse, isSelected: boolean) => (
     <EntityCard
       title={warehouse.name}
@@ -283,9 +318,9 @@ export default function WarehousesPage() {
         { label: 'Pack Rate', value: warehouse.slaPackRate, format: 'percentage', color: warehouse.slaPackRate >= 95 ? 'green' : warehouse.slaPackRate >= 90 ? 'yellow' : 'red' },
       ]}
       badges={warehouse.services.slice(0, 3).map(service => ({ text: service, variant: 'secondary' as const }))}
-      description={`${warehouse.inboundVolume.toLocaleString()} inbound • ${warehouse.outboundVolume.toLocaleString()} outbound units/month`}
-      onViewDetails={() => handleRowClick(warehouse)}
-    />
+          description={`${warehouse.inboundVolume.toLocaleString()} inbound • ${warehouse.outboundVolume.toLocaleString()} outbound units/month`}
+          onViewDetails={() => handleRowClick(warehouse)}
+        />
   )
 
   return (
@@ -349,7 +384,7 @@ export default function WarehousesPage() {
               currentPage={currentPage}
               onPageChange={setCurrentPage}
               getRowId={(warehouse) => warehouse.id}
-            />
+                />
           ) : (
             <CardGrid
               data={filteredData}
@@ -369,6 +404,9 @@ export default function WarehousesPage() {
         onClose={() => setIsDrawerOpen(false)}
         entity={selectedEntity}
         entityType="warehouse"
+        onSave={handleSaveVendor}
+        isSaving={selectedEntity ? savingVendorId === selectedEntity.id : false}
+        isSaved={selectedEntity ? savedVendorIds.has(selectedEntity.id) : false}
       />
     </div>
   )

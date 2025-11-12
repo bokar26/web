@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-// @ts-expect-error react-globe.gl ships without full TS types; we cast to any below.
 import Globe from 'react-globe.gl';
 
 export type DataPoint = {
@@ -18,7 +17,38 @@ export interface WorldGlobeProps {
   autoRotate?: boolean;
 }
 
-type GlobeInstance = any; // react-globe.gl lacks types; we safely narrow at call sites
+// Minimal type for Globe instance based on actual usage
+interface GlobeControls {
+  autoRotate?: boolean;
+  autoRotateSpeed?: number;
+  enableZoom?: boolean;
+  spherical?: { theta: number };
+  object?: { rotateY: (delta: number) => void };
+  rotateLeft?: (delta: number) => void;
+  update: () => void;
+}
+
+interface GlobeCamera {
+  rotateY: (delta: number) => void;
+}
+
+type GlobeInstance = {
+  width?: (size: number) => void;
+  height?: (size: number) => void;
+  controls?: () => GlobeControls | null;
+  camera?: () => GlobeCamera | null;
+} | null;
+
+// Type for Globe component props based on actual usage
+interface GlobeProps {
+  width?: number;
+  height?: number;
+  backgroundColor?: string;
+  globeImageUrl?: string;
+  bumpImageUrl?: string;
+  showGraticules?: boolean;
+  ref?: React.Ref<GlobeInstance>;
+}
 
 // Custom hook for dynamic square sizing
 function useSquareSize(containerRef: React.RefObject<HTMLElement>, pad = 0) {
@@ -42,8 +72,8 @@ function useSquareSize(containerRef: React.RefObject<HTMLElement>, pad = 0) {
 }
 
 export default function WorldGlobe({
-  data,
-  cycleMs = 1500,
+  data: _data,
+  cycleMs: _cycleMs = 1500,
   className = '',
   autoRotate = true,
 }: WorldGlobeProps) {
@@ -130,8 +160,8 @@ export default function WorldGlobe({
     };
   }, [autoRotate]);
 
-  // Cast Globe to any to satisfy TS (package lacks types)
-  const GlobeComp = Globe as unknown as React.ComponentType<any>;
+  // Cast Globe to typed component (package lacks full types)
+  const GlobeComp = Globe as unknown as React.ComponentType<GlobeProps>;
 
   return (
     <div

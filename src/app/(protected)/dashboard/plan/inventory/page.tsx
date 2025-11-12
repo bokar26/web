@@ -1,13 +1,39 @@
 "use client";
 
-
+import { useState } from "react"
+import { useUser } from "@clerk/nextjs"
+import { toast } from "sonner"
 import { inventoryPlans, demandForecastData } from "@/lib/mockData";
-import { Package, AlertTriangle, TrendingUp, Calendar, BarChart3 } from "lucide-react";
+import { Package, AlertTriangle, TrendingUp, Calendar, BarChart3, ShoppingCart, RefreshCw, Download, Zap } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, BarChart, Bar } from "recharts";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { features } from "@/lib/features"
+import { ActionBar } from "@/components/dashboard/ActionBar";
+import { SummaryHeader } from "@/components/dashboard/SummaryHeader";
+import { FloatingActionBar } from "@/components/dashboard/FloatingActionBar";
+import { InventoryConsole } from "@/features/inventory-exec/components/InventoryConsole"
+import { SKUDrawer } from "@/features/inventory-exec/components/SKUDrawer"
+import { POModal } from "@/features/inventory-exec/components/POModal"
+import { TransferModal } from "@/features/inventory-exec/components/TransferModal"
+import { generateReplenishmentPlans } from "@/features/inventory-exec/actions/generateReplenishmentPlans"
+import { createPOAction } from "@/features/inventory-exec/actions/createPO"
+import { createTransferAction } from "@/features/inventory-exec/actions/createTransfer"
+import { dismissPlan } from "@/features/inventory-exec/actions/dismissPlan"
+import { TOAST_MESSAGES } from "@/features/inventory-exec/constants"
 
 export default function InventoryPlansPage() {
+  const { user } = useUser()
+  const [showInventoryConsole, setShowInventoryConsole] = useState(false)
+  const [selectedSkuId, setSelectedSkuId] = useState<string | null>(null)
+  const [selectedWarehouseId, setSelectedWarehouseId] = useState<string | null>(null)
+  const [isSkuDrawerOpen, setIsSkuDrawerOpen] = useState(false)
+  const [isGenerating, setIsGenerating] = useState(false)
+  const [isPOModalOpen, setIsPOModalOpen] = useState(false)
+  const [isTransferModalOpen, setIsTransferModalOpen] = useState(false)
+  const [selectedPlanForPO, setSelectedPlanForPO] = useState<any>(null)
+  const [selectedPlanForTransfer, setSelectedPlanForTransfer] = useState<any>(null)
   const getRiskColor = (riskLevel: string) => {
     switch (riskLevel) {
       case 'high':
@@ -21,16 +47,149 @@ export default function InventoryPlansPage() {
     }
   };
 
+  const handleGeneratePlans = async () => {
+    if (!user?.id) {
+      toast.error("Please sign in")
+      return
+    }
+
+    setIsGenerating(true)
+    try {
+      const result = await generateReplenishmentPlans({
+        horizonDays: 30,
+        ownerUserId: user.id,
+      })
+      
+      toast.success(TOAST_MESSAGES.PLANS_GENERATED(result.count))
+      // Refresh console if open
+      if (showInventoryConsole) {
+        setShowInventoryConsole(false)
+        setTimeout(() => setShowInventoryConsole(true), 100)
+      }
+    } catch (error) {
+      console.error('[InventoryPlansPage] Failed to generate plans:', error)
+      toast.error(TOAST_MESSAGES.PLANS_ERROR)
+    } finally {
+      setIsGenerating(false)
+    }
+  }
+
+  const handleOpenSKUDrawer = (sku: string, location?: string) => {
+    setSelectedSkuId(sku)
+    setSelectedWarehouseId(location || null)
+    setIsSkuDrawerOpen(true)
+  }
+
+  const closeSkuDrawer = () => {
+    setIsSkuDrawerOpen(false)
+    setSelectedSkuId(null)
+    setSelectedWarehouseId(null)
+  }
+
+  const handleGeneratePO = (plan: any) => {
+    setSelectedPlanForPO(plan)
+    setIsPOModalOpen(true)
+  }
+
+  const handleCreateTransfer = (plan: any) => {
+    setSelectedPlanForTransfer(plan)
+    setIsTransferModalOpen(true)
+  }
+
+  const handleDismissPlan = async (planId: string) => {
+    if (!user?.id) {
+      toast.error("Please sign in")
+      return
+    }
+
+    try {
+      await dismissPlan({ planId, ownerUserId: user.id })
+      toast.success(TOAST_MESSAGES.PLAN_DISMISSED)
+    } catch (error) {
+      console.error('[InventoryPlansPage] Failed to dismiss plan:', error)
+      toast.error(TOAST_MESSAGES.PLAN_DISMISS_ERROR)
+    }
+  }
+
+  // Calculate summary metrics
+  const calculateSKUsBelowSafetyStock = () => {
+    return inventoryPlans.filter(plan => plan.riskLevel === 'high' || plan.riskLevel === 'medium').length;
+  };
+
+  const calculatePotentialSavings = () => {
+    // Placeholder calculation - sum of savings from plans
+    return inventoryPlans.reduce((sum, plan) => sum + (plan.savings || 0), 0);
+  };
+
+  const handleGenerateAllPOs = () => {
+    const plansNeedingPO = inventoryPlans.filter(plan => plan.riskLevel === 'high' || plan.riskLevel === 'medium');
+    if (plansNeedingPO.length === 0) {
+      toast.info("No plans require purchase orders");
+      return;
+    }
+    // Open PO modal for first plan, or show selection
+    if (plansNeedingPO.length > 0) {
+      handleGeneratePO(plansNeedingPO[0]);
+    }
+  };
+
+  const handleCreateAllTransfers = () => {
+    const plansNeedingTransfer = inventoryPlans.filter(plan => plan.riskLevel === 'low');
+    if (plansNeedingTransfer.length === 0) {
+      toast.info("No plans require transfers");
+      return;
+    }
+    // Open Transfer modal for first plan
+    if (plansNeedingTransfer.length > 0) {
+      handleCreateTransfer(plansNeedingTransfer[0]);
+    }
+  };
+
+  const handleRecalculateForecast = () => {
+    toast.info("Recalculate demand forecast feature coming soon");
+  };
+
+  const handleSyncSafetyStock = () => {
+    toast.info("Sync safety stock feature coming soon");
+  };
+
+  const handleExportSnapshot = () => {
+    toast.info("Export inventory snapshot feature coming soon");
+  };
+
+  const handleExportSummary = () => {
+    toast.info("Export summary feature coming soon");
+  };
+
   return (
     <div className="dashboard-bg min-h-screen p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white mb-2">Inventory Plans</h1>
-        <p className="text-gray-900 dark:text-white">Balance stock levels with AI-driven demand forecasts and optimize working capital</p>
-      </div>
+      <div className="max-w-[1400px] mx-auto px-4 md:px-6 space-y-6 md:space-y-8">
+        {/* Header row with actions */}
+        {features.inventoryExec && (
+          <div className="flex items-center justify-between gap-3 pt-2 md:pt-3">
+            <div></div>
+            <div className="flex items-center gap-2 md:gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowInventoryConsole(!showInventoryConsole)}
+                className="h-10"
+              >
+                {showInventoryConsole ? 'Hide' : 'Show'} Console
+              </Button>
+              <Button
+                className="bg-green-600 hover:bg-green-700 text-white h-10"
+                onClick={handleGeneratePlans}
+                disabled={isGenerating}
+              >
+                {isGenerating ? 'Generating...' : 'Generate Plans'}
+              </Button>
+            </div>
+          </div>
+        )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left Column - Charts */}
-        <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Left Column - Charts */}
+          <div className="space-y-6">
           {/* Demand Forecast Chart */}
           <Card className="dashboard-card">
           <CardContent className="p-6">
@@ -89,7 +248,11 @@ export default function InventoryPlansPage() {
             
             <div className="space-y-4">
               {inventoryPlans.map((plan) => (
-                <div key={plan.sku} className="flex items-center justify-between p-3 rounded-lg bg-gray-100 dark:bg-gray-900/50">
+                <div
+                  key={plan.sku}
+                  className="flex items-center justify-between p-3 rounded-lg bg-gray-100 dark:bg-gray-900/50 cursor-pointer hover:bg-gray-800/50 transition-colors"
+                  onClick={() => features.inventoryExec && handleOpenSKUDrawer(plan.sku, plan.location)}
+                >
                   <div className="flex items-center space-x-3">
                     <Package className="w-4 h-4 text-gray-600 dark:text-white" />
                     <div>
@@ -117,14 +280,28 @@ export default function InventoryPlansPage() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-white">Reorder Recommendations</h3>
-              <Button className="bg-green-600 hover:bg-green-700 text-white">
-                Generate Orders
-              </Button>
+              {features.inventoryExec ? (
+                <Button
+                  className="bg-green-600 hover:bg-green-700 text-white"
+                  onClick={handleGeneratePlans}
+                  disabled={isGenerating}
+                >
+                  {isGenerating ? 'Generating...' : 'Generate Plans'}
+                </Button>
+              ) : (
+                <Button className="bg-green-600 hover:bg-green-700 text-white">
+                  Generate Orders
+                </Button>
+              )}
             </div>
 
             <div className="space-y-3">
               {inventoryPlans.map((plan) => (
-                <div key={plan.sku} className="p-4 rounded-lg border border-gray-600 hover:border-gray-500 transition-colors">
+                <div
+                  key={plan.sku}
+                  className="p-4 rounded-lg border border-gray-600 hover:border-gray-500 transition-colors cursor-pointer"
+                  onClick={() => features.inventoryExec && handleOpenSKUDrawer(plan.sku, plan.location)}
+                >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-2">
                       <Package className="w-4 h-4 text-gray-600 dark:text-white" />
@@ -146,7 +323,7 @@ export default function InventoryPlansPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-sm mb-3">
                     <div className="flex items-center space-x-2">
                       <Calendar className="w-4 h-4 text-gray-600 dark:text-white" />
                       <span className="text-gray-600 dark:text-white">Reorder Date:</span>
@@ -157,6 +334,38 @@ export default function InventoryPlansPage() {
                       <div className="text-lg font-bold text-green-400">{plan.reorderQty}</div>
                     </div>
                   </div>
+
+                  {features.inventoryExec && (
+                    <div className="flex gap-2 mt-3" onClick={(e) => e.stopPropagation()}>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleGeneratePO(plan)}
+                        className="hover:bg-gray-700 transition-colors"
+                        title="Generate purchase order for this SKU"
+                      >
+                        Generate PO
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleCreateTransfer(plan)}
+                        className="hover:bg-gray-700 transition-colors"
+                        title="Create transfer for this SKU"
+                      >
+                        Create Transfer
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => handleDismissPlan(plan.sku)}
+                        className="hover:bg-gray-700 transition-colors"
+                        title="Dismiss this recommendation"
+                      >
+                        Dismiss
+                      </Button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -198,7 +407,86 @@ export default function InventoryPlansPage() {
             </div>
           </CardContent>
         </Card>
+          </div>
         </div>
+
+        {/* Inventory Console */}
+        {features.inventoryExec && showInventoryConsole && (
+          <div className="mt-6">
+            <InventoryConsole onClose={() => setShowInventoryConsole(false)} />
+          </div>
+        )}
+
+      {/* SKU Drawer */}
+      {features.inventoryExec && (
+        <SKUDrawer
+          open={isSkuDrawerOpen}
+          onOpenChange={(v) => v ? setIsSkuDrawerOpen(true) : closeSkuDrawer()}
+          skuId={selectedSkuId}
+          warehouseId={selectedWarehouseId}
+        />
+      )}
+
+      {/* Floating Action Bar */}
+      {features.inventoryExec && (
+        <FloatingActionBar
+          actions={[
+            {
+              label: 'Generate All POs',
+              onClick: handleGenerateAllPOs,
+              icon: <ShoppingCart className="w-4 h-4" />,
+              tooltip: 'Generate purchase orders for all plans needing reorder',
+            },
+            {
+              label: 'Create All Transfers',
+              onClick: handleCreateAllTransfers,
+              icon: <Package className="w-4 h-4" />,
+              tooltip: 'Create transfers for all plans',
+            },
+            {
+              label: 'Export Summary',
+              onClick: handleExportSummary,
+              icon: <Download className="w-4 h-4" />,
+              tooltip: 'Export inventory plans summary',
+            },
+          ]}
+          position="bottom-right"
+        />
+      )}
+
+      {/* PO Modal */}
+      {features.inventoryExec && (
+        <POModal
+          isOpen={isPOModalOpen}
+          onClose={() => {
+            setIsPOModalOpen(false)
+            setSelectedPlanForPO(null)
+          }}
+          initialLines={selectedPlanForPO ? [{
+            sku_id: selectedPlanForPO.sku,
+            qty: selectedPlanForPO.reorderQty,
+            price: 0,
+            warehouse_id: selectedPlanForPO.location || '',
+            promised_date: '',
+          }] : undefined}
+        />
+      )}
+
+      {/* Transfer Modal */}
+      {features.inventoryExec && (
+        <TransferModal
+          isOpen={isTransferModalOpen}
+          onClose={() => {
+            setIsTransferModalOpen(false)
+            setSelectedPlanForTransfer(null)
+          }}
+          initialLines={selectedPlanForTransfer ? [{
+            sku_id: selectedPlanForTransfer.sku,
+            qty: selectedPlanForTransfer.reorderQty,
+          }] : undefined}
+          toWarehouseId={selectedPlanForTransfer?.location || undefined}
+        />
+      )}
       </div>
     </div>
   );

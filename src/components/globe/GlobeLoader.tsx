@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import type { WorldGlobeProps, DataPoint } from './WorldGlobe';
 
 // Dynamically import to keep it client-only and avoid SSR WebGL issues
-const WorldGlobe = dynamic<React.ComponentType<WorldGlobeProps>>(
+const WorldGlobe = dynamic(
   () => import('./WorldGlobe'),
   {
     ssr: false,

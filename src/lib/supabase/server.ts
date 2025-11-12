@@ -50,9 +50,15 @@ export function createServerClient() {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('Missing Supabase environment variables: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY must be set')
+    console.warn('[Supabase] Missing environment variables: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY must be set')
+    return null
   }
 
-  return createClient(supabaseUrl, supabaseAnonKey)
+  try {
+    return createClient(supabaseUrl, supabaseAnonKey)
+  } catch (error: any) {
+    console.error('[Supabase] Failed to create client:', error)
+    return null
+  }
 }
 

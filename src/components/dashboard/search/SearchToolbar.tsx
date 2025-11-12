@@ -3,7 +3,6 @@
 import { Search, Grid3X3, List, Download, RotateCcw, Bookmark } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { ViewMode, SearchFilters } from "@/types/search"
 
 interface SearchToolbarProps {
@@ -35,7 +34,7 @@ export function SearchToolbar({
   onCompare,
   onClearSelection,
   filters,
-  onFiltersChange,
+  onFiltersChange: _onFiltersChange,
   resultCount,
   entityType,
   onSearch,
@@ -43,7 +42,7 @@ export function SearchToolbar({
   onResetFilters,
   hasSearchExecuted = false,
 }: SearchToolbarProps) {
-  const hasActiveFilters = Object.values(filters).some(value => 
+  const _hasActiveFilters = Object.values(filters).some(value => 
     Array.isArray(value) ? value.length > 0 : value !== undefined && value !== ''
   )
 

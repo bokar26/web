@@ -17,6 +17,10 @@ import {
 } from "@/lib/mockData"
 import { DashboardContent } from "@/components/dashboard/DashboardContent"
 
+export const metadata = {
+  title: "Supply Center",
+}
+
 export default function SupplyCenterPage() {
   return (
     <DashboardContent

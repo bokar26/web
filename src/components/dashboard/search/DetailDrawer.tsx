@@ -1,7 +1,6 @@
 "use client"
 
-import { useState } from "react"
-import { X, ExternalLink, Mail, Globe, MapPin, Calendar, Users, Package, Truck } from "lucide-react"
+import { X, ExternalLink, Mail, Globe, MapPin, Calendar, Users, Package, Truck, Bookmark, Check, RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
@@ -13,9 +12,12 @@ interface DetailDrawerProps {
   onClose: () => void
   entity: Supplier | Factory | Warehouse | FreightForwarder | Carrier | null
   entityType: 'supplier' | 'factory' | 'warehouse' | 'forwarder' | 'carrier'
+  onSave?: () => void
+  isSaving?: boolean
+  isSaved?: boolean
 }
 
-export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDrawerProps) {
+export function DetailDrawer({ isOpen, onClose, entity, entityType, onSave, isSaving = false, isSaved = false }: DetailDrawerProps) {
   if (!entity) return null
 
   const getEntityIcon = () => {
@@ -365,8 +367,8 @@ export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDraw
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="w-full sm:max-w-2xl overflow-y-auto">
-        <SheetHeader className="pb-4">
+      <SheetContent className="w-full sm:max-w-2xl flex flex-col">
+        <SheetHeader className="pb-4 flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               {getEntityIcon()}
@@ -378,7 +380,7 @@ export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDraw
           </div>
         </SheetHeader>
 
-        <div className="space-y-6">
+        <div className="flex-1 overflow-y-auto space-y-6">
           {/* Entity Header */}
           <div className="border-b border-gray-200 dark:border-gray-800 pb-4">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{entity.name}</h2>
@@ -401,6 +403,38 @@ export function DetailDrawer({ isOpen, onClose, entity, entityType }: DetailDraw
           {/* Entity-specific details */}
           {renderEntityDetails()}
         </div>
+
+        {/* Save to Vendors button - sticky at bottom */}
+        {onSave && (
+          <div className="border-t border-gray-200 dark:border-gray-800 pt-4 pb-4 px-4 -mx-4 -mb-4 mt-auto flex-shrink-0 bg-background">
+            <Button
+              onClick={onSave}
+              disabled={isSaving || isSaved}
+              className={`w-full ${
+                isSaved 
+                  ? "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700" 
+                  : "bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-600 dark:hover:bg-blue-700 dark:text-white"
+              }`}
+            >
+              {isSaving ? (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  Saving...
+                </>
+              ) : isSaved ? (
+                <>
+                  <Check className="h-4 w-4 mr-2" />
+                  Saved to Vendors
+                </>
+              ) : (
+                <>
+                  <Bookmark className="h-4 w-4 mr-2" />
+                  Save to Vendors
+                </>
+              )}
+            </Button>
+          </div>
+        )}
       </SheetContent>
     </Sheet>
   )

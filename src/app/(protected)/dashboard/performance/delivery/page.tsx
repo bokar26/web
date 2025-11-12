@@ -17,28 +17,14 @@ import {
 
 export default function DeliveryPerformancePage() {
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Delivery Performance</h1>
-        </div>
-        <div className="flex items-center gap-3">
-          <Button variant="outline">Export Report</Button>
-          <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
-            View Analytics
-          </Button>
-        </div>
+    <div className="max-w-[1400px] mx-auto px-4 md:px-6 space-y-6 md:space-y-8 bg-background min-h-screen">
+      {/* Action buttons */}
+      <div className="flex items-center justify-end gap-3 pt-2 md:pt-3">
+        <Button variant="outline">Export Report</Button>
+        <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
+          View Analytics
+        </Button>
       </div>
-
-      {/* Breadcrumbs */}
-      <nav className="flex items-center space-x-2 text-sm text-gray-500">
-        <span>Dashboard</span>
-        <span>/</span>
-        <span>Performance</span>
-        <span>/</span>
-        <span className="text-gray-900 dark:text-white">Delivery Performance</span>
-      </nav>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

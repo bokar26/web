@@ -172,6 +172,31 @@ export default function FreightForwardersPage() {
     }
   }
 
+  const handleSearch = () => {
+    setCurrentPage(1)
+    trackSearchQuery('forwarder', searchQuery, filteredData.length)
+  }
+
+  const handleResetFilters = () => {
+    setFilters({})
+    setSearchQuery("")
+    setCurrentPage(1)
+    setSelectedRows(new Set())
+  }
+
+  const handleSaveSearch = () => {
+    const savedSearches = JSON.parse(localStorage.getItem('sla-saved-searches') || '[]')
+    const newSearch = {
+      id: Date.now().toString(),
+      name: `Freight Forwarder Search ${new Date().toLocaleDateString()}`,
+      filters: filters,
+      query: searchQuery,
+      entityType: 'forwarder',
+    }
+    savedSearches.push(newSearch)
+    localStorage.setItem('sla-saved-searches', JSON.stringify(savedSearches))
+  }
+
   const handleFiltersChange = (newFilters: SearchFilters) => {
     setFilters(newFilters)
     setCurrentPage(1)
@@ -266,6 +291,10 @@ export default function FreightForwardersPage() {
             onFiltersChange={handleFiltersChange}
             resultCount={filteredData.length}
             entityType="forwarder"
+            onSearch={handleSearch}
+            onSaveSearch={handleSaveSearch}
+            onResetFilters={handleResetFilters}
+            hasSearchExecuted={!!searchQuery || Object.keys(filters).length > 0}
           />
           
           <FacetFilters

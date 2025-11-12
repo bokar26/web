@@ -41,7 +41,8 @@ import {
   ChevronDown, 
   ChevronUp,
   Store,
-  ShoppingBag
+  ShoppingBag,
+  ListChecks,
 } from "lucide-react"
 import { useState, useEffect, useMemo, memo } from "react"
 import { useUser } from "@clerk/nextjs"
@@ -58,9 +59,9 @@ const NAVIGATION_SECTIONS = [
     name: 'Procurement',
     icon: Search,
     items: [
-      { name: 'Suppliers', href: '/dashboard/search/suppliers', icon: Building2 },
-      { name: 'Warehouses', href: '/dashboard/search/warehouses', icon: Warehouse },
-      { name: 'Logistics', href: '/dashboard/search/logistics', icon: Truck },
+      { name: 'Suppliers', href: '/workbench/procurement/suppliers', icon: Building2 },
+      { name: 'Warehouses', href: '/workbench/procurement/warehouses', icon: Warehouse },
+      { name: 'Logistics', href: '/workbench/procurement/logistics', icon: Truck },
     ],
   },
   {
@@ -71,7 +72,6 @@ const NAVIGATION_SECTIONS = [
       { name: 'Shipping Plans', href: '/dashboard/plan/shipping', icon: Ship },
       { name: 'Inventory Plans', href: '/dashboard/plan/inventory', icon: Package },
       { name: 'Demand Forecast', href: '/dashboard/plan/demand', icon: TrendingUp },
-      { name: 'Cost Projections', href: '/dashboard/plan/costs', icon: Calculator },
     ],
   },
   {
@@ -80,10 +80,10 @@ const NAVIGATION_SECTIONS = [
     icon: FolderKanban,
     items: [
       { name: 'Finances', href: '/dashboard/manage/finances', icon: DollarSign },
-      { name: 'Customers', href: '/dashboard/manage/customers', icon: Users },
-      { name: 'Purchase Orders', href: '/dashboard/manage/orders', icon: FileText },
+      { name: 'Customers', href: '/workbench/contacts/customers', icon: Users },
+      { name: 'Purchase Orders', href: '/workbench/inventory/purchase-orders', icon: FileText },
       { name: 'Compliance', href: '/dashboard/manage/compliance', icon: ShieldCheck },
-      { name: 'Vendors', href: '/dashboard/manage/vendors', icon: Store },
+      { name: 'Vendors', href: '/workbench/contacts/vendors', icon: Store },
       { name: 'Products', href: '/dashboard/manage/products', icon: ShoppingBag },
     ],
   },
@@ -106,8 +106,9 @@ const NAVIGATION_SECTIONS = [
     name: 'Settings',
     icon: Settings,
     items: [
+      { name: 'General', href: '/dashboard/settings/general', icon: Settings },
+      { name: 'Automations', href: '/dashboard/settings/automations', icon: ListChecks },
       { name: 'Integrations', href: '/dashboard/settings/integrations', icon: Plug },
-      { name: 'Account Settings', href: '/dashboard/settings/account', icon: User },
       { name: 'API Keys', href: '/dashboard/settings/api', icon: Key },
       { name: 'Data Sync Status', href: '/dashboard/settings/sync', icon: RefreshCw },
     ],
@@ -196,21 +197,22 @@ function Sidebar() {
   };
 
   // Bulk prefetch all routes on idle to ensure instant navigation
-  useEffect(() => {
-    const prefetchAll = () => {
-      allNavItems.forEach(item => {
-        router.prefetch(item.href);
-      });
-    };
+  // TEMPORARILY DISABLED to prevent "Failed to fetch" errors during route fixes
+  // useEffect(() => {
+  //   const prefetchAll = () => {
+  //     allNavItems.forEach(item => {
+  //       router.prefetch(item.href);
+  //     });
+  //   };
 
-    if (typeof window !== "undefined") {
-      if ("requestIdleCallback" in window) {
-        (window as Window & { requestIdleCallback: (callback: () => void) => void }).requestIdleCallback(prefetchAll);
-      } else {
-        setTimeout(prefetchAll, 100);
-      }
-    }
-  }, [allNavItems, router]);
+  //   if (typeof window !== "undefined") {
+  //     if ("requestIdleCallback" in window) {
+  //       (window as Window & { requestIdleCallback: (callback: () => void) => void }).requestIdleCallback(prefetchAll);
+  //     } else {
+  //       setTimeout(prefetchAll, 100);
+  //     }
+  //   }
+  // }, [allNavItems, router]);
 
   useEffect(() => {
     const root = document.documentElement
@@ -302,7 +304,7 @@ function Sidebar() {
             {section.type === 'single' && section.href ? (
               <Link
                 href={section.href}
-                prefetch={true}
+                prefetch={false}
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors",
                   "text-gray-600 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-white",
@@ -346,7 +348,7 @@ function Sidebar() {
                         <Link
                           key={item.name}
                           href={item.href}
-                          prefetch={true}
+                          prefetch={false}
                           className={cn(
                             "flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-colors",
                             "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-white",

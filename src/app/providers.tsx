@@ -2,6 +2,7 @@
 
 import { ClerkProvider } from "@clerk/nextjs";
 import * as React from "react";
+import { Toaster } from "sonner";
 import { getClerkPublishableKey, diagnoseClerkEnv } from "@/lib/env";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -86,6 +87,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       afterSignUpUrl="/dashboard"
     >
       {children}
+      <Toaster position="top-right" />
     </ClerkProvider>
   );
 }

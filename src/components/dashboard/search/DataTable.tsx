@@ -5,7 +5,6 @@ import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight, MoreHorizontal } fro
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
-import { SortOption } from "@/types/search"
 
 interface Column<T> {
   key: keyof T
@@ -212,6 +211,7 @@ export function DataTable<T>({
                       variant="ghost"
                       size="sm"
                       onClick={(e) => e.stopPropagation()}
+                      className="h-7 w-7 p-0"
                     >
                       <MoreHorizontal className="h-4 w-4" />
                     </Button>

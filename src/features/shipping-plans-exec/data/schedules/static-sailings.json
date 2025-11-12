@@ -1,0 +1,62 @@
+{
+  "CN-US": {
+    "MSC": [
+      {
+        "lane": "CN-US",
+        "carrier": "MSC",
+        "voyageNumber": "MSC-2024-001",
+        "sailingDate": "2024-04-10",
+        "cutoffDate": "2024-04-08",
+        "originPort": "Shanghai",
+        "destinationPort": "Los Angeles"
+      },
+      {
+        "lane": "CN-US",
+        "carrier": "MSC",
+        "voyageNumber": "MSC-2024-002",
+        "sailingDate": "2024-04-17",
+        "cutoffDate": "2024-04-15",
+        "originPort": "Shanghai",
+        "destinationPort": "Los Angeles"
+      }
+    ],
+    "COSCO": [
+      {
+        "lane": "CN-US",
+        "carrier": "COSCO",
+        "voyageNumber": "COSCO-2024-001",
+        "sailingDate": "2024-04-12",
+        "cutoffDate": "2024-04-10",
+        "originPort": "Shanghai",
+        "destinationPort": "Los Angeles"
+      }
+    ]
+  },
+  "HK-US": {
+    "COSCO": [
+      {
+        "lane": "HK-US",
+        "carrier": "COSCO",
+        "voyageNumber": "COSCO-2024-002",
+        "sailingDate": "2024-04-15",
+        "cutoffDate": "2024-04-13",
+        "originPort": "Hong Kong",
+        "destinationPort": "New York"
+      }
+    ]
+  },
+  "JP-US": {
+    "ONE": [
+      {
+        "lane": "JP-US",
+        "carrier": "ONE",
+        "voyageNumber": "ONE-2024-001",
+        "sailingDate": "2024-04-08",
+        "cutoffDate": "2024-04-06",
+        "originPort": "Tokyo",
+        "destinationPort": "San Francisco"
+      }
+    ]
+  }
+}
+

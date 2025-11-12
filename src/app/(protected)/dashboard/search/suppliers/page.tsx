@@ -1,14 +1,18 @@
 "use client"
 
 import { useState, useMemo, useEffect } from "react"
+import { useUser } from "@clerk/nextjs"
 import { SearchToolbar } from "@/components/dashboard/search/SearchToolbar"
 import { FacetFilters } from "@/components/dashboard/search/FacetFilters"
 import { DataTable } from "@/components/dashboard/search/DataTable"
 import { CardGrid, EntityCard } from "@/components/dashboard/search/CardGrid"
 import { DetailDrawer } from "@/components/dashboard/search/DetailDrawer"
-import { sampleSuppliers, sampleFactories } from "@/lib/mock/search"
 import { trackSearchView, trackSearchQuery, trackFilterApply, trackSortChange, trackViewToggle, trackEntityOpen, trackCompareClick, trackExportClick } from "@/lib/analytics"
-import { Supplier, Factory, SearchFilters, ViewMode } from "@/types/search"
+import { Supplier, Factory, SearchFilters, ViewMode, FilterOption } from "@/types/search"
+import { searchSuppliers } from "./actions"
+import { adaptSupabaseToSupplier } from "@/lib/adapters/suppliers"
+import { saveVendor } from "@/app/(protected)/dashboard/manage/vendors/actions"
+import { PaginationBar } from "@/components/dashboard/search/PaginationBar"
 import dynamic from "next/dynamic"
 
 const GlobeLoader = dynamic(() => import("@/components/globe/GlobeLoader"), {
@@ -27,19 +31,63 @@ export default function SuppliersPage() {
   const [filters, setFilters] = useState<SearchFilters>({})
   const [viewMode, setViewMode] = useState<ViewMode>("table")
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
-  const [sortBy, setSortBy] = useState<string>("name")
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc")
+  const [sortBy, setSortBy] = useState<string>("updated_at")
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc")
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedEntity, setSelectedEntity] = useState<UnifiedSupplier | null>(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
+  
+  // State for live data
+  const [allEntities, setAllEntities] = useState<UnifiedSupplier[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [totalResults, setTotalResults] = useState(0)
+  const pageSize = 20
+  
+  // State for saving vendors
+  const [savingVendorId, setSavingVendorId] = useState<string | null>(null)
+  const [savedVendorIds, setSavedVendorIds] = useState<Set<string>>(new Set())
 
-  // Combine suppliers and factories with type markers
-  const allEntities = useMemo(() => {
-    const suppliers = sampleSuppliers.map(s => ({ ...s, __type: 'supplier' as const }))
-    const factories = sampleFactories.map(f => ({ ...f, __type: 'factory' as const }))
-    return [...suppliers, ...factories] as UnifiedSupplier[]
-  }, [])
+  // Fetch suppliers from Supabase when search is executed
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!hasSearched) return
+
+      setIsLoading(true)
+      setError(null)
+      try {
+        const offset = (currentPage - 1) * pageSize
+        const result = await searchSuppliers({
+          q: searchQuery || undefined,
+          country: filters.country?.[0] || undefined,
+          limit: pageSize,
+          offset: offset
+        })
+
+        const adapted = result.data.map(adaptSupabaseToSupplier)
+        const suppliers = adapted.map(s => ({ ...s, __type: 'supplier' as const }))
+        
+        // Only show suppliers from Supabase (no mock factories)
+        setAllEntities(suppliers)
+        setTotalResults(result.total)
+        
+        // Track analytics after successful fetch
+        trackSearchQuery('supplier', searchQuery, suppliers.length)
+      } catch (err) {
+        setError('Failed to load suppliers data')
+        console.error('Suppliers fetch error:', err)
+        // On error, show empty state (no mock fallback)
+        setAllEntities([])
+        setTotalResults(0)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery, filters.country, hasSearched, currentPage])
 
   useEffect(() => {
     trackSearchView('supplier')
@@ -140,21 +188,13 @@ export default function SuppliersPage() {
     }
   }, [allEntities])
 
-  // Filter and sort data
+  // Filter and sort data (client-side filtering for additional filters not handled server-side)
+  // Note: Suppliers are already filtered by server, but we apply additional client-side filters
   const filteredData = useMemo(() => {
     let filtered = allEntities
 
-    // Apply search query
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase()
-      filtered = filtered.filter(entity =>
-        entity.name.toLowerCase().includes(query) ||
-        entity.country.toLowerCase().includes(query) ||
-        ('specialties' in entity && entity.specialties.some((s: string) => s.toLowerCase().includes(query))) ||
-        entity.certifications.some(c => c.toLowerCase().includes(query)) ||
-        ('capabilities' in entity && entity.capabilities.some((c: string) => c.toLowerCase().includes(query)))
-      )
-    }
+    // Server-side search already handled for suppliers
+    // No client-side search needed since we only show Supabase suppliers
 
     // Apply type filter
     if (filters.partnerType && filters.partnerType.length > 0) {
@@ -208,7 +248,9 @@ export default function SuppliersPage() {
       filtered = filtered.filter(e => 'utilization' in e && e.utilization >= min && e.utilization <= max)
     }
 
-    // Apply sorting
+    // Apply client-side sorting to the combined list
+    // Note: Suppliers are pre-sorted by server for name/country/updated_at, but we sort the
+    // combined list to ensure factories are in the correct position relative to suppliers
     filtered.sort((a, b) => {
       // Handle special __type sorting
       if (sortBy === '__type') {
@@ -242,7 +284,7 @@ export default function SuppliersPage() {
     })
 
     return filtered
-  }, [searchQuery, filters, sortBy, sortDirection, allEntities])
+  }, [searchQuery, filters, sortBy, sortDirection, allEntities, hasSearched])
 
   // Table columns - unified for both types
   const columns = useMemo(() => [
@@ -392,7 +434,8 @@ export default function SuppliersPage() {
   const handleSearch = () => {
     setHasSearched(true)
     setCurrentPage(1)
-    trackSearchQuery('supplier', searchQuery, filteredData.length)
+    setError(null)
+    // Track will happen after data is fetched
   }
 
   const handleResetFilters = () => {
@@ -401,6 +444,7 @@ export default function SuppliersPage() {
     setHasSearched(false)
     setCurrentPage(1)
     setSelectedRows(new Set())
+    setTotalResults(0)
   }
 
   const handleSaveSearch = () => {
@@ -417,6 +461,36 @@ export default function SuppliersPage() {
     localStorage.setItem('sla-saved-searches', JSON.stringify(savedSearches))
     // You could add a toast notification here
     alert('Search saved successfully!')
+  }
+
+  const handleSaveVendor = async () => {
+    if (!user?.id || !selectedEntity) {
+      alert('Please sign in to save vendors')
+      return
+    }
+
+    const entity = selectedEntity
+    setSavingVendorId(entity.id)
+    try {
+      // For suppliers, use dedupe_key as sourceId if available, otherwise use id
+      const sourceId = entity.__type === 'supplier' ? entity.id : entity.id
+      const result = await saveVendor({
+        source: entity.__type === 'supplier' ? 'supplier' : 'warehouse', // Factories treated as suppliers for now
+        sourceId,
+        ownerUserId: user.id,
+        row: entity,
+      })
+
+      if (result.upserted) {
+        setSavedVendorIds(prev => new Set(prev).add(entity.id))
+        alert(result.wasInsert ? 'Added to Vendors' : 'Already saved')
+      }
+    } catch (err) {
+      console.error('Failed to save vendor:', err)
+      alert('Failed to save vendor')
+    } finally {
+      setSavingVendorId(null)
+    }
   }
 
   // Render entity card for grid view
@@ -498,6 +572,11 @@ export default function SuppliersPage() {
 
         {/* Right Column: Results */}
         <div className="flex-1 overflow-y-auto">
+          {error && (
+            <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+              <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
+            </div>
+          )}
           {!hasSearched ? (
             <div className="flex items-center justify-center min-h-[500px] w-full">
               <GlobeLoader 
@@ -505,30 +584,85 @@ export default function SuppliersPage() {
                 subtitle="Ready to search worldwide..."
               />
             </div>
-          ) : viewMode === 'table' ? (
-            <DataTable
-              data={filteredData}
-              columns={columns}
-              selectedRows={selectedRows}
-              onRowSelect={handleRowSelect}
-              onSelectAll={handleSelectAll}
-              onRowClick={handleRowClick}
-              sortBy={sortBy}
-              sortDirection={sortDirection}
-              onSort={handleSort}
-              currentPage={currentPage}
-              onPageChange={setCurrentPage}
-              getRowId={(entity) => entity.id}
-            />
+          ) : isLoading ? (
+            <div className="flex items-center justify-center min-h-[500px] w-full">
+              <GlobeLoader 
+                size={480}
+                subtitle="Searching suppliers…"
+              />
+            </div>
+          ) : filteredData.length === 0 ? (
+            <div className="flex items-center justify-center min-h-[500px] w-full">
+              <GlobeLoader 
+                size={480}
+                subtitle="No matches—try another query or widen filters."
+              />
+            </div>
           ) : (
-            <CardGrid
-              data={filteredData}
-              selectedRows={selectedRows}
-              onRowSelect={handleRowSelect}
-              onRowClick={handleRowClick}
-              renderCard={renderEntityCard}
-              getRowId={(entity) => entity.id}
-            />
+            <>
+              {/* Top Pagination Bar */}
+              {hasSearched && !isLoading && filteredData.length > 0 && (
+                <PaginationBar
+                  currentPage={currentPage}
+                  pageSize={pageSize}
+                  totalResults={totalResults}
+                  onNext={() => setCurrentPage(p => p + 1)}
+                  onPrev={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  showNext={(currentPage * pageSize) < totalResults}
+                  showPrev={currentPage > 1}
+                  onResetFilters={handleResetFilters}
+                  onSaveSearch={handleSaveSearch}
+                  hasSearchExecuted={hasSearched}
+                  position="top"
+                />
+              )}
+
+              {/* Results Table/Grid */}
+              {viewMode === 'table' ? (
+                <DataTable
+                  data={filteredData}
+                  columns={columns}
+                  selectedRows={selectedRows}
+                  onRowSelect={handleRowSelect}
+                  onSelectAll={handleSelectAll}
+                  onRowClick={handleRowClick}
+                  sortBy={sortBy}
+                  sortDirection={sortDirection}
+                  onSort={handleSort}
+                  currentPage={1}
+                  onPageChange={undefined}
+                  pageSize={filteredData.length}
+                  getRowId={(entity) => entity.id}
+                  disablePagination={hasSearched}
+                />
+              ) : (
+                <CardGrid
+                  data={filteredData}
+                  selectedRows={selectedRows}
+                  onRowSelect={handleRowSelect}
+                  onRowClick={handleRowClick}
+                  renderCard={renderEntityCard}
+                  getRowId={(entity) => entity.id}
+                />
+              )}
+
+              {/* Bottom Pagination Bar */}
+              {hasSearched && !isLoading && filteredData.length > 0 && (
+                <PaginationBar
+                  currentPage={currentPage}
+                  pageSize={pageSize}
+                  totalResults={totalResults}
+                  onNext={() => setCurrentPage(p => p + 1)}
+                  onPrev={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  showNext={(currentPage * pageSize) < totalResults}
+                  showPrev={currentPage > 1}
+                  onResetFilters={handleResetFilters}
+                  onSaveSearch={handleSaveSearch}
+                  hasSearchExecuted={hasSearched}
+                  position="bottom"
+                />
+              )}
+            </>
           )}
         </div>
       </div>
@@ -539,6 +673,9 @@ export default function SuppliersPage() {
         onClose={() => setIsDrawerOpen(false)}
         entity={selectedEntity}
         entityType={selectedEntity?.__type === 'supplier' ? 'supplier' : 'factory'}
+        onSave={handleSaveVendor}
+        isSaving={selectedEntity ? savingVendorId === selectedEntity.id : false}
+        isSaved={selectedEntity ? savedVendorIds.has(selectedEntity.id) : false}
       />
     </div>
   )

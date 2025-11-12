@@ -42,10 +42,13 @@ export function EssentialsFirst() {
           <div className="space-y-6">
             <div className="space-y-4">
               <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                Upload and unify all your operational data in seconds, turning complex supplier and product information into clear, actionable insights.
+                Run every part of your daily operations from one unified system—plan, move, and manage your supply chain with seamless coordination across data, teams, and workflows.
               </p>
               <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                From planning to execution, every process stays connected, automated, and optimized by precise models for faster, smarter decision-making.
+                Upload supplier, product, and financial data instantly, then manage orders, inventory, and logistics in real time—without juggling disconnected tools. Every process, update, and transaction stays synced and automated.
+              </p>
+              <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
+                Our AI and ML models continuously optimize performance, reducing friction and eliminating repetitive work so your team can focus on execution, not administration.
               </p>
             </div>
           </div>

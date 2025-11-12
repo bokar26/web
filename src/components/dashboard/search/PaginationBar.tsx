@@ -1,14 +1,16 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ChevronRight, RotateCcw, Bookmark } from "lucide-react"
+import { ChevronRight, ChevronLeft, RotateCcw, Bookmark } from "lucide-react"
 
 interface PaginationBarProps {
   currentPage: number
   pageSize: number
   totalResults: number
   onNext: () => void
+  onPrev?: () => void
   showNext: boolean
+  showPrev?: boolean
   onResetFilters?: () => void
   onSaveSearch?: () => void
   hasSearchExecuted?: boolean
@@ -20,7 +22,9 @@ export function PaginationBar({
   pageSize,
   totalResults,
   onNext,
+  onPrev,
   showNext,
+  showPrev = false,
   onResetFilters,
   onSaveSearch,
   hasSearchExecuted = false,
@@ -62,6 +66,18 @@ export function PaginationBar({
           >
             <Bookmark className="h-4 w-4 mr-2" />
             Save Search
+          </Button>
+        )}
+
+        {showPrev && onPrev && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onPrev}
+            className="text-gray-900 dark:text-white border-gray-300 dark:border-gray-800"
+          >
+            <ChevronLeft className="h-4 w-4 mr-2" />
+            Previous
           </Button>
         )}
 

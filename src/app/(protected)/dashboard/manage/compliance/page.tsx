@@ -55,12 +55,7 @@ export default function CompliancePage() {
   };
 
   return (
-    <div className="dashboard-bg min-h-screen p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white mb-2">Compliance</h1>
-        <p className="text-gray-900 dark:text-white">Certification management and audit compliance tracking</p>
-      </div>
-
+    <div className="max-w-[1400px] mx-auto px-4 md:px-6 space-y-6 md:space-y-8 bg-background min-h-screen">
       {/* Expiry Timeline */}
       <Card className="dashboard-card mb-6">
         <CardContent className="p-6">

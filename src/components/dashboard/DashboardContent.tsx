@@ -115,19 +115,7 @@ export function DashboardContent({
   };
 
   return (
-    <div className="dashboard-bg min-h-screen p-4 space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-white">
-            Supply Center
-          </h1>
-          <p className="text-gray-300 mt-1">
-            Your unified view for suppliers, fulfillment, and insights.
-          </p>
-        </div>
-      </div>
-
+    <div className="max-w-[1400px] mx-auto px-4 md:px-6 space-y-6 md:space-y-8 bg-background min-h-screen pt-2 md:pt-3">
       {/* Goal Progress */}
       {isCardVisible('goal') && (
         <GoalProgress 

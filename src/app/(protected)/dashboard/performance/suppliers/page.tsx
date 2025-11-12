@@ -197,22 +197,17 @@ export default function SupplierPerformancePage() {
   })
 
   return (
-    <div className="p-6 space-y-6 bg-gray-50 dark:bg-black min-h-screen">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Supplier Performance</h1>
-        </div>
-        <div className="flex items-center gap-3">
-          <Button variant="outline" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
-            <BarChart3 className="h-4 w-4 mr-2" />
-            Export Report
-          </Button>
-          <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
-            <Users className="h-4 w-4 mr-2" />
-            Add Supplier
-          </Button>
-        </div>
+    <div className="max-w-[1400px] mx-auto px-4 md:px-6 space-y-6 md:space-y-8 bg-background min-h-screen">
+      {/* Action buttons */}
+      <div className="flex items-center justify-end gap-3 pt-2 md:pt-3">
+        <Button variant="outline" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
+          <BarChart3 className="h-4 w-4 mr-2" />
+          Export Report
+        </Button>
+        <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
+          <Users className="h-4 w-4 mr-2" />
+          Add Supplier
+        </Button>
       </div>
 
       {/* Key Metrics */}

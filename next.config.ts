@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Disable webpack cache in dev to prevent chunk resolution issues
+  webpack: (config, { dev, isServer }) => {
+    if (dev) {
+      config.cache = false;
+    }
+    return config;
+  },
   eslint: {
     ignoreDuringBuilds: true,
     dirs: [],
