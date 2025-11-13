@@ -22,42 +22,57 @@ export interface SearchSuppliersResult {
 export async function searchSuppliers(
   params: SearchSuppliersParams
 ): Promise<SearchSuppliersResult> {
-  const { q, country, limit = 25, offset = 0 } = params
+  try {
+    const { q, country, limit = 25, offset = 0 } = params
 
-  const supabase = createServerClient()
-  
-  // Build base query with count
-  let query = supabase
-    .from('suppliers')
-    .select('*', { count: 'exact' })
+    const supabase = createServerClient()
+    
+    // Build base query with count
+    let query = supabase
+      .from('suppliers')
+      .select('*', { count: 'exact' })
 
-  // Apply text search on name
-  if (q && q.trim()) {
-    query = query.ilike('supplier_name', `%${q.trim()}%`)
-  }
+    // Apply text search on name
+    if (q && q.trim()) {
+      query = query.ilike('supplier_name', `%${q.trim()}%`)
+    }
 
-  // Apply country filter
-  if (country) {
-    query = query.eq('country', country)
-  }
+    // Apply country filter
+    if (country) {
+      query = query.eq('country', country)
+    }
 
-  // Apply pagination: range and limit
-  query = query.range(offset, offset + limit - 1)
+    // Apply pagination: range and limit
+    query = query.range(offset, offset + limit - 1)
 
-  const { data, error, count } = await query
+    const { data, error, count } = await query
 
-  if (error) {
-    console.error('Supabase query error:', error)
-    throw new Error(`Failed to fetch suppliers: ${error.message}`)
-  }
+    if (error) {
+      console.error('Supabase query error:', error)
+      // Return empty result instead of throwing
+      return {
+        data: [],
+        total: 0,
+        hasMore: false,
+      }
+    }
 
-  const total = count || 0
-  const hasMore = (offset + (data?.length || 0)) < total
+    const total = count || 0
+    const hasMore = (offset + (data?.length || 0)) < total
 
-  return {
-    data: (data || []) as SupabaseSupplier[],
-    total,
-    hasMore,
+    return {
+      data: (data || []) as SupabaseSupplier[],
+      total,
+      hasMore,
+    }
+  } catch (err) {
+    console.error('searchSuppliers error:', err)
+    // Return empty result instead of throwing to prevent 500 errors
+    return {
+      data: [],
+      total: 0,
+      hasMore: false,
+    }
   }
 }
 

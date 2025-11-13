@@ -89,8 +89,12 @@ export function Navbar() {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative flex h-14 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-3">
             <div className="text-2xl font-bold text-white">SLA</div>
+            <div className="flex flex-col text-xs font-medium text-white/80 leading-tight">
+              <span>supply</span>
+              <span>simplified</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation - Centered */}

@@ -7,16 +7,9 @@ import { Upload } from "lucide-react"
 export default function ImportsPage() {
   return (
     <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-          Imports
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Upload supplier, SKU, forecast, and shipment files
-        </p>
-      </div>
-
-      <Card className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-6 space-y-6 md:space-y-8">
+        <div className="pt-2 md:pt-3">
+          <Card className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
         <CardHeader>
           <CardTitle className="text-gray-900 dark:text-white">Import Files</CardTitle>
           <CardDescription className="text-gray-600 dark:text-gray-400">
@@ -29,7 +22,9 @@ export default function ImportsPage() {
             Upload Files
           </Button>
         </CardContent>
-      </Card>
+          </Card>
+        </div>
+      </div>
     </div>
   )
 }

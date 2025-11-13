@@ -157,7 +157,6 @@ export const contextNavBySection: Record<RailSection, ContextNavNode[]> = {
       label: "Procurement",
       icon: PackageSearch,
       items: [
-        { type: 'item', label: "Overview", href: "/workbench/procurement", icon: PackageSearch },
         { type: 'item', label: "Suppliers", href: "/workbench/procurement/suppliers", icon: Building2 },
         { type: 'item', label: "Warehouses", href: "/workbench/procurement/warehouses", icon: Warehouse },
         { type: 'item', label: "Logistics", href: "/workbench/procurement/logistics", icon: Truck },
@@ -177,7 +176,7 @@ export const contextNavBySection: Record<RailSection, ContextNavNode[]> = {
       label: "Inventory",
       icon: Package,
       items: [
-        { type: 'item', label: "Dashboard", href: "/workbench/inventory", icon: Package },
+        { type: 'item', label: "Inventory Overview", href: "/workbench/inventory", icon: Package },
         { type: 'item', label: "Purchase Orders", href: "/workbench/inventory/purchase-orders", icon: FileText },
       ],
     },

@@ -27,6 +27,9 @@ export default function PurchaseOrdersPage() {
 
   // Filter and sort orders
   const filteredOrders = useMemo(() => {
+    if (!purchaseOrders || !Array.isArray(purchaseOrders)) {
+      return []
+    }
     let filtered = purchaseOrders.filter(order => {
       const matchesSearch = order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            order.supplier.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -150,13 +153,11 @@ export default function PurchaseOrdersPage() {
 
   return (
     <div className="p-6 space-y-6 bg-background min-h-screen">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Purchase Orders</h1>
-        </div>
-        <div className="flex items-center gap-3">
-          <Button variant="outline" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200 dark:border-gray-800">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-6 space-y-6 md:space-y-8">
+        <div className="pt-2 md:pt-3">
+          {/* Header Actions */}
+          <div className="flex items-center justify-end gap-3">
+          <Button variant="outline" className="text-gray-700 dark:text-white border-gray-300 dark:border-gray-200">
             <Download className="h-4 w-4 mr-2" />
             Export
           </Button>
@@ -164,53 +165,54 @@ export default function PurchaseOrdersPage() {
             <Plus className="h-4 w-4 mr-2" />
             New Order
           </Button>
+          </div>
         </div>
+
+        {/* Alert Banner */}
+        <POAlertBanner
+          orders={filteredOrders}
+          onFilterAtRisk={handleFilterAtRisk}
+          onFilterBreached={handleFilterBreached}
+          onFilterPending={handleFilterPending}
+        />
+
+        {/* KPI Cards */}
+        <POKPICards />
+        <POMiniKPICards />
+
+        {/* Filters */}
+        <POFilters
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          supplierFilter={supplierFilter}
+          setSupplierFilter={setSupplierFilter}
+          regionFilter={regionFilter}
+          setRegionFilter={setRegionFilter}
+          slaStatusFilter={slaStatusFilter}
+          setSlaStatusFilter={setSlaStatusFilter}
+          onRefresh={handleRefresh}
+          isRefreshing={isRefreshing}
+        />
+
+        {/* Main Table */}
+        <POTable
+          orders={filteredOrders}
+          onOrderClick={handleOrderClick}
+          onExport={handleExport}
+          sortBy={sortBy}
+          sortDirection={sortDirection}
+          onSort={handleSort}
+        />
+
+        {/* Detail Drawer */}
+        <PODetailDrawer
+          order={selectedOrder}
+          isOpen={isDrawerOpen}
+          onClose={handleCloseDrawer}
+        />
       </div>
-
-      {/* Alert Banner */}
-      <POAlertBanner
-        orders={filteredOrders}
-        onFilterAtRisk={handleFilterAtRisk}
-        onFilterBreached={handleFilterBreached}
-        onFilterPending={handleFilterPending}
-      />
-
-      {/* KPI Cards */}
-      <POKPICards />
-      <POMiniKPICards />
-
-      {/* Filters */}
-      <POFilters
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        statusFilter={statusFilter}
-        setStatusFilter={setStatusFilter}
-        supplierFilter={supplierFilter}
-        setSupplierFilter={setSupplierFilter}
-        regionFilter={regionFilter}
-        setRegionFilter={setRegionFilter}
-        slaStatusFilter={slaStatusFilter}
-        setSlaStatusFilter={setSlaStatusFilter}
-        onRefresh={handleRefresh}
-        isRefreshing={isRefreshing}
-      />
-
-      {/* Main Table */}
-      <POTable
-        orders={filteredOrders}
-        onOrderClick={handleOrderClick}
-        onExport={handleExport}
-        sortBy={sortBy}
-        sortDirection={sortDirection}
-        onSort={handleSort}
-      />
-
-      {/* Detail Drawer */}
-      <PODetailDrawer
-        order={selectedOrder}
-        isOpen={isDrawerOpen}
-        onClose={handleCloseDrawer}
-      />
     </div>
   )
 }

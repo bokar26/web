@@ -200,7 +200,7 @@ export function ExceptionsTable({
       {hasMore && onViewAll && (
         <div className="flex justify-end">
           <Button variant="outline" size="sm" onClick={onViewAll} asChild>
-            <Link href="/workbench/procurement">
+            <Link href="/workbench/procurement/suppliers">
               View all <ExternalLink className="h-4 w-4 ml-2" />
             </Link>
           </Button>

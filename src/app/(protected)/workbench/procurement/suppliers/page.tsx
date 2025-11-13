@@ -534,12 +534,9 @@ export default function SuppliersPage() {
 
   return (
     <div className="p-6 space-y-4">
-      {/* Page Header */}
-      <div>
-        <h1 className="text-xl font-bold text-gray-900 dark:text-white">Suppliers</h1>
-      </div>
-
-      {/* 2-Column Layout */}
+      <div className="max-w-[1400px] mx-auto px-4 md:px-6 space-y-6 md:space-y-8">
+        <div className="pt-2 md:pt-3">
+          {/* 2-Column Layout */}
       <div className="flex gap-4 min-h-[calc(100vh-12rem)]">
         {/* Left Column: Search & Filters */}
         <div className="w-64 flex-shrink-0 space-y-4 overflow-y-auto">
@@ -677,6 +674,8 @@ export default function SuppliersPage() {
         isSaving={selectedEntity ? savingVendorId === selectedEntity.id : false}
         isSaved={selectedEntity ? savedVendorIds.has(selectedEntity.id) : false}
       />
+        </div>
+      </div>
     </div>
   )
 }

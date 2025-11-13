@@ -323,7 +323,7 @@ function WorkbenchContent() {
                 density="compact"
                 onResolve={(id) => handleOpenDrawer("resolveException", { id })}
                 onSnooze={(id, until) => handleOpenDrawer("resolveException", { id, until })}
-                onViewAll={() => router.push("/workbench/procurement")}
+                onViewAll={() => router.push("/workbench/procurement/suppliers")}
               />
             </Section>
           </div>
@@ -352,7 +352,7 @@ function WorkbenchContent() {
                 density="compact"
                 onOpen={(id) => handleOpenDrawer("bookShipment", { orderId: id })}
                 onCreateShipment={(id) => handleOpenDrawer("bookShipment", { orderId: id })}
-                onViewAll={() => router.push("/workbench/procurement")}
+                onViewAll={() => router.push("/workbench/procurement/suppliers")}
               />
             </Section>
           </div>

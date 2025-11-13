@@ -88,16 +88,9 @@ function ExecutionsContent() {
 
   return (
     <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-          Executions
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Execute operations, manage exceptions, and create plans
-        </p>
-      </div>
-
-      <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-4">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-6 space-y-6 md:space-y-8">
+        <div className="pt-2 md:pt-3">
+          <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-4">
         <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 gap-2 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
           <TabsTrigger 
             value="forecast" 
@@ -192,7 +185,9 @@ function ExecutionsContent() {
             </TabsContent>
           </>
         )}
-      </Tabs>
+          </Tabs>
+        </div>
+      </div>
     </div>
   )
 }

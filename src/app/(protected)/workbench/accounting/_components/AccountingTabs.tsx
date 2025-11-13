@@ -4,20 +4,8 @@ import { useState, useEffect, useRef } from "react"
 import { useUser } from "@clerk/nextjs"
 import { useSearchParams, useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { CostHeaderFilters } from "./CostHeaderFilters"
-import { CostActionsBar } from "./CostActionsBar"
-import { CostExceptionsBanner } from "./CostExceptionsBanner"
-import { CostKpiGrid } from "./CostKpiGrid"
-import { CostWorkbenchStrip } from "./CostWorkbenchStrip"
+import { CostOverviewPanel } from "./CostOverviewPanel"
 import { FinancesPanel } from "./FinancesPanel"
-import { CostProjectionsHeader } from "./CostProjectionsHeader"
-import { CostProjectionsActions } from "./CostProjectionsActions"
-import { CostProjectionsProgress } from "./CostProjectionsProgress"
-import { CostProjectionsExceptions } from "./CostProjectionsExceptions"
-import { CostProjectionsKpis } from "./CostProjectionsKpis"
-import { CostProjectionsWorkbench } from "./CostProjectionsWorkbench"
-import { CostWorkbenchPanel } from "./CostWorkbenchPanel"
-import { CostProjectionsPanel } from "./CostProjectionsPanel"
 import { CostBreakdownPanel } from "./CostBreakdownPanel"
 import { SupplierCostsPanel } from "./SupplierCostsPanel"
 import { CostDriversPanel } from "./CostDriversPanel"
@@ -32,10 +20,8 @@ import { cn } from "@/lib/utils"
 import { costEstimatorInputs, costBreakdown as mockCostBreakdown } from "@/lib/mockData"
 
 const TABS = [
-  { id: 'costs', label: 'Costs' },
+  { id: 'cost-overview', label: 'Cost Overview' },
   { id: 'finances', label: 'Finances' },
-  { id: 'workbench', label: 'Workbench' },
-  { id: 'cost-projections', label: 'Cost Projections' },
   { id: 'cost-breakdown', label: 'Cost Breakdown' },
   { id: 'supplier-costs', label: 'Supplier Costs' },
   { id: 'cost-drivers', label: 'Cost Drivers' },
@@ -45,7 +31,14 @@ const TABS = [
 type TabId = typeof TABS[number]['id']
 
 // Valid tab IDs for validation (constant outside component)
-const VALID_TAB_IDS: TabId[] = ['costs', 'finances', 'workbench', 'cost-projections', 'cost-breakdown', 'supplier-costs', 'cost-drivers', 'cost-estimator']
+const VALID_TAB_IDS: TabId[] = ['cost-overview', 'finances', 'cost-breakdown', 'supplier-costs', 'cost-drivers', 'cost-estimator']
+
+// Map old hash values to new cost-overview tab
+const OLD_HASH_MAP: Record<string, TabId> = {
+  'costs': 'cost-overview',
+  'workbench': 'cost-overview',
+  'cost-projections': 'cost-overview',
+}
 
 export function AccountingTabs() {
   const { user } = useUser()
@@ -59,8 +52,24 @@ export function AccountingTabs() {
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({})
   
   // Cost Estimator state
-  const [inputs, setInputs] = useState(costEstimatorInputs)
-  const [breakdown, setBreakdown] = useState(mockCostBreakdown)
+  const [inputs, setInputs] = useState({
+    quantity: costEstimatorInputs?.quantity || 1000,
+    unitCost: 50,
+    freight: 5000,
+    duty: 2500,
+    dutyEnabled: costEstimatorInputs?.dutyEnabled ?? true,
+    misc: 1000,
+    port: costEstimatorInputs?.port || 'Shanghai',
+    transportMode: costEstimatorInputs?.transportMode || 'Sea',
+    incoterm: costEstimatorInputs?.incoterm || 'FOB',
+  })
+  const [breakdown, setBreakdown] = useState(mockCostBreakdown || {
+    product: 50000,
+    freight: 5000,
+    duty: 2500,
+    misc: 1000,
+    total: 58500,
+  })
   
   // Mock data for supplier costs and cost drivers
   const supplierCosts = [
@@ -79,9 +88,9 @@ export function AccountingTabs() {
     { driver: 'Regulatory Changes', impact: 4.1, confidence: 45 },
   ]
   
-  // Get active tab from URL param, default to "costs" (SSR-safe)
+  // Get active tab from URL param, default to "cost-overview" (SSR-safe)
   const tabParam = searchParams.get('tab')
-  const initialTab: TabId = VALID_TAB_IDS.includes(tabParam as TabId) ? (tabParam as TabId) : 'costs'
+  const initialTab: TabId = VALID_TAB_IDS.includes(tabParam as TabId) ? (tabParam as TabId) : 'cost-overview'
   
   const [activeTab, setActiveTab] = useState<TabId>(initialTab)
   
@@ -90,18 +99,26 @@ export function AccountingTabs() {
     const syncFromHash = () => {
       if (typeof window !== 'undefined') {
         const hash = window.location.hash.slice(1)
-        if (VALID_TAB_IDS.includes(hash as TabId)) {
-          setActiveTab(hash as TabId)
+        // Map old hashes to new tab
+        const mappedHash = OLD_HASH_MAP[hash] || hash
+        if (VALID_TAB_IDS.includes(mappedHash as TabId)) {
+          setActiveTab(mappedHash as TabId)
+          // Update hash if it was mapped
+          if (OLD_HASH_MAP[hash] && hash !== mappedHash) {
+            window.history.replaceState(null, '', `#${mappedHash}`)
+          }
         }
       }
     }
     
-    // Check initial hash
-    syncFromHash()
-    
-    // Listen for hash changes
-    window.addEventListener('hashchange', syncFromHash)
-    return () => window.removeEventListener('hashchange', syncFromHash)
+    // Check initial hash (only on client)
+    if (typeof window !== 'undefined') {
+      syncFromHash()
+      
+      // Listen for hash changes
+      window.addEventListener('hashchange', syncFromHash)
+      return () => window.removeEventListener('hashchange', syncFromHash)
+    }
   }, [])
   
   const handleTabChange = (value: TabId) => {
@@ -114,12 +131,12 @@ export function AccountingTabs() {
     
     // Also update URL params for backward compatibility
     const params = new URLSearchParams(searchParams.toString())
-    if (value === 'costs') {
+    if (value === 'cost-overview') {
       params.delete('tab')
     } else {
       params.set('tab', value)
     }
-    const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname
+    const newUrl = params.toString() ? `?${params.toString()}` : (typeof window !== 'undefined' ? window.location.pathname : '')
     router.replace(newUrl, { scroll: false })
   }
   
@@ -141,8 +158,10 @@ export function AccountingTabs() {
 
   // Load exceptions on mount
   useEffect(() => {
-    if (features.costProjectionsV1) {
-      loadExceptions()
+    if (features?.costProjectionsV1) {
+      loadExceptions().catch((error) => {
+        console.error('[AccountingTabs] Failed to load exceptions on mount:', error)
+      })
     }
   }, [])
 
@@ -199,14 +218,20 @@ export function AccountingTabs() {
       return
     }
 
+    if (!scope) {
+      console.error('[AccountingTabs] Scope is undefined')
+      toast.error("Unable to recompute: missing scope")
+      return
+    }
+
     setIsRunning(true)
     setRunStatus('queued')
     try {
       const result = await recomputeProjections({
-        period: scope.period,
-        category: scope.category,
-        supplier: scope.supplier,
-        confidence: scope.confidence,
+        period: scope.period || '12',
+        category: scope.category || 'all',
+        supplier: scope.supplier || 'all',
+        confidence: scope.confidence || 85,
         ownerUserId: user.id,
       })
       if (result.ok && result.runId) {
@@ -232,13 +257,19 @@ export function AccountingTabs() {
       return
     }
 
+    if (!scope) {
+      console.error('[AccountingTabs] Scope is undefined for export')
+      toast.error("Unable to export: missing scope")
+      return
+    }
+
     try {
       const result = await exportProjections({
         scope: {
-          period: scope.period,
-          category: scope.category,
-          supplier: scope.supplier,
-          confidence: scope.confidence,
+          period: scope.period || '12',
+          category: scope.category || 'all',
+          supplier: scope.supplier || 'all',
+          confidence: scope.confidence || 85,
         },
         format: 'csv',
       })
@@ -351,77 +382,29 @@ export function AccountingTabs() {
 
       {/* Tab Panels */}
       <div
-        id="tabpanel-costs"
+        id="tabpanel-cost-overview"
         role="tabpanel"
-        aria-labelledby="tab-costs"
-        hidden={activeTab !== 'costs'}
-        className={cn("space-y-6", activeTab !== 'costs' && "hidden")}
+        aria-labelledby="tab-cost-overview"
+        hidden={activeTab !== 'cost-overview'}
+        className={cn("space-y-6", activeTab !== 'cost-overview' && "hidden")}
       >
-        {/* Filters */}
-        {features.costProjectionsV1 && (
-          <div>
-            <CostHeaderFilters
-              scope={scope}
-              onPeriodChange={setPeriod}
-              onCategoryChange={setCategory}
-              onSupplierChange={setSupplier}
-              onConfidenceChange={setConfidence}
-              onClear={handleClearFilters}
-            />
-          </div>
-        )}
-
-        {/* Action Bar */}
-        {features.costProjectionsV1 && (
-          <div>
-            <CostActionsBar
-              scope={{
-                period: scope.period,
-                category: scope.category,
-                supplier: scope.supplier,
-                confidence: scope.confidence,
-              }}
-              onRecompute={handleRecompute}
-              onCreateScenario={handleCreateScenario}
-              onExport={handleExport}
-              onSaveBaseline={handleSaveBaseline}
-              isRunning={isRunning}
-              status={runStatus === 'queued' || runStatus === 'running' ? 'Running...' : undefined}
-            />
-          </div>
-        )}
-
-        {/* Exceptions Banner */}
-        {features.costProjectionsV1 && (
-          <div>
-            <CostExceptionsBanner
-              exceptions={exceptions}
-              onViewExceptions={handleViewExceptions}
-            />
-          </div>
-        )}
-
-        {/* KPI Grid */}
-        {features.costProjectionsV1 && (
-          <div>
-            <CostKpiGrid />
-          </div>
-        )}
-
-        {/* Workbench Strip */}
-        {features.costProjectionsV1 && (
-          <div>
-            <CostWorkbenchStrip
-              scope={{
-                period: scope.period,
-                category: scope.category,
-                supplier: scope.supplier,
-                confidence: scope.confidence,
-              }}
-              onEditAssumptions={handleEditAssumptions}
-            />
-          </div>
-        )}
+        <CostOverviewPanel
+          scope={scope || { period: '12', category: 'all', supplier: 'all', confidence: 85 }}
+          onPeriodChange={setPeriod}
+          onCategoryChange={setCategory}
+          onSupplierChange={setSupplier}
+          onConfidenceChange={setConfidence}
+          onClear={handleClearFilters}
+          onRecompute={handleRecompute}
+          onCreateScenario={handleCreateScenario}
+          onExport={handleExport}
+          onSaveBaseline={handleSaveBaseline}
+          onEditAssumptions={handleEditAssumptions}
+          onViewExceptions={handleViewExceptions}
+          isRunning={isRunning}
+          runStatus={runStatus}
+          exceptions={exceptions}
+        />
       </div>
 
       <div
@@ -432,102 +415,6 @@ export function AccountingTabs() {
         className={cn("space-y-6", activeTab !== 'finances' && "hidden")}
       >
         <FinancesPanel />
-      </div>
-
-      <div
-        id="tabpanel-cost-projections"
-        role="tabpanel"
-        aria-labelledby="tab-cost-projections"
-        hidden={activeTab !== 'cost-projections'}
-        className={cn("space-y-6", activeTab !== 'cost-projections' && "hidden")}
-      >
-        {/* Header Filters */}
-        {features.costProjectionsV1 && (
-          <div>
-            <CostProjectionsHeader
-              scope={scope}
-              onPeriodChange={setPeriod}
-              onCategoryChange={setCategory}
-              onSupplierChange={setSupplier}
-              onConfidenceChange={setConfidence}
-              onClear={handleClearFilters}
-            />
-          </div>
-        )}
-
-        {/* Actions */}
-        {features.costProjectionsV1 && (
-          <div>
-            <CostProjectionsActions
-              scope={{
-                period: scope.period,
-                category: scope.category,
-                supplier: scope.supplier,
-                confidence: scope.confidence,
-              }}
-              onRecompute={handleRecompute}
-              onCreateScenario={handleCreateScenario}
-              onExport={handleExport}
-              onSaveBaseline={handleSaveBaseline}
-              isRunning={isRunning}
-              status={runStatus === 'queued' || runStatus === 'running' ? 'Running...' : undefined}
-            />
-          </div>
-        )}
-
-        {/* Progress Banner */}
-        {features.costProjectionsV1 && (
-          <div>
-            <CostProjectionsProgress
-              runStatus={runStatus}
-              isRunning={isRunning}
-            />
-          </div>
-        )}
-
-        {/* Exceptions Banner */}
-        {features.costProjectionsV1 && (
-          <div>
-            <CostProjectionsExceptions
-              exceptions={exceptions}
-              onViewExceptions={handleViewExceptions}
-            />
-          </div>
-        )}
-
-        {/* KPI Grid */}
-        {features.costProjectionsV1 && (
-          <div>
-            <CostProjectionsKpis />
-          </div>
-        )}
-
-        {/* Charts */}
-        {features.costProjectionsV1 && (
-          <div>
-            <CostProjectionsPanel />
-          </div>
-        )}
-      </div>
-
-      <div
-        id="tabpanel-workbench"
-        role="tabpanel"
-        aria-labelledby="tab-workbench"
-        hidden={activeTab !== 'workbench'}
-        className={cn("space-y-6", activeTab !== 'workbench' && "hidden")}
-      >
-        {features.costProjectionsV1 && (
-          <CostWorkbenchPanel
-            scope={{
-              period: scope.period,
-              category: scope.category,
-              supplier: scope.supplier,
-              confidence: scope.confidence,
-            }}
-            onEditAssumptions={handleEditAssumptions}
-          />
-        )}
       </div>
 
       <div

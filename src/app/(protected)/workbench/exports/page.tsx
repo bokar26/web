@@ -6,16 +6,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 export default function ExportsPage() {
   return (
     <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-          Exports
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          View and download generated export files
-        </p>
-      </div>
-
-      <Card className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-6 space-y-6 md:space-y-8">
+        <div className="pt-2 md:pt-3">
+          <Card className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
         <CardHeader>
           <CardTitle className="text-gray-900 dark:text-white">Generated Exports</CardTitle>
           <CardDescription className="text-gray-600 dark:text-gray-400">
@@ -42,7 +35,9 @@ export default function ExportsPage() {
             </TableBody>
           </Table>
         </CardContent>
-      </Card>
+          </Card>
+        </div>
+      </div>
     </div>
   )
 }
