@@ -5,13 +5,15 @@ import { usePathname } from "next/navigation"
 import { useState, useEffect, useMemo } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { contextNavBySection, railSections, type ContextNavNode } from "@/config/nav"
+import { getContextNavBySection, getRailSections, type ContextNavNode } from "@/config/nav"
 import { useShellContext } from "./ShellContext"
 import { isWorkbenchEnabled, isTimelineEnabled } from "@/lib/features"
 
 export function ContextNav() {
   const pathname = usePathname()
-  const { currentSection } = useShellContext()
+  const { currentSection, navVariant } = useShellContext()
+  const contextNavBySection = getContextNavBySection(navVariant)
+  const railSections = getRailSections(navVariant)
 
   // Filter nav nodes based on feature flags
   const navNodes = useMemo(() => {
@@ -23,7 +25,7 @@ export function ContextNav() {
       return []
     }
     return contextNavBySection[currentSection] || []
-  }, [currentSection])
+  }, [currentSection, contextNavBySection])
 
   const currentRailSection = railSections.find(s => s.id === currentSection)
 

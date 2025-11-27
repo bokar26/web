@@ -2,17 +2,25 @@
 
 import { createContext, useContext, useMemo, ReactNode } from "react"
 import { usePathname } from "next/navigation"
-import { railSections, type RailSection } from "@/config/nav"
+import { getRailSections, type RailSection, type NavVariant } from "@/config/nav"
 
 interface ShellContextType {
   currentSection: RailSection
   pathname: string
+  navVariant: NavVariant
 }
 
 const ShellContext = createContext<ShellContextType | undefined>(undefined)
 
-export function ShellProvider({ children }: { children: ReactNode }) {
+export function ShellProvider({ 
+  children, 
+  navVariant = "default" 
+}: { 
+  children: ReactNode
+  navVariant?: NavVariant
+}) {
   const pathname = usePathname()
+  const railSections = getRailSections(navVariant)
 
   const currentSection = useMemo<RailSection>(() => {
     for (const section of railSections) {
@@ -20,12 +28,15 @@ export function ShellProvider({ children }: { children: ReactNode }) {
         return section.id
       }
     }
-    // Fallback to home if no match
+    // Fallback based on variant
+    if (navVariant === "admin") {
+      return "injest"
+    }
     return "home"
-  }, [pathname])
+  }, [pathname, navVariant, railSections])
 
   return (
-    <ShellContext.Provider value={{ currentSection, pathname }}>
+    <ShellContext.Provider value={{ currentSection, pathname, navVariant }}>
       {children}
     </ShellContext.Provider>
   )

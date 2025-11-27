@@ -33,10 +33,13 @@ import {
   ClipboardList,
   FolderKanban,
   ListChecks,
+  Upload,
+  Bug,
 } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 
-export type RailSection = "home" | "workbench" | "logs" | "timelines" | "settings"
+export type RailSection = "home" | "workbench" | "logs" | "timelines" | "settings" | "injest" | "bugs"
+export type NavVariant = "default" | "admin"
 
 export interface RailSectionConfig {
   id: RailSection
@@ -106,6 +109,34 @@ export const railSections: RailSectionConfig[] = [
   },
 ]
 
+// Admin rail sections
+export const adminRailSections: RailSectionConfig[] = [
+  {
+    id: "injest",
+    label: "Injest",
+    href: "/admin/injest",
+    icon: Upload,
+    match: (p) => p.startsWith("/admin/injest"),
+  },
+  {
+    id: "bugs",
+    label: "Bugs",
+    href: "/admin/bugs",
+    icon: Bug,
+    match: (p) => p.startsWith("/admin/bugs"),
+  },
+]
+
+// Admin context nav
+export const adminContextNavBySection: Record<RailSection, ContextNavNode[]> = {
+  injest: [
+    { type: 'item', label: "Injest", href: "/admin/injest", icon: Upload },
+  ],
+  bugs: [
+    { type: 'item', label: "Bugs", href: "/admin/bugs", icon: Bug },
+  ],
+}
+
 export const contextNavBySection: Record<RailSection, ContextNavNode[]> = {
   home: [
     // Supply Center (top-level item)
@@ -130,7 +161,6 @@ export const contextNavBySection: Record<RailSection, ContextNavNode[]> = {
       icon: FolderKanban,
       items: [
         { type: 'item', label: "Compliance", href: "/dashboard/manage/compliance", icon: ShieldCheck },
-        { type: 'item', label: "Products", href: "/dashboard/manage/products", icon: ShoppingBag },
       ],
     },
     
@@ -173,11 +203,13 @@ export const contextNavBySection: Record<RailSection, ContextNavNode[]> = {
     },
     {
       type: 'folder',
-      label: "Inventory",
+      label: "Inventory/Orders",
       icon: Package,
       items: [
         { type: 'item', label: "Inventory Overview", href: "/workbench/inventory", icon: Package },
         { type: 'item', label: "Purchase Orders", href: "/workbench/inventory/purchase-orders", icon: FileText },
+        { type: 'item', label: "Orders", href: "/workbench/inventory/orders", icon: ClipboardList },
+        { type: 'item', label: "Products", href: "/workbench/inventory/products", icon: ShoppingBag },
       ],
     },
     { type: 'item', label: "Shipping", href: "/workbench/shipping", icon: Ship },
@@ -201,4 +233,15 @@ export const contextNavBySection: Record<RailSection, ContextNavNode[]> = {
       ],
     },
   ],
+  injest: [],
+  bugs: [],
+}
+
+// Helper functions to get nav config based on variant
+export function getRailSections(variant: NavVariant = "default"): RailSectionConfig[] {
+  return variant === "admin" ? adminRailSections : railSections
+}
+
+export function getContextNavBySection(variant: NavVariant = "default"): Record<RailSection, ContextNavNode[]> {
+  return variant === "admin" ? adminContextNavBySection : contextNavBySection
 }

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 import { useState, useEffect, useMemo } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { contextNavBySection, type ContextNavNode } from "@/config/nav"
+import { getContextNavBySection, type ContextNavNode } from "@/config/nav"
 import { useShellContext } from "./ShellContext"
 import { isWorkbenchEnabled, isTimelineEnabled } from "@/lib/features"
 
@@ -15,7 +15,8 @@ interface ContextNavMobileProps {
 
 export function ContextNavMobile({ onNavigate }: ContextNavMobileProps) {
   const pathname = usePathname()
-  const { currentSection } = useShellContext()
+  const { currentSection, navVariant } = useShellContext()
+  const contextNavBySection = getContextNavBySection(navVariant)
 
   // Filter nav nodes based on feature flags
   const navNodes = useMemo(() => {
@@ -27,7 +28,7 @@ export function ContextNavMobile({ onNavigate }: ContextNavMobileProps) {
       return []
     }
     return contextNavBySection[currentSection] || []
-  }, [currentSection])
+  }, [currentSection, contextNavBySection])
 
   // Expanded folders state (persisted to localStorage)
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(() => {

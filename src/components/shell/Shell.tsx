@@ -14,16 +14,18 @@ import { ContextNavMobile } from "./ContextNavMobile"
 import { Breadcrumbs } from "./Breadcrumbs"
 import { ShellProvider } from "./ShellContext"
 import { cn } from "@/lib/utils"
+import type { NavVariant } from "@/config/nav"
 
 interface ShellProps {
   children: React.ReactNode
+  navVariant?: NavVariant
 }
 
-export function Shell({ children }: ShellProps) {
+export function Shell({ children, navVariant = "default" }: ShellProps) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
   return (
-    <ShellProvider>
+    <ShellProvider navVariant={navVariant}>
       <div className="flex h-screen bg-background">
         {/* Icon Rail - Always visible */}
         <RailNav />

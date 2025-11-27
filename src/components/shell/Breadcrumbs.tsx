@@ -2,12 +2,14 @@
 
 import { usePathname } from "next/navigation"
 import { useMemo } from "react"
-import { contextNavBySection, railSections } from "@/config/nav"
+import { getContextNavBySection, getRailSections } from "@/config/nav"
 import { useShellContext } from "./ShellContext"
 
 export function Breadcrumbs() {
   const pathname = usePathname()
-  const { currentSection } = useShellContext()
+  const { currentSection, navVariant } = useShellContext()
+  const contextNavBySection = getContextNavBySection(navVariant)
+  const railSections = getRailSections(navVariant)
 
   const breadcrumbs = useMemo(() => {
     const crumbs: string[] = []
@@ -44,10 +46,10 @@ export function Breadcrumbs() {
     }
 
     return crumbs
-  }, [pathname, currentSection])
+  }, [pathname, currentSection, contextNavBySection, railSections])
 
-  // Don't show breadcrumbs if we're not in dashboard or if only one crumb
-  if (!pathname.startsWith("/dashboard") || breadcrumbs.length <= 1) {
+  // Don't show breadcrumbs if we're not in dashboard/admin or if only one crumb
+  if ((!pathname.startsWith("/dashboard") && !pathname.startsWith("/admin")) || breadcrumbs.length <= 1) {
     return null
   }
 

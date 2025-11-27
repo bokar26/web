@@ -1,6 +1,6 @@
 // Vendor types for public.vendors table
 
-export type VendorSource = 'supplier' | 'warehouse' | 'logistics'
+export type VendorSource = 'supplier' | 'warehouse' | 'logistics' | 'admin'
 export type VendorStatus = 'saved' | 'contacted' | 'approved' | 'archived'
 
 // Supabase type for public.vendors table
@@ -14,6 +14,9 @@ export type SupabaseVendor = {
   phone?: string | null
   website?: string | null
   country?: string | null
+  category?: string | null
+  location?: string | null
+  is_admin_created?: boolean | null
   status: VendorStatus
   notes?: string | null
   payload?: Record<string, any> | null
@@ -65,6 +68,46 @@ export interface ListVendorsResult {
   data: SupabaseVendor[]
   total: number
   hasMore: boolean
+  error?: string
+}
+
+// Admin vendor creation types
+export interface AdminVendorCreate {
+  name: string
+  category?: string
+  location?: string
+  email?: string
+  phone?: string
+  website?: string
+  notes?: string
+  payload?: Record<string, any> // Custom fields stored in JSONB
+}
+
+// Bulk upload types
+export interface BulkVendorRow {
+  name: string
+  category?: string
+  location?: string
+  email?: string
+  phone?: string
+  website?: string
+  notes?: string
+  rowNumber?: number // For error reporting
+}
+
+export interface BulkUploadResult {
+  total: number
+  inserted: number
+  skipped: number
+  errors: Array<{
+    rowNumber: number
+    message: string
+  }>
+  error?: string
+}
+
+export interface VendorCountResult {
+  totalVendors: number
   error?: string
 }
 

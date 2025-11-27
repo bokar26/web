@@ -26,11 +26,13 @@
     "@sentry/nextjs": "^10.19.0",
     "@supabase/supabase-js": "^2.78.0",
     "@tailwindcss/postcss": "^4.1.15",
+    "@types/papaparse": "^5.5.0",
     "@types/three": "^0.181.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.545.0",
     "next": "15.5.5",
+    "papaparse": "^5.5.3",
     "posthog-js": "^1.275.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
@@ -40,6 +42,7 @@
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
     "three": "^0.181.0",
+    "xlsx": "^0.18.5",
     "zod": "^4.1.12"
   },
   "devDependencies": {

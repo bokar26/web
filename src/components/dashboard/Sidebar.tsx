@@ -82,9 +82,10 @@ const NAVIGATION_SECTIONS = [
       { name: 'Finances', href: '/dashboard/manage/finances', icon: DollarSign },
       { name: 'Customers', href: '/workbench/contacts/customers', icon: Users },
       { name: 'Purchase Orders', href: '/workbench/inventory/purchase-orders', icon: FileText },
+      { name: 'Orders', href: '/workbench/inventory/orders', icon: ClipboardList },
       { name: 'Compliance', href: '/dashboard/manage/compliance', icon: ShieldCheck },
       { name: 'Vendors', href: '/workbench/contacts/vendors', icon: Store },
-      { name: 'Products', href: '/dashboard/manage/products', icon: ShoppingBag },
+      { name: 'Products', href: '/workbench/inventory/products', icon: ShoppingBag },
     ],
   },
   {

@@ -1,18 +1,23 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useUser } from "@clerk/nextjs"
-import { Settings, User, Sun, Moon } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
+import { useUser, SignOutButton } from "@clerk/nextjs"
+import { Settings, Sun, Moon, HelpCircle, LifeBuoy, Shield, LogOut } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { railSections } from "@/config/nav"
+import { getRailSections } from "@/config/nav"
 import { useShellContext } from "./ShellContext"
 import { useState, useEffect, useMemo } from "react"
 import { isWorkbenchEnabled, isTimelineEnabled } from "@/lib/features"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
 
 function UserProfileButton() {
   const { user, isLoaded } = useUser()
+  const router = useRouter()
   const [isDark, setIsDark] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     const root = document.documentElement
@@ -34,23 +39,97 @@ function UserProfileButton() {
   const primaryEmail = user?.emailAddresses?.[0]?.emailAddress
   const emailInitial = primaryEmail?.[0] || 'U'
   const initials = user?.firstName?.[0] + (user?.lastName?.[0] || emailInitial) || 'U'
+  const displayName = user?.firstName || primaryEmail?.split('@')[0] || 'User'
+  const role = "User" // Fallback role text
+
+  const handleNavigation = (href: string) => {
+    setIsOpen(false)
+    router.push(href)
+  }
 
   return (
-    <Link
-      href="/dashboard/settings/general"
-      prefetch={false}
-      className={cn(
-        "flex items-center justify-center w-10 h-10 rounded-lg transition-colors",
-        "hover:bg-gray-100 dark:hover:bg-gray-900",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00FF7F] focus-visible:ring-offset-2"
-      )}
-      aria-label="Profile settings"
-      title="Profile"
-    >
-      <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-        <span className="text-xs font-medium text-white">{initials}</span>
-      </div>
-    </Link>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <SheetTrigger asChild>
+        <button
+          className={cn(
+            "flex items-center justify-center w-10 h-10 rounded-lg transition-colors",
+            "hover:bg-gray-100 dark:hover:bg-gray-900",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00FF7F] focus-visible:ring-offset-2"
+          )}
+          aria-label="Profile menu"
+          title="Profile"
+        >
+          <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
+            <span className="text-xs font-medium text-white">{initials}</span>
+          </div>
+        </button>
+      </SheetTrigger>
+      <SheetContent side="left" className="w-[320px] p-0">
+        <SheetHeader className="p-6 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center">
+              <span className="text-sm font-medium text-white">{initials}</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <SheetTitle className="text-lg font-semibold text-gray-900 dark:text-white truncate">
+                {displayName}
+              </SheetTitle>
+              <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{role}</p>
+            </div>
+          </div>
+        </SheetHeader>
+        
+        <div className="flex flex-col px-4 pb-4 space-y-1">
+          <Button
+            variant="ghost"
+            className="w-full justify-start gap-3 text-left"
+            onClick={() => handleNavigation("/dashboard/settings/general")}
+          >
+            <Settings className="h-5 w-5" />
+            <span>Account Settings</span>
+          </Button>
+          
+          <Button
+            variant="ghost"
+            className="w-full justify-start gap-3 text-left"
+            onClick={() => handleNavigation("/support/help")}
+          >
+            <HelpCircle className="h-5 w-5" />
+            <span>Help</span>
+          </Button>
+          
+          <Button
+            variant="ghost"
+            className="w-full justify-start gap-3 text-left"
+            onClick={() => handleNavigation("/support/contact")}
+          >
+            <LifeBuoy className="h-5 w-5" />
+            <span>Support</span>
+          </Button>
+          
+          <Button
+            variant="ghost"
+            className="w-full justify-start gap-3 text-left"
+            onClick={() => handleNavigation("/admin/injest")}
+          >
+            <Shield className="h-5 w-5" />
+            <span>Admin View</span>
+          </Button>
+          
+          <Separator className="my-2" />
+          
+          <SignOutButton>
+            <Button
+              variant="ghost"
+              className="w-full justify-start gap-3 text-left text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-950/20"
+            >
+              <LogOut className="h-5 w-5" />
+              <span>Logout</span>
+            </Button>
+          </SignOutButton>
+        </div>
+      </SheetContent>
+    </Sheet>
   )
 }
 
@@ -95,7 +174,8 @@ function ThemeToggle() {
 
 export function RailNav() {
   const pathname = usePathname()
-  const { currentSection } = useShellContext()
+  const { currentSection, navVariant } = useShellContext()
+  const railSections = getRailSections(navVariant)
 
   // Filter rail sections based on feature flags
   const visibleSections = useMemo(() => {
@@ -108,7 +188,7 @@ export function RailNav() {
       }
       return true
     })
-  }, [])
+  }, [railSections])
 
   // Keyboard navigation handler
   useEffect(() => {
